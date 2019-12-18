@@ -12,13 +12,6 @@ class GallerySeeder extends Seeder
      */
     public function run()
     {
-        DB::table('gallery')
-            ->insert(
-                [
-                    [
 
-                    ],
-                ]
-            );
     }
 }

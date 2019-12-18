@@ -15,12 +15,15 @@ class ActionModuleSeeding extends Seeder
         $listAction = DB::table('action')->get();
         $listModule = DB::table('module')->get();
 
+        $count = 1;
         foreach ($listAction as $action) {
             foreach ($listModule as $module) {
                 $data = [];
                 $data['action_id'] = $action->action_id;
                 $data['module_id'] = $module->module_id;
+                $data['action_module_id'] = $count;
                 DB::table('action_module')->insert($data);
+                $count++;
             }
         }
     }

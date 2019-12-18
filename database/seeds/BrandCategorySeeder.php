@@ -17,6 +17,7 @@ class BrandCategorySeeder extends Seeder
         $listBrand = DB::table('brand')
             ->get();
 
+        $count = 1;
         foreach ($listCategory as $category) {
             foreach ($listBrand as $brand) {
                 DB::table('brand_category')
@@ -27,8 +28,10 @@ class BrandCategorySeeder extends Seeder
                             'brand_category_created_at' => time(),
                             'brand_category_created_by' => 1,
                             'brand_category_updated_by' => 1,
+                            'brand_category_id' => $count
                         ]
                     );
+                $count++;
             }
         }
     }
