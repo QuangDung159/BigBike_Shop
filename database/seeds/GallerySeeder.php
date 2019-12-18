@@ -12,6 +12,19 @@ class GallerySeeder extends Seeder
      */
     public function run()
     {
+        $listProduct = DB::table('product')
+            ->get();
 
+        foreach ($listProduct as $key => $product) {
+            DB::table('gallery')
+                ->insert(
+                    [
+                        'product_id' => $product->product_id,
+                        'gallery_created_at' => time(),
+                        'gallery_created_by' => 1,
+                        'gallery_name' => $product->product_name
+                    ]
+                );
+        }
     }
 }
