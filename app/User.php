@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Order[] $orders
  * @property Review[] $reviews
  */
-class User extends Model
+class user extends Model
 {
     /**
      * The table associated with the model.

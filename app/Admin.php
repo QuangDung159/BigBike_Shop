@@ -22,6 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property Admin $admin
  * @property Brand[] $brands
  * @property Brand[] $brands
+ * @property BrandCategory[] $brandCategories
+ * @property BrandCategory[] $brandCategories
  * @property Category[] $categories
  * @property Category[] $categories
  * @property Gallery[] $galleries
@@ -93,6 +95,22 @@ class Admin extends Model
     public function brands()
     {
         return $this->hasMany('App\Brand', 'brand_updated_by', 'admin_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function brandCategories()
+    {
+        return $this->hasMany('App\BrandCategory', 'brand_category_created_by', 'admin_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function brandCategories()
+    {
+        return $this->hasMany('App\BrandCategory', 'brand_category_updated_by', 'admin_id');
     }
 
     /**
