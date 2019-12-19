@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+use App\Constant;
+
+Route::group([], function () {
+    Route::get('/', Constant::CONTROLLER_HOME . 'showHomePage');
+    Route::get('/home', Constant::CONTROLLER_HOME . 'showHomePage');
 });

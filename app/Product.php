@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $product_id
@@ -51,7 +52,7 @@ class Product extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function admin()
+    public function admin_created()
     {
         return $this->belongsTo('App\Admin', 'product_created_by', 'admin_id');
     }
@@ -59,7 +60,7 @@ class Product extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function admin()
+    public function admin_updated()
     {
         return $this->belongsTo('App\Admin', 'product_updated_by', 'admin_id');
     }
@@ -94,5 +95,21 @@ class Product extends Model
     public function reviews()
     {
         return $this->hasMany('App\Review', 'product_id', 'product_id');
+    }
+
+    public static function getFeatureProduct()
+    {
+        return DB::table(Constant::TABLE_PRODUCT)
+            ->select([
+                    Constant::TABLE_PRODUCT . '.product_id',
+                    Constant::TABLE_PRODUCT . '.product_name',
+                    Constant::TABLE_IMAGE . '.image_path',
+                    Constant::TABLE_PRODUCT . '.product_price',
+                ]
+            )
+            ->join(Constant::TABLE_GALLERY, Constant::TABLE_PRODUCT . '.product_id', '=', Constant::TABLE_GALLERY . '.product_id')
+            ->join(Constant::TABLE_IMAGE, Constant::TABLE_GALLERY . '.gallery_id', '=', Constant::TABLE_IMAGE . '.gallery_id')
+            ->orderBy(Constant::TABLE_PRODUCT . '.product_rate', 'desc')
+            ->get();
     }
 }
