@@ -122,5 +122,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProductSeeder::class);
         $this->call(GallerySeeder::class);
         $this->call(ImageGallerySeeder::class);
+        $this->call(SlideSeeder::class);
     }
 }

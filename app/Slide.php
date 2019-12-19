@@ -20,14 +20,14 @@ class Slide extends Model
 {
     /**
      * The table associated with the model.
-     * 
+     *
      * @var string
      */
     protected $table = 'slide';
 
     /**
      * The primary key for the model.
-     * 
+     *
      * @var string
      */
     protected $primaryKey = 'slide_id';
@@ -40,7 +40,7 @@ class Slide extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function admin()
+    public function admin_created()
     {
         return $this->belongsTo('App\Admin', 'slide_created_by', 'admin_id');
     }
@@ -48,7 +48,7 @@ class Slide extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function admin()
+    public function admin_updated()
     {
         return $this->belongsTo('App\Admin', 'slide_updated_by', 'admin_id');
     }
