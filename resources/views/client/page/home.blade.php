@@ -77,7 +77,7 @@
                             <div class="f_p_item">
                                 <div class="f_p_img">
                                     <img class="img-fluid"
-                                         src="{{asset('/client/img/product/product')}}/{{$product->image_path}}"
+                                         src="{{asset('/client/img/product/product')}}/{{$product->product_thumbnail}}"
                                          alt="" width="330" height="160">
                                     <div class="p_icon">
                                         <a href="#">

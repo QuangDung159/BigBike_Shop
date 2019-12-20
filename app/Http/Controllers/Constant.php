@@ -22,27 +22,10 @@ class Constant
     const TABLE_ACTION_MODULE = 'action_module';
 
     const PATH_HOME = 'client.page.home';
+    const PATH_PRODUCT_DETAIL = 'client.page.product_detail';
+    const PATH_CATEGORY = 'client.page.category';
 
     const CONTROLLER_HOME = 'HomeController@';
-
-    public static function convertStdToArray($object)
-    {
-        return json_decode(json_encode($object), True);
-    }
-
-    public static function uniqueMultiFieldArray($array, $key)
-    {
-        $temp_array = array();
-        $i = 0;
-        $key_array = array();
-
-        foreach ($array as $val) {
-            if (!in_array($val[$key], $key_array)) {
-                $key_array[$i] = $val[$key];
-                $temp_array[$i] = $val;
-            }
-            $i++;
-        }
-        return $temp_array;
-    }
+    const CONTROLLER_PRODUCT = 'ProductController@';
+    const CONTROLLER_CATEGORY = 'CategoryController@';
 }

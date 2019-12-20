@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $image_id
@@ -42,7 +43,7 @@ class Image extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function admin()
+    public function admin_created()
     {
         return $this->belongsTo('App\Admin', 'image_created_by', 'admin_id');
     }
@@ -50,7 +51,7 @@ class Image extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function admin()
+    public function admin_updated()
     {
         return $this->belongsTo('App\Admin', 'image_updated_by', 'admin_id');
     }
@@ -61,5 +62,45 @@ class Image extends Model
     public function gallery()
     {
         return $this->belongsTo('App\Gallery', 'gallery_id', 'gallery_id');
+    }
+
+    public static function getListImageByProductIdClient($productId)
+    {
+        $productId = intval($productId);
+        return DB::table(Constant::TABLE_IMAGE)
+            ->select(
+                [
+                    Constant::TABLE_PRODUCT . '.product_id',
+                    Constant::TABLE_IMAGE . '.image_path'
+                ]
+            )
+            ->join(
+                Constant::TABLE_GALLERY,
+                Constant::TABLE_IMAGE . '.gallery_id',
+                '=',
+                Constant::TABLE_GALLERY . '.gallery_id'
+            )
+            ->join(
+                Constant::TABLE_PRODUCT,
+                Constant::TABLE_GALLERY . '.product_id',
+                '=',
+                Constant::TABLE_PRODUCT . '.product_id'
+            )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_id',
+                '=',
+                $productId
+            )
+            ->where(
+                Constant::TABLE_IMAGE . '.image_status',
+                '=',
+                1
+            )
+            ->where(
+                Constant::TABLE_IMAGE . '.image_is_delete',
+                '=',
+                0
+            )
+            ->get();
     }
 }

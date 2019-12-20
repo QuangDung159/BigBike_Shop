@@ -103,13 +103,115 @@ class Product extends Model
             ->select([
                     Constant::TABLE_PRODUCT . '.product_id',
                     Constant::TABLE_PRODUCT . '.product_name',
-                    Constant::TABLE_IMAGE . '.image_path',
+                    Constant::TABLE_PRODUCT . '.product_thumbnail',
                     Constant::TABLE_PRODUCT . '.product_price',
                 ]
             )
-            ->join(Constant::TABLE_GALLERY, Constant::TABLE_PRODUCT . '.product_id', '=', Constant::TABLE_GALLERY . '.product_id')
-            ->join(Constant::TABLE_IMAGE, Constant::TABLE_GALLERY . '.gallery_id', '=', Constant::TABLE_IMAGE . '.gallery_id')
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_status',
+                '=',
+                1
+            )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_is_deleted',
+                '=',
+                0
+            )
             ->orderBy(Constant::TABLE_PRODUCT . '.product_rate', 'desc')
-            ->get();
+            ->get()->take(10);
+    }
+
+    public static function getProductByIdClient($productId)
+    {
+        $productId = intval($productId);
+        return DB::table(Constant::TABLE_PRODUCT)
+            ->select(
+                [
+                    Constant::TABLE_PRODUCT . '.*',
+                    Constant::TABLE_CATEGORY . '.category_id',
+                    Constant::TABLE_CATEGORY . '.category_name',
+                    Constant::TABLE_BRAND . '.brand_id',
+                    Constant::TABLE_BRAND . '.brand_name'
+                ]
+            )
+            ->join(
+                Constant::TABLE_BRAND_CATEGORY,
+                Constant::TABLE_PRODUCT . '.brand_category_id',
+                '=',
+                Constant::TABLE_BRAND_CATEGORY . '.brand_category_id'
+            )
+            ->join(
+                Constant::TABLE_BRAND,
+                Constant::TABLE_BRAND_CATEGORY . '.brand_id',
+                '=',
+                Constant::TABLE_BRAND . '.brand_id'
+            )
+            ->join(
+                Constant::TABLE_CATEGORY,
+                Constant::TABLE_BRAND_CATEGORY . '.category_id',
+                '=',
+                Constant::TABLE_CATEGORY . '.category_id'
+            )
+            ->where('product_id', '=', $productId)
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_status',
+                '=',
+                1
+            )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_is_deleted',
+                '=',
+                0
+            )
+            ->first();
+    }
+
+
+    public static function getProductByCategoryClient($categoryId)
+    {
+        $categoryId = intval($categoryId);
+        return DB::table(Constant::TABLE_PRODUCT)
+            ->select(
+                [
+                    Constant::TABLE_PRODUCT . '.*',
+                    Constant::TABLE_CATEGORY . '.category_name',
+                    Constant::TABLE_CATEGORY . '.category_id',
+                    Constant::TABLE_PRODUCT . '.product_thumbnail'
+                ]
+            )
+            ->join(
+                Constant::TABLE_BRAND_CATEGORY,
+                Constant::TABLE_PRODUCT . '.brand_category_id',
+                '=',
+                Constant::TABLE_BRAND_CATEGORY . '.brand_category_id'
+            )
+            ->join(
+                Constant::TABLE_CATEGORY,
+                Constant::TABLE_BRAND_CATEGORY . '.category_id',
+                '=',
+                Constant::TABLE_CATEGORY . '.category_id'
+            )
+            ->join(
+                Constant::TABLE_BRAND,
+                Constant::TABLE_BRAND_CATEGORY . '.brand_id',
+                '=',
+                Constant::TABLE_BRAND . '.brand_id'
+            )
+            ->where(
+                Constant::TABLE_CATEGORY . '.category_id',
+                '=',
+                $categoryId
+            )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_status',
+                '=',
+                1
+            )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_is_deleted',
+                '=',
+                0
+            )
+            ->paginate(16);
     }
 }
