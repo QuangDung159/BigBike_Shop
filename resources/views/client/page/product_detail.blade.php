@@ -1,14 +1,15 @@
 @extends('client.layout.master')
 @section('content')
+    <script src="{{asset('/client/js/product_detail.js')}}"></script>
     <section class="banner_area">
         <div class="banner_inner d-flex align-items-center">
             <div class="container">
                 <div class="banner_content text-center">
                     <h2>{{$product->brand_name}} {{$product->product_name}}</h2>
                     <div class="page_link">
-                        <a href="index.html">Home</a>
-                        <a href="category.html">{{$product->category_name}}</a>
-                        <a href="single-product.html">{{$product->brand_name}} {{$product->product_name}}</a>
+                        <a href="{{URL::to('/')}}">Home</a>
+                        <a href="{{URL::to('/category')}}/{{$product->category_id}}/{{$product->brand_id}}">{{$product->category_name}}</a>
+                        <a href="#">{{$product->brand_name}} {{$product->product_name}}</a>
                     </div>
                 </div>
             </div>
@@ -60,11 +61,11 @@
                 </div>
                 <div class="col-lg-5 offset-lg-1">
                     <div class="s_product_text">
-                        <h3>{{$product->product_name}}</h3>
+                        <h3>{{$product->brand_name}} {{$product->product_name}}</h3>
                         <h2>${{$product->product_price}}</h2>
                         <ul class="list">
                             <li>
-                                <a class="active" href="#">
+                                <a class="active" href="{{URL::to('/category')}}/{{$product->category_id}}/0">
                                     <span>Category</span> : {{$product->category_name}}
                                 </a>
                             </li>
@@ -79,7 +80,6 @@
                                 @else
                                     <a><span>Availibility</span> : In Stock</a>
                                 @endif
-
                             </li>
                         </ul>
                         <p>{{$product->product_desc}}</p>
@@ -99,7 +99,9 @@
                             </button>
                         </div>
                         <div class="card_area">
-                            <a class="main_btn" href="#">Add to Cart</a>
+                            <a class="main_btn"
+                               href="{{URL::to('/cart/doAddToCartProductDetail')}}/{{$product->product_id}}">Add to
+                                Cart</a>
                         </div>
                     </div>
                 </div>
@@ -181,4 +183,32 @@
             </div>
         </div>
     </section>
+
+    <?php
+
+    echo '<h1>' . Session::get('msg_add_to_cart_success') . '</h1>';
+    if (Session::has('msg_add_to_cart_success')) {
+        echo '
+        <input type="hidden" id="btn_trigger_modal" class="btn btn-info btn-lg" data-toggle="modal"
+           data-target="#myModal">
+
+            <!-- Modal -->
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h2>' . Session::get('msg_add_to_cart_success') . '</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ';
+
+        Session::forget('msg_add_to_cart_success');
+    }
+    ?>
 @endsection

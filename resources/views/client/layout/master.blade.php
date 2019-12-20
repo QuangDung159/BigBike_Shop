@@ -266,7 +266,6 @@
 </footer>
 <!--================ End footer Area  =================-->
 
-
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="{{asset('/client/js/jquery-3.2.1.min.js')}}"></script>

@@ -52,16 +52,23 @@
                             <div class="left_dorp">
                                 <select class="sorting" id="sort_type"
                                         onchange="doSortProductByCategory('{{$category->category_id}}', '{{$brand->brand_id}}')">
-                                    <option value="1">Rate : High to low</option>
-                                    <option value="2">Rate : Low to high</option>
-                                    <option value="3">Price : High to low</option>
-                                    <option value="4">Price : Low to high</option>
+                                    @foreach($listSort as $key => $sort)
+                                        @if($sortType == $sort)
+                                            <option selected value="{{$sort}}">{{$key}}</option>
+                                        @else
+                                            <option value="{{$sort}}">{{$key}}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                                 <select class="show" id="item_per_page"
                                         onchange="doSortProductByCategory('{{$category->category_id}}', '{{$brand->brand_id}}')">
-                                    <option value="12">Show 12</option>
-                                    <option value="14">Show 14</option>
-                                    <option value="16">Show 16</option>
+                                    @foreach($listPerPage as $key => $perPage)
+                                        @if($itemPerPage == $perPage)
+                                            <option selected value="{{$perPage}}">{{$key}}</option>
+                                        @else
+                                            <option value="{{$perPage}}">{{$key}}</option>
+                                        @endif
+                                    @endforeach
                                 </select>
                             </div>
                         @endif
@@ -76,14 +83,11 @@
                                              alt="">
                                         <div class="p_icon">
                                             <a href="#">
-                                                <i class="lnr lnr-heart"></i>
-                                            </a>
-                                            <a href="#">
                                                 <i class="lnr lnr-cart"></i>
                                             </a>
                                         </div>
                                     </div>
-                                    <a href="#">
+                                    <a href="{{URL::to('/product')}}/{{$product->product_id}}">
                                         <h4>{{$product->product_name}}</h4>
                                     </a>
                                     <h5>${{$product->product_price}}</h5>
