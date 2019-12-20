@@ -20,4 +20,12 @@ class Constant
     const TABLE_ACTION = 'action';
     const TABLE_MODULE = 'module';
     const TABLE_ACTION_MODULE = 'action_module';
+
+    const PATH_HOME = 'client.page.home';
+    const PATH_PRODUCT_DETAIL = 'client.page.product_detail';
+    const PATH_CATEGORY = 'client.page.category';
+
+    const CONTROLLER_HOME = 'HomeController@';
+    const CONTROLLER_PRODUCT = 'ProductController@';
+    const CONTROLLER_CATEGORY = 'CategoryController@';
 }

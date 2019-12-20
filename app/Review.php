@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $review_id
@@ -48,5 +49,29 @@ class Review extends Model
     public function user()
     {
         return $this->belongsTo('App\User', 'user_id', 'user_id');
+    }
+
+    public static function getReviewByProductId($productId)
+    {
+        $productId = intval($productId);
+        DB::table(Constant::TABLE_REVIEW)
+            ->select(
+                [
+                    Constant::TABLE_REVIEW . '.*',
+                    Constant::TABLE_USER . '.user_name'
+                ]
+            )
+            ->join(
+                Constant::TABLE_USER,
+                Constant::TABLE_REVIEW . '.user_id',
+                '=',
+                Constant::TABLE_USER . '.user_id'
+            )
+            ->where(
+                Constant::TABLE_REVIEW . '.product_id',
+                '=',
+                $productId
+            )
+            ->get();
     }
 }
