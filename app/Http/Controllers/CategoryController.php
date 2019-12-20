@@ -9,6 +9,7 @@ use App\Image;
 use App\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Redis;
 
 class CategoryController extends Controller
 {
@@ -56,11 +57,18 @@ class CategoryController extends Controller
 
         $listProduct->withPath($brandId . $url);
 
+        $listSort = json_decode(Redis::get('list_sort'));
+        $listPerPage = json_decode(Redis::get('list_per_page'));
+
         return view(Constant::PATH_CATEGORY)
             ->with('listProduct', $listProduct)
             ->with('category', $category)
             ->with('listCategory', $listCategory)
             ->with('listBrand', $listBrand)
-            ->with('brand', $brand);
+            ->with('brand', $brand)
+            ->with('listSort', $listSort)
+            ->with('listPerPage', $listPerPage)
+            ->with('sortType', $sortType)
+            ->with('itemPerPage', $itemPerPage);
     }
 }
