@@ -79,15 +79,18 @@
                                          src="{{asset('/client/img/product/product')}}/{{$product->product_thumbnail}}"
                                          alt="" width="330" height="160">
                                     <div class="p_icon">
-                                        <a href="javascript:{}"
-                                           onclick="submitAddToCartHomePage('{{$product->product_id}}')">
-                                            <form action="{{URL::to('/cart/doAddToCart')}}" method="post"
-                                                  id="add_to_cart_form_{{$product->product_id}}">
-                                                {{csrf_field()}}
-                                                <input type="hidden" name="qty" value="1">
-                                                <input type="hidden" name="current_url" value="/">
-                                                <input type="hidden" name="product_id" value="{{$product->product_id}}">
-                                            </form>
+{{--                                        <a href="javascript:{}"--}}
+{{--                                           onclick="submitAddToCartHomePage('{{$product->product_id}}')">--}}
+{{--                                            <form action="{{URL::to('/cart/doAddToCart')}}" method="post"--}}
+{{--                                                  id="add_to_cart_form_{{$product->product_id}}">--}}
+{{--                                                {{csrf_field()}}--}}
+{{--                                                <input type="hidden" name="qty" value="1">--}}
+{{--                                                <input type="hidden" name="current_url" value="/">--}}
+{{--                                                <input type="hidden" name="product_id" value="{{$product->product_id}}">--}}
+{{--                                            </form>--}}
+{{--                                            <i class="lnr lnr-cart"></i>--}}
+{{--                                        </a>--}}
+                                        <a href="{{URL::to('/cart/doAddToCartGet')}}/{{$product->product_id}}">
                                             <i class="lnr lnr-cart"></i>
                                         </a>
                                     </div>
@@ -105,8 +108,6 @@
     </section>
     <!--================End Feature Product Area =================-->
     <?php
-//
-//    echo '<h1>' . Session::has('msg_add_to_cart_success') . '</h1>';
     if (Session::has('msg_add_to_cart_success')) {
         echo '
         <input type="hidden" id="btn_trigger_modal" class="btn btn-info btn-lg" data-toggle="modal"

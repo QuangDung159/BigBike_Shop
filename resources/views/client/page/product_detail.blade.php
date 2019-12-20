@@ -1,5 +1,6 @@
 @extends('client.layout.master')
 @section('content')
+    <script src="{{asset('/client/js/product_detail.js')}}"></script>
     <section class="banner_area">
         <div class="banner_inner d-flex align-items-center">
             <div class="container">
@@ -98,7 +99,9 @@
                             </button>
                         </div>
                         <div class="card_area">
-                            <a class="main_btn" href="#">Add to Cart</a>
+                            <a class="main_btn"
+                               href="{{URL::to('/cart/doAddToCartProductDetail')}}/{{$product->product_id}}">Add to
+                                Cart</a>
                         </div>
                     </div>
                 </div>
@@ -180,4 +183,32 @@
             </div>
         </div>
     </section>
+
+    <?php
+
+    echo '<h1>' . Session::get('msg_add_to_cart_success') . '</h1>';
+    if (Session::has('msg_add_to_cart_success')) {
+        echo '
+        <input type="hidden" id="btn_trigger_modal" class="btn btn-info btn-lg" data-toggle="modal"
+           data-target="#myModal">
+
+            <!-- Modal -->
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h2>' . Session::get('msg_add_to_cart_success') . '</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ';
+
+        Session::forget('msg_add_to_cart_success');
+    }
+    ?>
 @endsection

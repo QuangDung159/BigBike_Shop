@@ -30,4 +30,6 @@ class Constant
     const CONTROLLER_PRODUCT = 'ProductController@';
     const CONTROLLER_CATEGORY = 'CategoryController@';
     const CONTROLLER_CART = 'CartController@';
+
+    const URL_PRODUCT_DETAIL = '/product/';
 }

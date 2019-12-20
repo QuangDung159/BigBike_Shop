@@ -19,5 +19,7 @@ Route::group([], function () {
     Route::get('/product/{productId}', Constant::CONTROLLER_PRODUCT . 'showProductDetailPage');
     Route::get('/category/{categoryId}/{brand_id}', Constant::CONTROLLER_CATEGORY . 'showCategoryPage');
     Route::get('/cart', Constant::CONTROLLER_CART . 'showCartPage');
-    Route::post('/cart/doAddToCart', Constant::CONTROLLER_CART . 'doAddToCart');
+    //Route::post('/cart/doAddToCart', Constant::CONTROLLER_CART . 'doAddToCart');
+    Route::get('/cart/doAddToCartGet/{productId}', Constant::CONTROLLER_CART . 'doAddToCartGet');
+    Route::get('/cart/doAddToCartProductDetail/{productId}', Constant::CONTROLLER_CART . 'doAddToCartProductDetail');
 });

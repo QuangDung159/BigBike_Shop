@@ -10,7 +10,7 @@
     "require": {
         "php": "^7.2",
         "ext-json": "*",
-        "bumbummen99/shoppingcart": "^2.8",
+        "bumbummen99/shoppingcart": "^2.5",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0"
