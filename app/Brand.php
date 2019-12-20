@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @property int $brand_id
@@ -41,23 +43,23 @@ class Brand extends Model
     protected $fillable = ['brand_created_by', 'brand_updated_by', 'brand_name', 'brand_desc', 'brand_logo', 'brand_created_at', 'brand_updated_at', 'brand_status', 'brand_is_deleted'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function admin()
+    public function admin_created()
     {
         return $this->belongsTo('App\Admin', 'brand_created_by', 'admin_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function admin()
+    public function admin_updated()
     {
         return $this->belongsTo('App\Admin', 'brand_updated_by', 'admin_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function brandCategories()
     {

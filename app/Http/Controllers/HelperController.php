@@ -31,4 +31,13 @@ class HelperController extends Controller
         }
         return $temp_array;
     }
+
+    public static function buildUrlWithParams($arrayParam)
+    {
+        $url = '?';
+        foreach ($arrayParam as $key => $value) {
+            $url .= $key . '=' . $value . '&';
+        }
+        return $url;
+    }
 }

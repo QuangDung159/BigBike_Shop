@@ -17,5 +17,6 @@ Route::group([], function () {
     Route::get('/', Constant::CONTROLLER_HOME . 'showHomePage');
     Route::get('/home', Constant::CONTROLLER_HOME . 'showHomePage');
     Route::get('/product/{productId}', Constant::CONTROLLER_PRODUCT . 'showProductDetailPage');
-    Route::get('/category/{categoryId}', Constant::CONTROLLER_CATEGORY . 'showCategoryPage');
+    Route::get('/category/{categoryId}/{brand_id}', Constant::CONTROLLER_CATEGORY . 'showCategoryPage');
+    //Route::post('/category/doSortProductByCategory', Constant::CONTROLLER_CATEGORY . 'doSortProductByCategory');
 });
