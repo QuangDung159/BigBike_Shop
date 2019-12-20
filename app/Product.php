@@ -121,7 +121,7 @@ class Product extends Model
             ->get()->take(10);
     }
 
-    public static function getProductByIdClient($productId)
+    public static function getByIdClient($productId)
     {
         $productId = intval($productId);
         return DB::table(Constant::TABLE_PRODUCT)

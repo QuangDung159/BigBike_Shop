@@ -24,8 +24,10 @@ class Constant
     const PATH_HOME = 'client.page.home';
     const PATH_PRODUCT_DETAIL = 'client.page.product_detail';
     const PATH_CATEGORY = 'client.page.category';
+    const PATH_CART = 'client.page.cart';
 
     const CONTROLLER_HOME = 'HomeController@';
     const CONTROLLER_PRODUCT = 'ProductController@';
     const CONTROLLER_CATEGORY = 'CategoryController@';
+    const CONTROLLER_CART = 'CartController@';
 }

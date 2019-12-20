@@ -12,7 +12,7 @@ class ProductController extends Controller
 {
     public function showProductDetailPage($productId)
     {
-        $product = Product::getProductByIdClient($productId);
+        $product = Product::getByIdClient($productId);
 
         $listImage = Image::getListImageByProductIdClient($productId);
 

@@ -4,6 +4,9 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Session;
+
+session_start();
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -30,7 +33,6 @@ class AppServiceProvider extends ServiceProvider
             'Price : High to low' => '3',
             'Price : Low to high' => 4
         ];
-
         $listPerPage = [
             'Show 12' => '12',
             'Show 16' => '16',
@@ -44,8 +46,5 @@ class AppServiceProvider extends ServiceProvider
         if (!Redis::get('list_per_page')) {
             Redis::set('list_per_page', json_encode($listPerPage));
         }
-
-        $listSort = json_encode(Redis::get('list_sort'));
-        $listPerPage = json_encode(Redis::get('list_per_page'));
     }
 }

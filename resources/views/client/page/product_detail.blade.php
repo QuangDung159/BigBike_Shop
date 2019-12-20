@@ -6,9 +6,9 @@
                 <div class="banner_content text-center">
                     <h2>{{$product->brand_name}} {{$product->product_name}}</h2>
                     <div class="page_link">
-                        <a href="index.html">Home</a>
-                        <a href="category.html">{{$product->category_name}}</a>
-                        <a href="single-product.html">{{$product->brand_name}} {{$product->product_name}}</a>
+                        <a href="{{URL::to('/')}}">Home</a>
+                        <a href="{{URL::to('/category')}}/{{$product->category_id}}/{{$product->brand_id}}">{{$product->category_name}}</a>
+                        <a href="#">{{$product->brand_name}} {{$product->product_name}}</a>
                     </div>
                 </div>
             </div>
@@ -60,11 +60,11 @@
                 </div>
                 <div class="col-lg-5 offset-lg-1">
                     <div class="s_product_text">
-                        <h3>{{$product->product_name}}</h3>
+                        <h3>{{$product->brand_name}} {{$product->product_name}}</h3>
                         <h2>${{$product->product_price}}</h2>
                         <ul class="list">
                             <li>
-                                <a class="active" href="#">
+                                <a class="active" href="{{URL::to('/category')}}/{{$product->category_id}}/0">
                                     <span>Category</span> : {{$product->category_name}}
                                 </a>
                             </li>
@@ -79,7 +79,6 @@
                                 @else
                                     <a><span>Availibility</span> : In Stock</a>
                                 @endif
-
                             </li>
                         </ul>
                         <p>{{$product->product_desc}}</p>
