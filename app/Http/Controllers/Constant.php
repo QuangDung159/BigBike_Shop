@@ -42,4 +42,5 @@ class Constant
     const PATH_ADMIN_DASHBOARD = 'admin.page.dashboard';
     const PATH_ADMIN_BRAND_LIST = 'admin.page.brand.list';
     const PATH_ADMIN_BRAND_CREATE = 'admin.page.brand.create';
+    const PATH_ADMIN_BRAND_DETAIL = 'admin.page.brand.detail';
 }

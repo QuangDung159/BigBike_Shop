@@ -112,4 +112,20 @@ class BrandController extends Controller
         Session::put('msg_update_success', 'Update brand successfully!');
         return Redirect::to(Constant::URL_ADMIN_BRAND . '/list');
     }
+
+    public function showDetailPage($brandId)
+    {
+        $brand = Brand::where(
+            Constant::TABLE_BRAND . '.brand_id',
+            '=',
+            $brandId
+        )->where(
+            Constant::TABLE_BRAND . '.brand_is_deleted',
+            '=',
+            0
+        )->first();
+
+        return view(Constant::PATH_ADMIN_BRAND_DETAIL)
+            ->with('brand', $brand);
+    }
 }

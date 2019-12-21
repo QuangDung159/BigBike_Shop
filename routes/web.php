@@ -33,4 +33,5 @@ Route::group([], function () {
     Route::get('/admin/brand/create', Constant::CONTROLLER_BRAND . 'showCreateBrandPage');
     Route::post('/admin/brand/create', Constant::CONTROLLER_BRAND . 'doCreateBrand');
     Route::get('/admin/brand/change-status/{brandId}/{status}', Constant::CONTROLLER_BRAND . 'changeStatus');
+    Route::get('/admin/brand/detail/{brandId}', Constant::CONTROLLER_BRAND . 'showDetailPage');
 });

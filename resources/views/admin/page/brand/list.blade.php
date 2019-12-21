@@ -77,8 +77,10 @@
                             @foreach($listBrand as $key => $brandItem)
                                 <tr>
                                     <td><label class="i-checks m-b-none"><input type="checkbox"
-                                                                                name="post[]"><i></i></label></td>
-                                    <td>{{$brandItem->brand_name }}
+                                                                                name="post[]"><i></i></label>
+                                    </td>
+                                    <td>
+                                        <a href="{{URL::to('/admin/brand/detail')}}/{{$brandItem->brand_id}}">{{$brandItem->brand_name }}</a>
                                     </td>
                                     <td>
                                         @if($brandItem->brand_status == 0)
