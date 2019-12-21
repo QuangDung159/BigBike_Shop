@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $module_id
@@ -36,5 +37,10 @@ class Module extends Model
     public function actionModules()
     {
         return $this->hasMany('App\ActionModule', 'module_id', 'module_id');
+    }
+
+    public static function getAll()
+    {
+        return DB::table(Constant::TABLE_MODULE)->get();
     }
 }

@@ -32,4 +32,8 @@ class Constant
     const CONTROLLER_CART = 'CartController@';
 
     const URL_PRODUCT_DETAIL = '/product/';
+
+    const URL_ADMIN_DASHBOARD = '/admin/';
+
+    const PATH_ADMIN_DASHBOARD = 'admin.page.dashboard';
 }
