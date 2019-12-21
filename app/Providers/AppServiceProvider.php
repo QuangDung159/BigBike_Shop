@@ -2,9 +2,13 @@
 
 namespace App\Providers;
 
+use App\Action;
+use App\Http\Controllers\HelperController;
+use App\Module;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Session;
+use function foo\func;
 
 session_start();
 
@@ -46,5 +50,35 @@ class AppServiceProvider extends ServiceProvider
         if (!Redis::get('list_per_page')) {
             Redis::set('list_per_page', json_encode($listPerPage));
         }
+
+        if (!Redis::get('list_module')) {
+            $listModuleToCache = Module::getAll();
+            Redis::set('list_module', json_encode($listModuleToCache));
+        }
+
+        $listModule = HelperController::convertArrayToStd($this->getModuleWithAction());
+
+        view()->composer('admin.layout.master', function ($view) use ($listModule) {
+            return $view->with('listModule', $listModule);
+        });
+    }
+
+    public function getModuleWithAction()
+    {
+        $listModule = json_decode(Redis::get('list_module'));
+
+        $listModule = HelperController::convertStdToArray($listModule);
+
+        foreach ($listModule as $moduleKey => &$moduleItem) {
+            $listActionByModule = Action::getActionByModuleId($moduleItem['module_id']);
+            $listActionByModule = HelperController::convertStdToArray($listActionByModule);
+            $arrAction = [];
+            foreach ($listActionByModule as $actionKey => $actionItem) {
+                array_push($arrAction, ['action_name' => $actionItem['action_name']]);
+            }
+            $moduleItem = $moduleItem + ['list_action' => $arrAction];
+        }
+
+        return HelperController::convertArrayToStd($listModule);
     }
 }

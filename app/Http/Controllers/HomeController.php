@@ -18,10 +18,13 @@ class HomeController extends Controller
 
         $listSlide = Slide::get();
 
-        Session::put('test', 'test');
-
         return view(Constant::PATH_HOME)
             ->with('listFeatureProduct', $listFeatureProduct)
             ->with('listSlide', $listSlide);
+    }
+
+    public function showAdminDashboard()
+    {
+        return view(Constant::PATH_ADMIN_DASHBOARD);
     }
 }

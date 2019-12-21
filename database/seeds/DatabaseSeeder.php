@@ -49,47 +49,47 @@ class DatabaseSeeder extends Seeder
             [
                 [
                     'module_id' => 1,
-                    'module_name' => 'brand',
+                    'module_name' => 'Brand',
                 ],
                 [
                     'module_id' => 2,
-                    'module_name' => 'category',
+                    'module_name' => 'Category',
                 ],
                 [
                     'module_id' => 3,
-                    'module_name' => 'user',
+                    'module_name' => 'User',
                 ],
                 [
                     'module_id' => 4,
-                    'module_name' => 'product',
+                    'module_name' => 'Product',
                 ],
                 [
                     'module_id' => 5,
-                    'module_name' => 'review',
+                    'module_name' => 'Review',
                 ],
                 [
                     'module_id' => 6,
-                    'module_name' => 'slide',
+                    'module_name' => 'Slide',
                 ],
                 [
                     'module_id' => 7,
-                    'module_name' => 'admin',
+                    'module_name' => 'Admin',
                 ],
                 [
                     'module_id' => 8,
-                    'module_name' => 'order',
+                    'module_name' => 'Order',
                 ],
                 [
                     'module_id' => 9,
-                    'module_name' => 'image',
+                    'module_name' => 'Image',
                 ],
                 [
                     'module_id' => 10,
-                    'module_name' => 'brand_category',
+                    'module_name' => 'Brand - Category',
                 ],
                 [
                     'module_id' => 11,
-                    'module_name' => 'gallery',
+                    'module_name' => 'Gallery',
                 ],
             ]
         );
@@ -110,7 +110,7 @@ class DatabaseSeeder extends Seeder
                 ],
                 [
                     'action_id' => 4,
-                    'action_name' => 'delete'
+                    'action_name' => 'Delete'
                 ],
             ]
         );

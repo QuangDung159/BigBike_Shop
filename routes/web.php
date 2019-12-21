@@ -13,6 +13,7 @@
 
 use App\Constant;
 
+// client
 Route::group([], function () {
     Route::get('/', Constant::CONTROLLER_HOME . 'showHomePage');
     Route::get('/home', Constant::CONTROLLER_HOME . 'showHomePage');
@@ -22,4 +23,12 @@ Route::group([], function () {
     //Route::post('/cart/doAddToCart', Constant::CONTROLLER_CART . 'doAddToCart');
     Route::get('/cart/doAddToCartGet/{productId}', Constant::CONTROLLER_CART . 'doAddToCartGet');
     Route::get('/cart/doAddToCartProductDetail/{productId}', Constant::CONTROLLER_CART . 'doAddToCartProductDetail');
+});
+
+// admin
+Route::group([], function () {
+    Route::get('/admin/dashboard', Constant::CONTROLLER_HOME . 'showAdminDashboard');
+    Route::get('/admin/brand/list', Constant::CONTROLLER_BRAND . 'showListPage');
+    Route::get('/admin/brand/delete/{brandId}', Constant::CONTROLLER_BRAND . 'deleteBrand');
+    Route::get('/admin/brand/create', Constant::CONTROLLER_BRAND . 'showCreateBrandPage');
 });
