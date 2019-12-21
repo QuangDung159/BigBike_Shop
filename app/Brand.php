@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Egulias\EmailValidator\Exception\ConsecutiveAt;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Redis;
 
 /**
  * @property int $brand_id
@@ -77,5 +80,16 @@ class Brand extends Model
                 $brandId
             )
             ->update($arrData);
+
+        Redis::del('list_brand');
+    }
+
+    public static function insert($data)
+    {
+        DB::table(Constant::TABLE_BRAND)
+            ->insert(
+                $data
+            );
+        Redis::del('list_brand');
     }
 }

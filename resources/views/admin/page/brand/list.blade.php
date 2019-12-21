@@ -2,6 +2,40 @@
 @section('content')
     <section id="main-content">
         <section class="wrapper">
+
+            <?php
+            if (Session::get('msg_add_success') != null) {
+                echo '<div class="alert alert-success">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>' . Session::get('msg_add_success') .
+                    '<a href="' . URL::to('/admin/brand/create') . '"> Add more.</a>' . '</strong>
+                      </div>';
+                Session::put('msg_add_success', null);
+            }
+            ?>
+
+            <?php
+            if (Session::get('msg_delete_success') != null) {
+                echo '<div class="alert alert-success">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>' . Session::get('msg_delete_success') .
+                    '<a href="' . URL::to('/admin/brand/create') . '"> Add more.</a>' . '</strong>
+                      </div>';
+                Session::put('msg_delete_success', null);
+            }
+            ?>
+
+            <?php
+            if (Session::get('msg_update_success') != null) {
+                echo '<div class="alert alert-success">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>' . Session::get('msg_update_success') .
+                    '<a href="' . URL::to('/admin/brand/create') . '"> Add more.</a>' . '</strong>
+                      </div>';
+                Session::put('msg_update_success', null);
+            }
+            ?>
+
             <div class="table-agile-info">
                 <div class="panel panel-default">
                     <div class="panel-heading">
@@ -48,9 +82,11 @@
                                     </td>
                                     <td>
                                         @if($brandItem->brand_status == 0)
-                                            <span class="label label-default">Inactive</span>
+                                            <a href="{{URL::to('/admin/brand/change-status')}}/{{$brandItem->brand_id}}/{{$brandItem->brand_status}}"><span
+                                                    class="label label-default">Inactive</span></a>
                                         @else
-                                            <span class="label label-success">Active</span>
+                                            <a href="{{URL::to('/admin/brand/change-status')}}/{{$brandItem->brand_id}}/{{$brandItem->brand_status}}"><span
+                                                    class="label label-success">Active</span></a>
                                         @endif
                                     </td>
                                     <td>
@@ -84,7 +120,8 @@
                                         <a href="" class="active" ui-toggle-class="">
                                             <i class="fa fa-edit text-success text-active"></i>
                                         </a>
-                                        <a href="{{URL::to('/admin/brand/delete')}}/{{$brandItem->brand_id}}">
+                                        <a href="{{URL::to('/admin/brand/delete')}}/{{$brandItem->brand_id}}"
+                                           onclick="return confirm('Are you want to delete this?')">
                                             <i class="fa fa-trash text-danger text"></i>
                                         </a>
                                     </td>
@@ -95,21 +132,11 @@
                     </div>
                     <footer class="panel-footer">
                         <div class="row">
-
                             <div class="col-sm-5 text-center">
                                 <small class="text-muted inline m-t-sm m-b-sm">Showing {{$listBrand->firstItem()}}
                                     - {{$listBrand->lastItem()}} of {{$listBrand->total()}} items</small>
                             </div>
                             <div class="col-sm-7 text-right text-center-xs">
-                                {{--                                <ul class="pagination pagination-sm m-t-none m-b-none">--}}
-                                {{--                                    <li><a href=""><i class="fa fa-chevron-left"></i></a></li>--}}
-                                {{--                                    <li><a href="">1</a></li>--}}
-                                {{--                                    <li><a href="">2</a></li>--}}
-                                {{--                                    <li><a href="">3</a></li>--}}
-                                {{--                                    <li><a href="">4</a></li>--}}
-                                {{--                                    <li><a href=""><i class="fa fa-chevron-right"></i></a></li>--}}
-                                {{--                                </ul>--}}
-
                                 {!!$listBrand->links()!!}
                             </div>
                         </div>

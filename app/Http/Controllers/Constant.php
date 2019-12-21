@@ -37,6 +37,8 @@ class Constant
     const URL_ADMIN_DASHBOARD = '/admin/';
     const URL_ADMIN_BRAND = '/admin/brand';
 
+    const PATH_TO_UPLOAD_LOGO = '/upload/logo';
+
     const PATH_ADMIN_DASHBOARD = 'admin.page.dashboard';
     const PATH_ADMIN_BRAND_LIST = 'admin.page.brand.list';
     const PATH_ADMIN_BRAND_CREATE = 'admin.page.brand.create';

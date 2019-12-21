@@ -8,34 +8,53 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                Basic validations
+                                Create New Brand
                                 <span class="tools pull-right">
-                                <a class="fa fa-chevron-down" href="javascript:;"></a>
-                                <a class="fa fa-cog" href="javascript:;"></a>
-                                <a class="fa fa-times" href="javascript:;"></a>
+{{--                                <a class="fa fa-chevron-down" href="javascript:;"></a>--}}
+                                    {{--                                <a class="fa fa-cog" href="javascript:;"></a>--}}
+                                    {{--                                <a class="fa fa-times" href="javascript:;"></a>--}}
                              </span>
                             </header>
                             <div class="panel-body">
-                                <form role="form" class="form-horizontal ">
-                                    <div class="form-group has-success">
-                                        <label class="col-lg-3 control-label">sample 1</label>
+                                <form role="form" class="form-horizontal" action="" method="post"
+                                      enctype="multipart/form-data">
+                                    {{csrf_field()}}
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Brand Name</label>
                                         <div class="col-lg-6">
-                                            <input type="text" placeholder="" id="f-name" class="form-control">
-                                            <p class="help-block">Successfully done</p>
+                                            <input type="text" placeholder="Enter brand name" name="brand_name"
+                                                   id="f-name"
+                                                   class="form-control">
                                         </div>
                                     </div>
-                                    <div class="form-group has-error">
-                                        <label class="col-lg-3 control-label">sample 2</label>
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Brand Description</label>
                                         <div class="col-lg-6">
-                                            <input type="text" placeholder="" id="l-name" class="form-control">
-                                            <p class="help-block">You gave a wrong info</p>
+                                            <input type="text" placeholder="Enter brand description"
+                                                   name="brand_description"
+                                                   id="l-name"
+                                                   class="form-control">
                                         </div>
                                     </div>
-                                    <div class="form-group has-warning">
-                                        <label class="col-lg-3 control-label">sample 3</label>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Brand logo</label>
                                         <div class="col-lg-6">
-                                            <input type="email" placeholder="" id="email2" class="form-control">
-                                            <p class="help-block">Something went wrong</p>
+                                            <input type="file" id="brand_logo" name="brand_logo">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label"></label>
+                                        <div class="col-lg-6">
+                                            @if($errors->any())
+                                                <div class="alert alert-danger" style="margin-top: 10px">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                    @foreach($errors->all() as $errorItem)
+                                                        <p>{{$errorItem}}</p>
+                                                    @endforeach
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
 
