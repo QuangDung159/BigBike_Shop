@@ -68,7 +68,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function admin()
+    public function admin_created()
     {
         return $this->belongsTo('App\Admin', 'admin_created_by', 'admin_id');
     }
@@ -76,7 +76,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function admin()
+    public function admin_updated()
     {
         return $this->belongsTo('App\Admin', 'admin_updated_by', 'admin_id');
     }
@@ -84,7 +84,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function brands()
+    public function brands_created()
     {
         return $this->hasMany('App\Brand', 'brand_created_by', 'admin_id');
     }
@@ -92,7 +92,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function brands()
+    public function brands_updated()
     {
         return $this->hasMany('App\Brand', 'brand_updated_by', 'admin_id');
     }
@@ -100,7 +100,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function brandCategories()
+    public function brandCategories_created()
     {
         return $this->hasMany('App\BrandCategory', 'brand_category_created_by', 'admin_id');
     }
@@ -108,7 +108,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function brandCategories()
+    public function brandCategories_updated()
     {
         return $this->hasMany('App\BrandCategory', 'brand_category_updated_by', 'admin_id');
     }
@@ -116,7 +116,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function categories()
+    public function categories_created()
     {
         return $this->hasMany('App\Category', 'category_created_by', 'admin_id');
     }
@@ -124,7 +124,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function categories()
+    public function categories_updated()
     {
         return $this->hasMany('App\Category', 'category_updated_by', 'admin_id');
     }
@@ -132,7 +132,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function galleries()
+    public function galleries_created()
     {
         return $this->hasMany('App\Gallery', 'gallery_created_by', 'admin_id');
     }
@@ -140,7 +140,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function galleries()
+    public function galleries_updated()
     {
         return $this->hasMany('App\Gallery', 'gallery_updated_by', 'admin_id');
     }
@@ -148,7 +148,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function images()
+    public function images_created()
     {
         return $this->hasMany('App\Image', 'image_created_by', 'admin_id');
     }
@@ -156,7 +156,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function images()
+    public function images_updated()
     {
         return $this->hasMany('App\Image', 'image_updated_by', 'admin_id');
     }
@@ -172,7 +172,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function products()
+    public function products_created()
     {
         return $this->hasMany('App\Product', 'product_created_by', 'admin_id');
     }
@@ -180,7 +180,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function products()
+    public function products_updated()
     {
         return $this->hasMany('App\Product', 'product_updated_by', 'admin_id');
     }
@@ -188,7 +188,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function slides()
+    public function slides_created()
     {
         return $this->hasMany('App\Slide', 'slide_created_by', 'admin_id');
     }
@@ -196,7 +196,7 @@ class Admin extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function slides()
+    public function slides_updated()
     {
         return $this->hasMany('App\Slide', 'slide_updated_by', 'admin_id');
     }

@@ -28,4 +28,7 @@ Route::group([], function () {
 // admin
 Route::group([], function () {
     Route::get('/admin/dashboard', Constant::CONTROLLER_HOME . 'showAdminDashboard');
+    Route::get('/admin/brand/list', Constant::CONTROLLER_BRAND . 'showListPage');
+    Route::get('/admin/brand/delete/{brandId}', Constant::CONTROLLER_BRAND . 'deleteBrand');
+    Route::get('/admin/brand/create', Constant::CONTROLLER_BRAND . 'showCreateBrandPage');
 });

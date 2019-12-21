@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $brand_id
@@ -64,5 +65,17 @@ class Brand extends Model
     public function brandCategories()
     {
         return $this->hasMany('App\BrandCategory', 'brand_id', 'brand_id');
+    }
+
+    public static function updateByBrandId($brandId, $arrData)
+    {
+        $brandId = intval($brandId);
+        DB::table(Constant::TABLE_BRAND)
+            ->where(
+                Constant::TABLE_BRAND . '.brand_id',
+                '=',
+                $brandId
+            )
+            ->update($arrData);
     }
 }

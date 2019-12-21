@@ -30,10 +30,14 @@ class Constant
     const CONTROLLER_PRODUCT = 'ProductController@';
     const CONTROLLER_CATEGORY = 'CategoryController@';
     const CONTROLLER_CART = 'CartController@';
+    const CONTROLLER_BRAND = 'BrandController@';
 
     const URL_PRODUCT_DETAIL = '/product/';
 
     const URL_ADMIN_DASHBOARD = '/admin/';
+    const URL_ADMIN_BRAND = '/admin/brand';
 
     const PATH_ADMIN_DASHBOARD = 'admin.page.dashboard';
+    const PATH_ADMIN_BRAND_LIST = 'admin.page.brand.list';
+    const PATH_ADMIN_BRAND_CREATE = 'admin.page.brand.create';
 }
