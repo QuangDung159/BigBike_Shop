@@ -8,7 +8,7 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                Create New Category
+                                Create New Brand
                                 <span class="tools pull-right">
 {{--                                <a class="fa fa-chevron-down" href="javascript:;"></a>--}}
                                     {{--                                <a class="fa fa-cog" href="javascript:;"></a>--}}
@@ -16,25 +16,32 @@
                              </span>
                             </header>
                             <div class="panel-body">
-                                <form role="form" class="form-horizontal" action="{{URL::to('/admin/category/create')}}"
+                                <form role="form" class="form-horizontal" action="{{URL::to('/admin/brand/create')}}"
                                       method="post"
                                       enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Category Name</label>
+                                        <label class="col-lg-3 control-label">Brand Name</label>
                                         <div class="col-lg-6">
-                                            <input type="text" placeholder="Enter category name" name="category_name"
+                                            <input type="text" placeholder="Enter brand name" name="brand_name"
                                                    id="f-name"
                                                    class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Category Description</label>
+                                        <label class="col-lg-3 control-label">Brand Description</label>
                                         <div class="col-lg-6">
-                                            <input type="text" placeholder="Enter category description"
-                                                   name="category_description"
+                                            <textarea type="text" placeholder="Enter brand description"
+                                                   name="brand_description"
                                                    id="l-name"
-                                                   class="form-control">
+                                                      class="form-control"></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Brand logo</label>
+                                        <div class="col-lg-6">
+                                            <input type="file" id="brand_logo" name="brand_logo">
                                         </div>
                                     </div>
 

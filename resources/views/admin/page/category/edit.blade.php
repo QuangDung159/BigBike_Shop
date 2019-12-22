@@ -8,7 +8,7 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                Create New Category
+                                Edit Brand {{$category->category_name}}
                                 <span class="tools pull-right">
 {{--                                <a class="fa fa-chevron-down" href="javascript:;"></a>--}}
                                     {{--                                <a class="fa fa-cog" href="javascript:;"></a>--}}
@@ -16,28 +16,28 @@
                              </span>
                             </header>
                             <div class="panel-body">
-                                <form role="form" class="form-horizontal" action="{{URL::to('/admin/category/create')}}"
+                                <form role="form" class="form-horizontal" action="{{URL::to('/admin/category/edit')}}"
                                       method="post"
                                       enctype="multipart/form-data">
                                     {{csrf_field()}}
+                                    <input type="hidden" name="category_id" value="{{$category->category_id}}">
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Category Name</label>
                                         <div class="col-lg-6">
                                             <input type="text" placeholder="Enter category name" name="category_name"
-                                                   id="f-name"
+                                                   id="f-name" value="{{$category->category_name}}"
                                                    class="form-control">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Category Description</label>
                                         <div class="col-lg-6">
-                                            <input type="text" placeholder="Enter category description"
-                                                   name="category_description"
-                                                   id="l-name"
-                                                   class="form-control">
+                                            <textarea type="text" placeholder="Enter category description"
+                                                      name="category_description"
+                                                      id="l-name"
+                                                      class="form-control">{{$category->category_desc}}</textarea>
                                         </div>
                                     </div>
-
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label"></label>
                                         <div class="col-lg-6">

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 /**
  * @property int $category_id
@@ -82,5 +83,28 @@ class Category extends Model
                 '=',
                 $categoryId
             )->first();
+    }
+
+    public static function updateByCategoryId($categoryId, $arrData)
+    {
+        $categoryId = intval($categoryId);
+        DB::table(Constant::TABLE_CATEGORY)
+            ->where(
+                Constant::TABLE_CATEGORY . '.category_id',
+                '=',
+                $categoryId
+            )
+            ->update($arrData);
+
+        Redis::del('list_category');
+    }
+
+    public static function insert($data)
+    {
+        DB::table(Constant::TABLE_CATEGORY)
+            ->insert(
+                $data
+            );
+        Redis::del('list_category');
     }
 }

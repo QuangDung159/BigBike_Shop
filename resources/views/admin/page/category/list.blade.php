@@ -8,7 +8,7 @@
                 echo '<div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>' . Session::get('msg_add_success') .
-                    '<a href="' . URL::to('/admin/brand/create') . '"> Add more.</a>' . '</strong>
+                    '<a href="' . URL::to('/admin/category/create') . '"> Add more.</a>' . '</strong>
                       </div>';
                 Session::put('msg_add_success', null);
             }
@@ -19,7 +19,7 @@
                 echo '<div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>' . Session::get('msg_delete_success') .
-                    '<a href="' . URL::to('/admin/brand/create') . '"> Add more.</a>' . '</strong>
+                    '<a href="' . URL::to('/admin/category/create') . '"> Add more.</a>' . '</strong>
                       </div>';
                 Session::put('msg_delete_success', null);
             }
@@ -30,7 +30,7 @@
                 echo '<div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>' . Session::get('msg_update_success') .
-                    '<a href="' . URL::to('/admin/brand/create') . '"> Add more.</a>' . '</strong>
+                    '<a href="' . URL::to('/admin/category/create') . '"> Add more.</a>' . '</strong>
                       </div>';
                 Session::put('msg_update_success', null);
             }
@@ -39,7 +39,7 @@
             <div class="table-agile-info">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Brand
+                        Category
                     </div>
                     <div class="row w3-res-tb">
                         {{--                        <div class="col-sm-5 m-b-xs">--}}
@@ -83,11 +83,11 @@
                                         <a href="{{URL::to('/admin/category/detail')}}/{{$categoryItem->category_id}}">{{$categoryItem->category_name }}</a>
                                     </td>
                                     <td>
-                                        @if($categoryItem->category_status == 0)
-                                            <a href="{{URL::to('/admin/category/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
+                                        @if($brandItem->category_status == 0)
+                                            <a href="{{URL::to('/admin/brand/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
                                                     class="label label-default">Inactive</span></a>
                                         @else
-                                            <a href="{{URL::to('/admin/category/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
+                                            <a href="{{URL::to('/admin/brand/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
                                                     class="label label-success">Active</span></a>
                                         @endif
                                     </td>
