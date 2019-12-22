@@ -31,4 +31,9 @@ Route::group([], function () {
     Route::get('/admin/brand/list', Constant::CONTROLLER_BRAND . 'showListPage');
     Route::get('/admin/brand/delete/{brandId}', Constant::CONTROLLER_BRAND . 'deleteBrand');
     Route::get('/admin/brand/create', Constant::CONTROLLER_BRAND . 'showCreateBrandPage');
+    Route::post('/admin/brand/create', Constant::CONTROLLER_BRAND . 'doCreateBrand');
+    Route::get('/admin/brand/change-status/{brandId}/{status}', Constant::CONTROLLER_BRAND . 'changeStatus');
+    Route::get('/admin/brand/detail/{brandId}', Constant::CONTROLLER_BRAND . 'showDetailPage');
+    Route::get('/admin/brand/edit/{brandId}', Constant::CONTROLLER_BRAND . 'showEditPage');
+    Route::post('/admin/brand/edit', Constant::CONTROLLER_BRAND . 'doEditBrand');
 });

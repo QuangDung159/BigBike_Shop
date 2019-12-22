@@ -8,7 +8,7 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                Create New Brand
+                                Edit Brand {{$brand->brand_name}}
                                 <span class="tools pull-right">
 {{--                                <a class="fa fa-chevron-down" href="javascript:;"></a>--}}
                                     {{--                                <a class="fa fa-cog" href="javascript:;"></a>--}}
@@ -16,15 +16,16 @@
                              </span>
                             </header>
                             <div class="panel-body">
-                                <form role="form" class="form-horizontal" action="{{URL::to('/admin/brand/create')}}"
+                                <form role="form" class="form-horizontal" action="{{URL::to('/admin/brand/edit')}}"
                                       method="post"
                                       enctype="multipart/form-data">
                                     {{csrf_field()}}
+                                    <input type="hidden" name="brand_id" value="{{$brand->brand_id}}">
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Brand Name</label>
                                         <div class="col-lg-6">
                                             <input type="text" placeholder="Enter brand name" name="brand_name"
-                                                   id="f-name"
+                                                   id="f-name" value="{{$brand->brand_name}}"
                                                    class="form-control">
                                         </div>
                                     </div>
@@ -33,7 +34,7 @@
                                         <div class="col-lg-6">
                                             <input type="text" placeholder="Enter brand description"
                                                    name="brand_description"
-                                                   id="l-name"
+                                                   id="l-name" value="{{$brand->brand_desc}}"
                                                    class="form-control">
                                         </div>
                                     </div>
@@ -43,6 +44,11 @@
                                         <div class="col-lg-6">
                                             <input type="file" id="brand_logo" name="brand_logo">
                                         </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label"></label>
+                                        <img width="100" alt="" src="{{asset('/upload/logo')}}/{{$brand->brand_logo}}">
                                     </div>
 
                                     <div class="form-group">
