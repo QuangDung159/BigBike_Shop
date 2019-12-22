@@ -78,7 +78,7 @@ class AppServiceProvider extends ServiceProvider
                     $url = '/admin/' . $moduleItem['module_name'] . '/' . $actionItem['action_name'];
                     array_push($arrAction, [
                         'action_name' => $actionItem['action_name'],
-                        'action_url' => $url,
+                        'action_url' => strtolower($url),
                     ]);
                 }
             }
