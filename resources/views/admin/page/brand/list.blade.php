@@ -119,7 +119,8 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="" class="active" ui-toggle-class="">
+                                        <a href="{{URL::to('/admin/brand/edit')}}/{{$brandItem->brand_id}}"
+                                           class="active" ui-toggle-class="">
                                             <i class="fa fa-edit text-success text-active"></i>
                                         </a>
                                         <a href="{{URL::to('/admin/brand/delete')}}/{{$brandItem->brand_id}}"

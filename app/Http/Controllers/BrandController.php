@@ -128,4 +128,59 @@ class BrandController extends Controller
         return view(Constant::PATH_ADMIN_BRAND_DETAIL)
             ->with('brand', $brand);
     }
+
+    public function showEditPage($brandId)
+    {
+        $brand = Brand::where(
+            Constant::TABLE_BRAND . '.brand_id',
+            '=',
+            $brandId
+        )->where(
+            Constant::TABLE_BRAND . '.brand_is_deleted',
+            '=',
+            0
+        )->first();
+
+        return view(Constant::PATH_ADMIN_BRAND_EDIT)
+            ->with('brand', $brand);
+    }
+
+    public function doEditBrand(Request $req)
+    {
+        $this->validate(
+            $req,
+            [
+                'brand_name' => 'required',
+                'brand_description' => 'required',
+            ],
+            [
+                'brand_name.required' => 'Please enter brand name',
+                'brand_description.required' => 'Please enter brand description',
+            ]
+        );
+
+        $brandName = $req->brand_name;
+        $brandDesc = $req->brand_description;
+        $brandId = $req->brand_id;
+        $image = $req->file('brand_logo');
+
+        $data = [
+            'brand_name' => $brandName,
+            'brand_desc' => $brandDesc,
+            'brand_updated_by' => 1,
+            'brand_updated_at' => time()
+        ];
+
+        if ($image) {
+            $newName = time() . '_' . rand(0, 9) . '_' . $req->name . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path() . Constant::PATH_TO_UPLOAD_LOGO, $newName);
+            $data['brand_logo'] = $newName;
+        }
+
+        Brand::updateByBrandId($brandId, $data);
+
+        Session::put('msg_update_success', 'Update brand successfully!');
+
+        return Redirect::to(Constant::URL_ADMIN_BRAND . '/detail/' . $brandId);
+    }
 }

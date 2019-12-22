@@ -16,7 +16,8 @@
                              </span>
                             </header>
                             <div class="panel-body">
-                                <form role="form" class="form-horizontal" action="" method="post"
+                                <form role="form" class="form-horizontal" action="{{URL::to('/admin/brand/create')}}"
+                                      method="post"
                                       enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <div class="form-group">
