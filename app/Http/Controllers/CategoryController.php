@@ -95,7 +95,7 @@ class CategoryController extends Controller
 
         $arrAssocAdmin = array_column($listAdmin, 'admin_name', 'admin_id');
 
-        return view(Constant::PATH_ADMIN_BRAND_LIST)
+        return view(Constant::PATH_ADMIN_CATEGORY_LIST)
             ->with('listCategory', $listCategory)
             ->with('assocAdmin', $arrAssocAdmin);
     }
@@ -112,7 +112,7 @@ class CategoryController extends Controller
 
         Session::put('msg_delete_success', 'Delete category successfully!');
 
-        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/list');
+        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/read');
     }
 
     public function showCreateCategoryPage()
@@ -148,7 +148,7 @@ class CategoryController extends Controller
 
         Session::put('msg_add_success', 'Create category successfully!');
 
-        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/list');
+        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/read');
     }
 
     public function changeStatus($categoryId, $status)
@@ -166,7 +166,7 @@ class CategoryController extends Controller
         Category::updateByCategoryId($categoryId, $data);
 
         Session::put('msg_update_success', 'Update category successfully!');
-        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/list');
+        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/read');
     }
 
     public function showDetailPage($categoryId)

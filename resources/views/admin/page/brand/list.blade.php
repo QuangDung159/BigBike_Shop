@@ -74,56 +74,56 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($listCategory as $key => $categoryItem)
+                            @foreach($listBrand as $key => $brandItem)
                                 <tr>
                                     <td><label class="i-checks m-b-none"><input type="checkbox"
                                                                                 name="post[]"><i></i></label>
                                     </td>
                                     <td>
-                                        <a href="{{URL::to('/admin/category/detail')}}/{{$categoryItem->category_id}}">{{$categoryItem->category_name }}</a>
+                                        <a href="{{URL::to('/admin/brand/detail')}}/{{$brandItem->brand_id}}">{{$brandItem->brand_name }}</a>
                                     </td>
                                     <td>
-                                        @if($categoryItem->category_status == 0)
-                                            <a href="{{URL::to('/admin/category/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
+                                        @if($brandItem->brand_status == 0)
+                                            <a href="{{URL::to('/admin/brand/change-status')}}/{{$brandItem->brand_id}}/{{$brandItem->brand_status}}"><span
                                                     class="label label-default">Inactive</span></a>
                                         @else
-                                            <a href="{{URL::to('/admin/category/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
+                                            <a href="{{URL::to('/admin/brand/change-status')}}/{{$brandItem->brand_id}}/{{$brandItem->brand_status}}"><span
                                                     class="label label-success">Active</span></a>
                                         @endif
                                     </td>
                                     <td>
                                         <span class="text-ellipsis">
-                                            {{date('Y/m/d H:i:s', $categoryItem->category_created_at)}}
+                                            {{date('Y/m/d H:i:s', $brandItem->brand_created_at)}}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="text-ellipsis">
-                                            {{$assocAdmin[$categoryItem->category_created_by]}}
+                                            {{$assocAdmin[$brandItem->brand_created_by]}}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="text-ellipsis">
-                                            @if(!$categoryItem->category_updated_by)
+                                            @if(!$brandItem->brand_updated_by)
                                                 N/A
                                             @else
-                                                {{date('Y/m/d H:i:s', $categoryItem->category_updated_at)}}
+                                                {{date('Y/m/d H:i:s', $brandItem->brand_updated_at)}}
                                             @endif
                                         </span>
                                     </td>
                                     <td><span class="text-ellipsis">
-                                            @if(!$categoryItem->category_updated_by)
+                                            @if(!$brandItem->brand_updated_by)
                                                 N/A
                                             @else
-                                                {{$assocAdmin[$categoryItem->category_updated_by]}}
+                                                {{$assocAdmin[$brandItem->brand_updated_by]}}
                                             @endif
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="{{URL::to('/admin/category/edit')}}/{{$categoryItem->category_id}}"
+                                        <a href="{{URL::to('/admin/brand/edit')}}/{{$brandItem->brand_id}}"
                                            class="active" ui-toggle-class="">
                                             <i class="fa fa-edit text-success text-active"></i>
                                         </a>
-                                        <a href="{{URL::to('/admin/category/delete')}}/{{$categoryItem->category_id}}"
+                                        <a href="{{URL::to('/admin/brand/delete')}}/{{$brandItem->brand_id}}"
                                            onclick="return confirm('Are you want to delete this?')">
                                             <i class="fa fa-trash text-danger text"></i>
                                         </a>
@@ -136,11 +136,11 @@
                     <footer class="panel-footer">
                         <div class="row">
                             <div class="col-sm-5 text-center">
-                                <small class="text-muted inline m-t-sm m-b-sm">Showing {{$listCategory->firstItem()}}
-                                    - {{$listCategory->lastItem()}} of {{$listCategory->total()}} items</small>
+                                <small class="text-muted inline m-t-sm m-b-sm">Showing {{$listBrand->firstItem()}}
+                                    - {{$listBrand->lastItem()}} of {{$listBrand->total()}} items</small>
                             </div>
                             <div class="col-sm-7 text-right text-center-xs">
-                                {!!$listCategory->links()!!}
+                                {!!$listBrand->links()!!}
                             </div>
                         </div>
                     </footer>

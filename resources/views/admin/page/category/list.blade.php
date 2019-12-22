@@ -83,11 +83,11 @@
                                         <a href="{{URL::to('/admin/category/detail')}}/{{$categoryItem->category_id}}">{{$categoryItem->category_name }}</a>
                                     </td>
                                     <td>
-                                        @if($brandItem->category_status == 0)
-                                            <a href="{{URL::to('/admin/brand/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
+                                        @if($categoryItem->category_status == 0)
+                                            <a href="{{URL::to('/admin/category/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
                                                     class="label label-default">Inactive</span></a>
                                         @else
-                                            <a href="{{URL::to('/admin/brand/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
+                                            <a href="{{URL::to('/admin/category/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
                                                     class="label label-success">Active</span></a>
                                         @endif
                                     </td>

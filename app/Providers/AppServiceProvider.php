@@ -74,7 +74,13 @@ class AppServiceProvider extends ServiceProvider
             $listActionByModule = HelperController::convertStdToArray($listActionByModule);
             $arrAction = [];
             foreach ($listActionByModule as $actionKey => $actionItem) {
-                array_push($arrAction, ['action_name' => $actionItem['action_name']]);
+                if ($actionItem['action_name'] != 'Delete' && $actionItem['action_name'] != 'Update') {
+                    $url = '/admin/' . $moduleItem['module_name'] . '/' . $actionItem['action_name'];
+                    array_push($arrAction, [
+                        'action_name' => $actionItem['action_name'],
+                        'action_url' => $url,
+                    ]);
+                }
             }
             $moduleItem = $moduleItem + ['list_action' => $arrAction];
         }
