@@ -5,11 +5,11 @@
 
             <?php
             if (Session::get('msg_update_success') != null) {
-                /** @var TYPE_NAME $brand */
+                /** @var TYPE_NAME $category */
                 echo '<div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>' . Session::get('msg_update_success') .
-                    '<a href="' . URL::to('/admin/brand/edit') . '/' . $brand->brand_id . '"> Continue edit </a>' . ' or <a href="' . URL::to('/admin/brand/read') . '"> back to listing.</a>' . '</strong>
+                    '<a href="' . URL::to('/admin/category/edit') . '/' . $category->category_id . '"> Continue edit </a>' . ' or <a href="' . URL::to('/admin/category/read') . '"> back to listing.</a>' . '</strong>
                       </div>';
                 Session::put('msg_update_success', null);
             }
@@ -21,7 +21,7 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                {{$brand->brand_name}}
+                                {{$category->category_name}}
                                 <span class="tools pull-right">
 {{--                                <a class="fa fa-chevron-down" href="javascript:;"></a>--}}
                                     {{--                                <a class="fa fa-cog" href="javascript:;"></a>--}}
@@ -31,26 +31,21 @@
                             <div class="panel-body">
                                 <form role="form" class="form-horizontal">
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Brand Name</label>
+                                        <label class="col-lg-3 control-label">Category Name</label>
                                         <div class="col-lg-6">
-                                            <input type="text" name="brand_name"
-                                                   id="f-name" value="{{$brand->brand_name}}"
+                                            <input type="text" name="category_name"
+                                                   id="f-name" value="{{$category->category_name}}"
                                                    class="form-control" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Brand Description</label>
+                                        <label class="col-lg-3 control-label">Category Description</label>
                                         <div class="col-lg-6">
-                                            <input type="text" value="{{$brand->brand_desc}}"
-                                                   name="brand_description"
-                                                   id="l-name" disabled
-                                                   class="form-control">
+                                            <textarea type="text"
+                                                      name="category_description"
+                                                      id="l-name" disabled
+                                                      class="form-control">{{$category->category_desc}}</textarea>
                                         </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Brand logo</label>
-                                        <img width="100" alt="" src="{{asset('/upload/logo')}}/{{$brand->brand_logo}}">
                                     </div>
                                 </form>
                             </div>

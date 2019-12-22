@@ -279,7 +279,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                             </a>
                             <ul class="sub">
                                 @foreach($moduleItem->list_action as $action)
-                                    <li><a href="typography.html">{{$action->action_name}}</a></li>
+                                    <li><a href="{{$action->action_url}}">{{$action->action_name}}</a></li>
                                 @endforeach
                             </ul>
                         </li>

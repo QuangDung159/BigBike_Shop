@@ -47,7 +47,7 @@ class BrandController extends Controller
 
         Session::put('msg_delete_success', 'Delete brand successfully!');
 
-        return Redirect::to(Constant::URL_ADMIN_BRAND . '/list');
+        return Redirect::to(Constant::URL_ADMIN_BRAND . '/read');
     }
 
     public function showCreateBrandPage()
@@ -92,7 +92,7 @@ class BrandController extends Controller
 
         Session::put('msg_add_success', 'Create brand successfully!');
 
-        return Redirect::to(Constant::URL_ADMIN_BRAND . '/list');
+        return Redirect::to(Constant::URL_ADMIN_BRAND . '/read');
     }
 
     public function changeStatus($brandId, $status)
@@ -110,7 +110,7 @@ class BrandController extends Controller
         Brand::updateByBrandId($brandId, $data);
 
         Session::put('msg_update_success', 'Update brand successfully!');
-        return Redirect::to(Constant::URL_ADMIN_BRAND . '/list');
+        return Redirect::to(Constant::URL_ADMIN_BRAND . '/read');
     }
 
     public function showDetailPage($brandId)

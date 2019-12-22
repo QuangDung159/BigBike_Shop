@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use App\Brand;
 use App\Category;
 use App\Constant;
@@ -73,5 +74,162 @@ class CategoryController extends Controller
             ->with('listPerPage', $listPerPage)
             ->with('sortType', $sortType)
             ->with('itemPerPage', $itemPerPage);
+    }
+
+    public function showListPage()
+    {
+        $listCategory = Category::where(
+            Constant::TABLE_CATEGORY . '.category_is_deleted',
+            '=',
+            0
+        )->orderBy(Constant::TABLE_CATEGORY . '.category_created_at', 'desc')
+            ->paginate(10);
+
+        $listAdmin = Admin::where(
+            Constant::TABLE_ADMIN . '.admin_is_deleted',
+            '=',
+            0
+        )->get();
+
+        $listAdmin = HelperController::convertStdToArray($listAdmin);
+
+        $arrAssocAdmin = array_column($listAdmin, 'admin_name', 'admin_id');
+
+        return view(Constant::PATH_ADMIN_CATEGORY_LIST)
+            ->with('listCategory', $listCategory)
+            ->with('assocAdmin', $arrAssocAdmin);
+    }
+
+    public function deleteCategory($categoryId)
+    {
+        $data = [
+            Constant::TABLE_CATEGORY . '.category_is_deleted' => 1,
+            Constant::TABLE_CATEGORY . '.category_updated_at' => time(),
+            Constant::TABLE_CATEGORY . '.category_updated_by' => 1
+        ];
+
+        Category::updateByCategoryId($categoryId, $data);
+
+        Session::put('msg_delete_success', 'Delete category successfully!');
+
+        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/read');
+    }
+
+    public function showCreateCategoryPage()
+    {
+        return view(Constant::PATH_ADMIN_CATEGORY_CREATE);
+    }
+
+    public function doCreateCategory(Request $req)
+    {
+        $this->validate(
+            $req,
+            [
+                'category_name' => 'required',
+                'category_description' => 'required',
+            ],
+            [
+                'category_name.required' => 'Please enter category name',
+                'category_description.required' => 'Please enter category description',
+            ]
+        );
+
+        $categoryName = $req->category_name;
+        $categoryDesc = $req->category_description;
+
+        $data = [
+            'category_name' => $categoryName,
+            'category_desc' => $categoryDesc,
+            'category_created_by' => 1,
+            'category_created_at' => time()
+        ];
+
+        Category::insert($data);
+
+        Session::put('msg_add_success', 'Create category successfully!');
+
+        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/read');
+    }
+
+    public function changeStatus($categoryId, $status)
+    {
+        $data = [];
+        if ($status == 0) {
+            $data['category_status'] = 1;
+        } else {
+            $data['category_status'] = 0;
+        }
+
+        $data['category_updated_at'] = time();
+        $data['category_updated_by'] = 1;
+
+        Category::updateByCategoryId($categoryId, $data);
+
+        Session::put('msg_update_success', 'Update category successfully!');
+        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/read');
+    }
+
+    public function showDetailPage($categoryId)
+    {
+        $category = Category::where(
+            Constant::TABLE_CATEGORY . '.category_id',
+            '=',
+            $categoryId
+        )->where(
+            Constant::TABLE_CATEGORY . '.category_is_deleted',
+            '=',
+            0
+        )->first();
+
+        return view(Constant::PATH_ADMIN_CATEGORY_DETAIL)
+            ->with('category', $category);
+    }
+
+    public function showEditPage($categoryId)
+    {
+        $category = Category::where(
+            Constant::TABLE_CATEGORY . '.category_id',
+            '=',
+            $categoryId
+        )->where(
+            Constant::TABLE_CATEGORY . '.category_is_deleted',
+            '=',
+            0
+        )->first();
+
+        return view(Constant::PATH_ADMIN_CATEGORY_EDIT)
+            ->with('category', $category);
+    }
+
+    public function doEditCategory(Request $req)
+    {
+        $this->validate(
+            $req,
+            [
+                'category_name' => 'required',
+                'category_description' => 'required',
+            ],
+            [
+                'category_name.required' => 'Please enter category name',
+                'category_description.required' => 'Please enter category description',
+            ]
+        );
+
+        $categoryName = $req->category_name;
+        $categoryDesc = $req->category_description;
+        $categoryId = $req->category_id;
+
+        $data = [
+            'category_name' => $categoryName,
+            'category_desc' => $categoryDesc,
+            'category_updated_by' => 1,
+            'category_updated_at' => time()
+        ];
+
+        Category::updateByCategoryId($categoryId, $data);
+
+        Session::put('msg_update_success', 'Update category successfully!');
+
+        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/detail/' . $categoryId);
     }
 }
