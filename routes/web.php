@@ -26,7 +26,7 @@ Route::group([], function () {
 });
 
 // admin
-Route::group([], function () {
+Route::group(['middleware' => 'authen.admin'], function () {
 
     Route::get('/admin/dashboard', Constant::CONTROLLER_HOME . 'showAdminDashboard');
 
@@ -49,4 +49,10 @@ Route::group([], function () {
     Route::get('/admin/category/detail/{categoryId}', Constant::CONTROLLER_CATEGORY . 'showDetailPage');
     Route::get('/admin/category/edit/{categoryId}', Constant::CONTROLLER_CATEGORY . 'showEditPage');
     Route::post('/admin/category/edit', Constant::CONTROLLER_CATEGORY . 'doEditCategory');
+
+    // admin
+    Route::get('/admin/logout', Constant::CONTROLLER_ADMIN . 'doLogout');
 });
+
+Route::get('/admin/login', Constant::CONTROLLER_ADMIN . 'showAdminLoginPage');
+Route::post('/admin/login', Constant::CONTROLLER_ADMIN . 'doLogin');

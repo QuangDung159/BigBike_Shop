@@ -31,14 +31,18 @@ class Constant
     const CONTROLLER_CATEGORY = 'CategoryController@';
     const CONTROLLER_CART = 'CartController@';
     const CONTROLLER_BRAND = 'BrandController@';
+    const CONTROLLER_ADMIN = 'AdminController@';
 
     const URL_PRODUCT_DETAIL = '/product/';
 
-    const URL_ADMIN_DASHBOARD = '/admin/';
+    const URL_ADMIN_DASHBOARD = '/admin/dashboard';
+    const URL_ADMIN_LOGIN = '/admin/login';
     const URL_ADMIN_BRAND = '/admin/brand';
     const URL_ADMIN_CATEGORY = '/admin/category';
 
     const PATH_TO_UPLOAD_LOGO = '/upload/logo';
+
+    const PATH_ADMIN_ADMIN_LOGIN = 'admin.page.admin.login';
 
     const PATH_ADMIN_DASHBOARD = 'admin.page.dashboard';
     const PATH_ADMIN_BRAND_LIST = 'admin.page.brand.list';

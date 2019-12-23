@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $admin_id
@@ -199,5 +200,36 @@ class Admin extends Model
     public function slides_updated()
     {
         return $this->hasMany('App\Slide', 'slide_updated_by', 'admin_id');
+    }
+
+    public static function getAdminByEmailPassword($adminEmail, $adminPassword)
+    {
+        $adminEmail = trim($adminEmail);
+        $adminPassword = trim($adminPassword);
+
+        return DB::table(Constant::TABLE_ADMIN)
+            ->where(
+                Constant::TABLE_ADMIN . '.admin_email',
+                '=',
+                $adminEmail
+            )
+            ->where(
+                Constant::TABLE_ADMIN . '.admin_password',
+                '=',
+                md5($adminPassword)
+            )
+            ->first();
+    }
+
+    public static function getById($adminId)
+    {
+        $adminId = intval($adminId);
+        return DB::table(Constant::TABLE_ADMIN)
+            ->where(
+                Constant::TABLE_ADMIN . '.admin_id',
+                '=',
+                $adminId
+            )
+            ->first();
     }
 }
