@@ -49,4 +49,8 @@ Route::group([], function () {
     Route::get('/admin/category/detail/{categoryId}', Constant::CONTROLLER_CATEGORY . 'showDetailPage');
     Route::get('/admin/category/edit/{categoryId}', Constant::CONTROLLER_CATEGORY . 'showEditPage');
     Route::post('/admin/category/edit', Constant::CONTROLLER_CATEGORY . 'doEditCategory');
+
+    // admin
+    Route::get('/admin/login', Constant::CONTROLLER_ADMIN . 'showAdminLoginPage');
+    Route::post('/admin/login', Constant::CONTROLLER_ADMIN . 'doLogin');
 });
