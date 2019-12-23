@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Action;
+use App\Admin;
 use App\Http\Controllers\HelperController;
 use App\Module;
 use Illuminate\Support\Facades\Redis;
@@ -31,35 +32,39 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $listSort = [
-            'Rate : High to low' => '1',
-            'Rate : Low to high' => '2',
-            'Price : High to low' => '3',
-            'Price : Low to high' => 4
-        ];
-        $listPerPage = [
-            'Show 12' => '12',
-            'Show 16' => '16',
-            'Show 20' => '20'
-        ];
+        view()->composer('admin.layout.master', function ($view) {
+            $listSort = [
+                'Rate : High to low' => '1',
+                'Rate : Low to high' => '2',
+                'Price : High to low' => '3',
+                'Price : Low to high' => 4
+            ];
 
-        if (!Redis::get('list_sort')) {
-            Redis::set('list_sort', json_encode($listSort));
-        }
+            $listPerPage = [
+                'Show 12' => '12',
+                'Show 16' => '16',
+                'Show 20' => '20'
+            ];
 
-        if (!Redis::get('list_per_page')) {
-            Redis::set('list_per_page', json_encode($listPerPage));
-        }
+            if (!Redis::get('list_sort')) {
+                Redis::set('list_sort', json_encode($listSort));
+            }
 
-        if (!Redis::get('list_module')) {
-            $listModuleToCache = Module::getAll();
-            Redis::set('list_module', json_encode($listModuleToCache));
-        }
+            if (!Redis::get('list_per_page')) {
+                Redis::set('list_per_page', json_encode($listPerPage));
+            }
 
-        $listModule = HelperController::convertArrayToStd($this->getModuleWithAction());
+            if (!Redis::get('list_module')) {
+                $listModuleToCache = Module::getAll();
+                Redis::set('list_module', json_encode($listModuleToCache));
+            }
 
-        view()->composer('admin.layout.master', function ($view) use ($listModule) {
-            return $view->with('listModule', $listModule);
+            $listModule = HelperController::convertArrayToStd($this->getModuleWithAction());
+
+            $admin = Admin::getById(Session::get('admin_id'));
+
+            return $view->with('listModule', $listModule)
+                ->with('admin', $admin);
         });
     }
 

@@ -40,4 +40,10 @@ class AdminController extends Controller
             return Redirect::to(Constant::URL_ADMIN_LOGIN);
         }
     }
+
+    public function doLogout()
+    {
+        Session::forget('admin_id');
+        return Redirect::to(Constant::URL_ADMIN_LOGIN);
+    }
 }

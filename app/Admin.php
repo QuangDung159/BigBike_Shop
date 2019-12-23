@@ -220,4 +220,16 @@ class Admin extends Model
             )
             ->first();
     }
+
+    public static function getById($adminId)
+    {
+        $adminId = intval($adminId);
+        return DB::table(Constant::TABLE_ADMIN)
+            ->where(
+                Constant::TABLE_ADMIN . '.admin_id',
+                '=',
+                $adminId
+            )
+            ->first();
+    }
 }
