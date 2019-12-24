@@ -33,6 +33,7 @@ class Constant
     const CONTROLLER_CART = 'CartController@';
     const CONTROLLER_BRAND = 'BrandController@';
     const CONTROLLER_ADMIN = 'AdminController@';
+    const CONTROLLER_BRAND_CATEGORY = 'BrandCategoryController@';
 
     const URL_PRODUCT_DETAIL = '/product/';
 
@@ -40,12 +41,14 @@ class Constant
     const URL_ADMIN_LOGIN = '/admin/login';
     const URL_ADMIN_BRAND = '/admin/brand';
     const URL_ADMIN_CATEGORY = '/admin/category';
+    const URL_ADMIN_BRAND_CATEGORY = '/admin/brand_category';
 
     const PATH_TO_UPLOAD_LOGO = '/upload/logo';
 
     const PATH_ADMIN_ADMIN_LOGIN = 'admin.page.admin.login';
 
     const PATH_ADMIN_DASHBOARD = 'admin.page.dashboard';
+
     const PATH_ADMIN_BRAND_LIST = 'admin.page.brand.list';
     const PATH_ADMIN_BRAND_CREATE = 'admin.page.brand.create';
     const PATH_ADMIN_BRAND_DETAIL = 'admin.page.brand.detail';
@@ -55,4 +58,9 @@ class Constant
     const PATH_ADMIN_CATEGORY_CREATE = 'admin.page.category.create';
     const PATH_ADMIN_CATEGORY_DETAIL = 'admin.page.category.detail';
     const PATH_ADMIN_CATEGORY_EDIT = 'admin.page.category.edit';
+
+    const PATH_ADMIN_BRAND_CATEGORY_LIST = 'admin.page.brand_category.list';
+    const PATH_ADMIN_BRAND_CATEGORY_CREATE = 'admin.page.brand_category.create';
+    //const PATH_ADMIN_BRAND_CATEGORY_DETAIL = 'admin.page.brand_category.detail';
+    const PATH_ADMIN_BRAND_CATEGORY_EDIT = 'admin.page.brand_category.edit';
 }

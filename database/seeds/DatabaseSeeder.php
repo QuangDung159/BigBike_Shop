@@ -60,50 +60,62 @@ class DatabaseSeeder extends Seeder
                 [
                     'module_id' => 1,
                     'module_name' => 'Brand',
+                    'module_alias' => 'brand',
                 ],
                 [
                     'module_id' => 2,
                     'module_name' => 'Category',
+                    'module_alias' => 'category',
                 ],
                 [
                     'module_id' => 3,
                     'module_name' => 'User',
+                    'module_alias' => 'user',
                 ],
                 [
                     'module_id' => 4,
                     'module_name' => 'Product',
+                    'module_alias' => 'product',
                 ],
                 [
                     'module_id' => 5,
                     'module_name' => 'Review',
+                    'module_alias' => 'review',
                 ],
                 [
                     'module_id' => 6,
                     'module_name' => 'Slide',
+                    'module_alias' => 'slide',
                 ],
                 [
                     'module_id' => 7,
                     'module_name' => 'Admin',
+                    'module_alias' => 'admin',
                 ],
                 [
                     'module_id' => 8,
                     'module_name' => 'Order',
+                    'module_alias' => 'order',
                 ],
                 [
                     'module_id' => 9,
                     'module_name' => 'Image',
+                    'module_alias' => 'image',
                 ],
                 [
                     'module_id' => 10,
                     'module_name' => 'Brand - Category',
+                    'module_alias' => 'brand_category',
                 ],
                 [
                     'module_id' => 11,
                     'module_name' => 'Gallery',
+                    'module_alias' => 'gallery',
                 ],
                 [
                     'module_id' => 12,
                     'module_name' => 'ACL',
+                    'module_alias' => 'acl',
                 ],
             ]
         );

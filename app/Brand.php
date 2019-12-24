@@ -92,4 +92,20 @@ class Brand extends Model
             );
         Redis::del('list_brand');
     }
+
+    public static function getAllByStatusIsDeleted()
+    {
+        return DB::table(Constant::TABLE_BRAND)
+            ->where(
+                Constant::TABLE_BRAND . '.brand_status',
+                '=',
+                1
+            )
+            ->where(
+                Constant::TABLE_BRAND . '.brand_is_deleted',
+                '=',
+                0
+            )
+            ->get();
+    }
 }

@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 /**
  * @property int $brand_category_id
@@ -44,7 +46,7 @@ class BrandCategory extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function admin()
+    public function admin_created()
     {
         return $this->belongsTo('App\Admin', 'brand_category_created_by', 'admin_id');
     }
@@ -52,7 +54,7 @@ class BrandCategory extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function admin()
+    public function admin_updated()
     {
         return $this->belongsTo('App\Admin', 'brand_category_updated_by', 'admin_id');
     }
@@ -79,5 +81,80 @@ class BrandCategory extends Model
     public function products()
     {
         return $this->hasMany('App\Product', 'brand_category_id', 'brand_category_id');
+    }
+
+    public static function getBrandCategory()
+    {
+        return DB::table(Constant::TABLE_BRAND_CATEGORY)
+            ->select(
+                [
+                    Constant::TABLE_CATEGORY . '.category_name',
+                    Constant::TABLE_CATEGORY . '.category_id',
+                    Constant::TABLE_BRAND . '.brand_id',
+                    Constant::TABLE_BRAND . '.brand_name',
+                    Constant::TABLE_BRAND_CATEGORY . '.*',
+                ]
+            )
+            ->join(
+                Constant::TABLE_BRAND,
+                Constant::TABLE_BRAND_CATEGORY . '.brand_id',
+                '=',
+                Constant::TABLE_BRAND . '.brand_id'
+            )
+            ->join(
+                Constant::TABLE_CATEGORY,
+                Constant::TABLE_BRAND_CATEGORY . '.category_id',
+                '=',
+                Constant::TABLE_CATEGORY . '.category_id'
+            )
+            ->where(
+                Constant::TABLE_BRAND_CATEGORY . '.brand_category_is_deleted',
+                '=',
+                0
+            )
+            ->orderBy(
+                Constant::TABLE_BRAND_CATEGORY . '.brand_category_created_at',
+                'desc'
+            )
+            ->orderBy(
+                Constant::TABLE_BRAND_CATEGORY . '.brand_id',
+                'asc'
+            )->paginate(10);
+    }
+
+    public static function updateByBrandCategoryId($brandCategoryId, $arrData)
+    {
+        $brandCategoryId = intval($brandCategoryId);
+        DB::table(Constant::TABLE_BRAND_CATEGORY)
+            ->where(
+                Constant::TABLE_BRAND_CATEGORY . '.brand_category_id',
+                '=',
+                $brandCategoryId
+            )
+            ->update($arrData);
+    }
+
+    public static function insert($data)
+    {
+        return DB::table(Constant::TABLE_BRAND_CATEGORY)
+            ->insert($data);
+    }
+
+    public static function getByBrandIdCategoryId($brandId, $categoryId)
+    {
+        $brandId = intval($brandId);
+        $categoryId = intval($categoryId);
+
+        return DB::table(Constant::TABLE_BRAND_CATEGORY)
+            ->where(
+                Constant::TABLE_BRAND_CATEGORY . '.brand_id',
+                '=',
+                $brandId
+            )
+            ->where(
+                Constant::TABLE_BRAND_CATEGORY . '.category_id',
+                '=',
+                $categoryId
+            )->first();
     }
 }

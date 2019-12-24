@@ -118,7 +118,7 @@ class Action extends Model
 
     public static function getByName($actionName)
     {
-        $actionName = trim($actionName);
+        $actionName = str_replace(' ', '', $actionName);;
 
         return DB::table(Constant::TABLE_ACTION)
             ->where(

@@ -52,7 +52,8 @@ class Module extends Model
             ->select(
                 [
                     Constant::TABLE_MODULE . '.module_id',
-                    Constant::TABLE_MODULE . '.module_name'
+                    Constant::TABLE_MODULE . '.module_name',
+                    Constant::TABLE_MODULE . '.module_alias',
                 ]
             )
             ->join(
@@ -74,15 +75,15 @@ class Module extends Model
             )->get();
     }
 
-    public static function getByName($moduleName)
+    public static function getByName($moduleAlias)
     {
-        $moduleName = trim($moduleName);
+        $moduleAlias = trim($moduleAlias);
 
         return DB::table(Constant::TABLE_MODULE)
             ->where(
-                Constant::TABLE_MODULE . '.module_name',
+                Constant::TABLE_MODULE . '.module_alias',
                 '=',
-                $moduleName
+                $moduleAlias
             )->first();
     }
 }
