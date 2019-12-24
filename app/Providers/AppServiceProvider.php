@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Action;
 use App\Admin;
+use App\Constant;
 use App\Http\Controllers\HelperController;
 use App\Module;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Session;
@@ -95,12 +97,12 @@ class AppServiceProvider extends ServiceProvider
 
     public function getModuleWithActionAdminId($adminId)
     {
-        $listModule = json_decode(Redis::get('list_module'));
+        $listModule = Module::getByAdminId($adminId);
 
         $listModule = HelperController::convertStdToArray($listModule);
 
         foreach ($listModule as $moduleKey => &$moduleItem) {
-            $listActionByModule = Action::getActionByModuleIdAdminId($moduleItem['module_id'], $adminId);
+            $listActionByModule = Action::getActionByModuleId($moduleItem['module_id']);
             $listActionByModule = HelperController::convertStdToArray($listActionByModule);
             $arrAction = [];
             foreach ($listActionByModule as $actionKey => $actionItem) {

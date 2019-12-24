@@ -43,4 +43,34 @@ class Module extends Model
     {
         return DB::table(Constant::TABLE_MODULE)->get();
     }
+
+    public static function getByAdminId($adminId)
+    {
+        $adminId = intval($adminId);
+        return DB::table(Constant::TABLE_MODULE)
+            ->distinct()
+            ->select(
+                [
+                    Constant::TABLE_MODULE . '.module_id',
+                    Constant::TABLE_MODULE . '.module_name'
+                ]
+            )
+            ->join(
+                Constant::TABLE_ACTION_MODULE,
+                Constant::TABLE_MODULE . '.module_id',
+                '=',
+                Constant::TABLE_ACTION_MODULE . '.module_id'
+            )
+            ->join(
+                Constant::TABLE_ADMIN_ACTION_MODULE,
+                Constant::TABLE_ACTION_MODULE . '.action_module_id',
+                '=',
+                Constant::TABLE_ADMIN_ACTION_MODULE . '.action_module_id'
+            )
+            ->where(
+                Constant::TABLE_ADMIN_ACTION_MODULE . '.admin_id',
+                '=',
+                $adminId
+            )->get();
+    }
 }
