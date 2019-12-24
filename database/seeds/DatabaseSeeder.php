@@ -124,5 +124,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ImageGallerySeeder::class);
         $this->call(SlideSeeder::class);
         $this->call(ProductThumbnailSeeder::class);
+        $this->call(RootAdminActionModuleSeeder::class);
     }
 }

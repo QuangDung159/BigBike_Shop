@@ -51,8 +51,8 @@ Route::group(['middleware' => 'authen.admin'], function () {
     Route::post('/admin/category/edit', Constant::CONTROLLER_CATEGORY . 'doEditCategory');
 
     // admin
-    Route::get('/admin/logout', Constant::CONTROLLER_ADMIN . 'doLogout');
 });
 
 Route::get('/admin/login', Constant::CONTROLLER_ADMIN . 'showAdminLoginPage');
 Route::post('/admin/login', Constant::CONTROLLER_ADMIN . 'doLogin');
+Route::get('/admin/logout', Constant::CONTROLLER_ADMIN . 'doLogout');

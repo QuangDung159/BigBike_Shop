@@ -37,6 +37,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
 <div class="log-w3">
     <div class="w3layouts-main">
+
+        <?php
+        if (Session::get('msg_login_fail') != null) {
+            echo '<div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>' . Session::get('msg_login_fail') . '</strong>
+                      </div>';
+            Session::put('msg_login_fail', null);
+        }
+        ?>
+
+        <?php
+        if (Session::get('msg_no_authen') != null) {
+            echo '<div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>' . Session::get('msg_no_authen') . '</strong>
+                      </div>';
+            Session::put('msg_no_authen', null);
+        }
+        ?>
+
         <h2>Sign In Now</h2>
         <form action="{{URL::to('/admin/login')}}" method="post">
             {{csrf_field()}}
