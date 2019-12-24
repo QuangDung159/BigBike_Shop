@@ -59,7 +59,7 @@ class AppServiceProvider extends ServiceProvider
                 Redis::set('list_module', json_encode($listModuleToCache));
             }
 
-            $listModule = HelperController::convertArrayToStd($this->getModuleWithAction());
+            $listModule = HelperController::convertArrayToStd($this->getModuleWithActionAdminId(Session::get('admin_id')));
 
             $admin = Admin::getById(Session::get('admin_id'));
 
@@ -76,6 +76,31 @@ class AppServiceProvider extends ServiceProvider
 
         foreach ($listModule as $moduleKey => &$moduleItem) {
             $listActionByModule = Action::getActionByModuleId($moduleItem['module_id']);
+            $listActionByModule = HelperController::convertStdToArray($listActionByModule);
+            $arrAction = [];
+            foreach ($listActionByModule as $actionKey => $actionItem) {
+                if ($actionItem['action_name'] != 'Delete' && $actionItem['action_name'] != 'Update') {
+                    $url = '/admin/' . $moduleItem['module_name'] . '/' . $actionItem['action_name'];
+                    array_push($arrAction, [
+                        'action_name' => $actionItem['action_name'],
+                        'action_url' => strtolower($url),
+                    ]);
+                }
+            }
+            $moduleItem = $moduleItem + ['list_action' => $arrAction];
+        }
+
+        return HelperController::convertArrayToStd($listModule);
+    }
+
+    public function getModuleWithActionAdminId($adminId)
+    {
+        $listModule = json_decode(Redis::get('list_module'));
+
+        $listModule = HelperController::convertStdToArray($listModule);
+
+        foreach ($listModule as $moduleKey => &$moduleItem) {
+            $listActionByModule = Action::getActionByModuleIdAdminId($moduleItem['module_id'], $adminId);
             $listActionByModule = HelperController::convertStdToArray($listActionByModule);
             $arrAction = [];
             foreach ($listActionByModule as $actionKey => $actionItem) {

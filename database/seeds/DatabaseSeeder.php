@@ -91,6 +91,10 @@ class DatabaseSeeder extends Seeder
                     'module_id' => 11,
                     'module_name' => 'Gallery',
                 ],
+                [
+                    'module_id' => 12,
+                    'module_name' => 'ACL',
+                ],
             ]
         );
 

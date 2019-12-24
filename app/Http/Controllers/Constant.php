@@ -20,6 +20,7 @@ class Constant
     const TABLE_ACTION = 'action';
     const TABLE_MODULE = 'module';
     const TABLE_ACTION_MODULE = 'action_module';
+    const TABLE_ADMIN_ACTION_MODULE = 'admin_action_module';
 
     const PATH_HOME = 'client.page.home';
     const PATH_PRODUCT_DETAIL = 'client.page.product_detail';
