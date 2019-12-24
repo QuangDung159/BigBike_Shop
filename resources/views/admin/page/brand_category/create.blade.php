@@ -16,24 +16,55 @@
                              </span>
                             </header>
                             <div class="panel-body">
-                                <form role="form" class="form-horizontal"
-                                      action="{{URL::to('/admin/brand-category/create')}}"
-                                      method="post"
-                                      enctype="multipart/form-data">
+                                <form role="form" class="form-horizontal bucket-form"
+                                      action="{{URL::to('/admin/brand_category/create')}}"
+                                      method="post">
                                     {{csrf_field()}}
 
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label col-lg-3" for="brand_id">
+                                            Brand Name
+                                        </label>
+                                        <div class="col-lg-6">
+                                            <select class="form-control m-bot15" name="brand_id" id="brand_id">
+                                                @foreach($listBrand as $key => $brandItem)
+                                                    <option
+                                                        value="{{$brandItem->brand_id}}">{{$brandItem->brand_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label col-lg-3" for="category_id">
+                                            Category Name
+                                        </label>
+                                        <div class="col-lg-6">
+                                            <select class="form-control m-bot15" name="category_id"
+                                                    id="category_id">
+                                                @foreach($listCategory as $key => $categoryItem)
+                                                    <option
+                                                        value="{{$categoryItem->category_id}}">{{$categoryItem->category_name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
 
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label"></label>
                                         <div class="col-lg-6">
-                                            @if($errors->any())
-                                                <div class="alert alert-danger" style="margin-top: 10px">
+
+                                            <?php
+                                            if (Session::has('msg_exist')) {
+                                                echo
+                                                    '<div class="alert alert-danger" style="margin-top: 10px">
                                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                    @foreach($errors->all() as $errorItem)
-                                                        <p>{{$errorItem}}</p>
-                                                    @endforeach
-                                                </div>
-                                            @endif
+                                                    <p>' . Session::get('msg_exist') . '</p>
+                                                </div>';
+                                                Session::forget('msg_exist');
+                                            }
+                                            ?>
+
                                         </div>
                                     </div>
 

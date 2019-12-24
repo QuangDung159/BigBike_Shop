@@ -27,7 +27,6 @@ class BrandCategorySeeder extends Seeder
                             'category_id' => $category->category_id,
                             'brand_category_created_at' => time(),
                             'brand_category_created_by' => 1,
-                            'brand_category_updated_by' => 1,
                             'brand_category_id' => $count
                         ]
                     );

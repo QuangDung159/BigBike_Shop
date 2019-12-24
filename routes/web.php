@@ -51,6 +51,16 @@ Route::group(['middleware' => 'authen.admin'], function () {
         Route::get('/admin/category/read/detail/{categoryId}', Constant::CONTROLLER_CATEGORY . 'showDetailPage');
         Route::get('/admin/category/update/{categoryId}', Constant::CONTROLLER_CATEGORY . 'showEditPage');
         Route::post('/admin/category/update', Constant::CONTROLLER_CATEGORY . 'doEditCategory');
+
+        // brand - category
+        Route::get('/admin/brand_category/read', Constant::CONTROLLER_BRAND_CATEGORY . 'showListPage');
+        Route::get('/admin/brand_category/delete/{categoryId}', Constant::CONTROLLER_BRAND_CATEGORY . 'deleteBrandCategory');
+        Route::get('/admin/brand_category/create', Constant::CONTROLLER_BRAND_CATEGORY . 'showCreateBrandCategoryPage');
+        Route::post('/admin/brand_category/create', Constant::CONTROLLER_BRAND_CATEGORY . 'doCreateBrandCategory');
+        Route::get('/admin/brand_category/update/change-status/{categoryId}/{status}', Constant::CONTROLLER_BRAND_CATEGORY . 'changeStatus');
+        //Route::get('/admin/brand_category/read/detail/{categoryId}', Constant::CONTROLLER_BRAND_CATEGORY . 'showDetailPage');
+        Route::get('/admin/brand_category/update/{categoryId}', Constant::CONTROLLER_BRAND_CATEGORY . 'showEditPage');
+        Route::post('/admin/brand_category/update', Constant::CONTROLLER_BRAND_CATEGORY . 'doEditBrandCategory');
     });
 });
 

@@ -107,7 +107,7 @@ class AppServiceProvider extends ServiceProvider
             $arrAction = [];
             foreach ($listActionByModule as $actionKey => $actionItem) {
                 if ($actionItem['action_name'] != 'Delete' && $actionItem['action_name'] != 'Update') {
-                    $url = '/admin/' . $moduleItem['module_name'] . '/' . $actionItem['action_name'];
+                    $url = '/admin/' . $moduleItem['module_alias'] . '/' . $actionItem['action_name'];
                     array_push($arrAction, [
                         'action_name' => $actionItem['action_name'],
                         'action_url' => strtolower($url),

@@ -107,4 +107,20 @@ class Category extends Model
             );
         Redis::del('list_category');
     }
+
+    public static function getAllByStatusIsDeleted()
+    {
+        return DB::table(Constant::TABLE_CATEGORY)
+            ->where(
+                Constant::TABLE_CATEGORY . '.category_status',
+                '=',
+                1
+            )
+            ->where(
+                Constant::TABLE_CATEGORY . '.category_is_deleted',
+                '=',
+                0
+            )
+            ->get();
+    }
 }
