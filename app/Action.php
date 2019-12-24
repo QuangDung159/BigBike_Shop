@@ -115,4 +115,16 @@ class Action extends Model
                 $moduleId
             )->get();
     }
+
+    public static function getByName($actionName)
+    {
+        $actionName = trim($actionName);
+
+        return DB::table(Constant::TABLE_ACTION)
+            ->where(
+                Constant::TABLE_ACTION . '.action_name',
+                '=',
+                $actionName
+            )->first();
+    }
 }

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $admin_action_module_id
@@ -69,5 +70,24 @@ class AdminActionModule extends Model
     public function admin_updated()
     {
         return $this->belongsTo('App\Admin', 'admin_action_module_updated_by', 'admin_id');
+    }
+
+    public static function getByAdminIdActionModuleId($adminId, $actionModuleId)
+    {
+        $adminId = intval($adminId);
+        $actionModuleId = intval($actionModuleId);
+
+        return DB::table(Constant::TABLE_ADMIN_ACTION_MODULE)
+            ->where(
+                Constant::TABLE_ADMIN_ACTION_MODULE . '.admin_id',
+                '=',
+                $adminId
+            )
+            ->where(
+                Constant::TABLE_ADMIN_ACTION_MODULE . '.action_module_id',
+                '=',
+                $actionModuleId
+            )
+            ->first();
     }
 }

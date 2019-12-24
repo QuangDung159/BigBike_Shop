@@ -16,7 +16,7 @@
                              </span>
                             </header>
                             <div class="panel-body">
-                                <form role="form" class="form-horizontal" action="{{URL::to('/admin/brand/edit')}}"
+                                <form role="form" class="form-horizontal" action="{{URL::to('/admin/brand/update')}}"
                                       method="post"
                                       enctype="multipart/form-data">
                                     {{csrf_field()}}

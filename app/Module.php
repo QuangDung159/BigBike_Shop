@@ -73,4 +73,16 @@ class Module extends Model
                 $adminId
             )->get();
     }
+
+    public static function getByName($moduleName)
+    {
+        $moduleName = trim($moduleName);
+
+        return DB::table(Constant::TABLE_MODULE)
+            ->where(
+                Constant::TABLE_MODULE . '.module_name',
+                '=',
+                $moduleName
+            )->first();
+    }
 }

@@ -9,7 +9,7 @@
                 echo '<div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>' . Session::get('msg_update_success') .
-                    '<a href="' . URL::to('/admin/category/edit') . '/' . $category->category_id . '"> Continue edit </a>' . ' or <a href="' . URL::to('/admin/category/read') . '"> back to listing.</a>' . '</strong>
+                    '<a href="' . URL::to('/admin/category/update') . '/' . $category->category_id . '"> Continue edit </a>' . ' or <a href="' . URL::to('/admin/category/read') . '"> back to listing.</a>' . '</strong>
                       </div>';
                 Session::put('msg_update_success', null);
             }

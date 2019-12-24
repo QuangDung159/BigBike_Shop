@@ -80,14 +80,14 @@
                                                                                 name="post[]"><i></i></label>
                                     </td>
                                     <td>
-                                        <a href="{{URL::to('/admin/category/detail')}}/{{$categoryItem->category_id}}">{{$categoryItem->category_name }}</a>
+                                        <a href="{{URL::to('/admin/category/read/detail')}}/{{$categoryItem->category_id}}">{{$categoryItem->category_name }}</a>
                                     </td>
                                     <td>
                                         @if($categoryItem->category_status == 0)
-                                            <a href="{{URL::to('/admin/category/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
+                                            <a href="{{URL::to('/admin/category/update/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
                                                     class="label label-default">Inactive</span></a>
                                         @else
-                                            <a href="{{URL::to('/admin/category/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
+                                            <a href="{{URL::to('/admin/category/update/change-status')}}/{{$categoryItem->category_id}}/{{$categoryItem->category_status}}"><span
                                                     class="label label-success">Active</span></a>
                                         @endif
                                     </td>
@@ -119,7 +119,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="{{URL::to('/admin/category/edit')}}/{{$categoryItem->category_id}}"
+                                        <a href="{{URL::to('/admin/category/update')}}/{{$categoryItem->category_id}}"
                                            class="active" ui-toggle-class="">
                                             <i class="fa fa-edit text-success text-active"></i>
                                         </a>

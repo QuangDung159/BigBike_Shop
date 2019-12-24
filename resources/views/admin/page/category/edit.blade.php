@@ -16,7 +16,7 @@
                              </span>
                             </header>
                             <div class="panel-body">
-                                <form role="form" class="form-horizontal" action="{{URL::to('/admin/category/edit')}}"
+                                <form role="form" class="form-horizontal" action="{{URL::to('/admin/category/update')}}"
                                       method="post"
                                       enctype="multipart/form-data">
                                     {{csrf_field()}}

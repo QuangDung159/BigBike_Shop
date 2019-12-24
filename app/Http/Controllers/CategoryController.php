@@ -230,6 +230,6 @@ class CategoryController extends Controller
 
         Session::put('msg_update_success', 'Update category successfully!');
 
-        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/detail/' . $categoryId);
+        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/read/detail/' . $categoryId);
     }
 }
