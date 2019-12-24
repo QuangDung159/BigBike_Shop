@@ -181,6 +181,6 @@ class BrandController extends Controller
 
         Session::put('msg_update_success', 'Update brand successfully!');
 
-        return Redirect::to(Constant::URL_ADMIN_BRAND . '/detail/' . $brandId);
+        return Redirect::to(Constant::URL_ADMIN_BRAND . '/read/detail/' . $brandId);
     }
 }

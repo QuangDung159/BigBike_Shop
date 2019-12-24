@@ -15,12 +15,22 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('admin')->insert(
             [
-                'admin_id' => 1,
-                'admin_name' => 'Root Admin',
-                'admin_email' => 'root@email.com',
-                'admin_password' => md5('123'),
-                'admin_is_root' => 1,
-                'admin_created_at' => time(),
+                [
+                    'admin_id' => 1,
+                    'admin_name' => 'Root Admin',
+                    'admin_email' => 'root@email.com',
+                    'admin_password' => md5('123'),
+                    'admin_is_root' => 1,
+                    'admin_created_at' => time(),
+                ],
+                [
+                    'admin_id' => 2,
+                    'admin_name' => 'Sub Admin',
+                    'admin_email' => 'sub1@email.com',
+                    'admin_password' => md5('123'),
+                    'admin_is_root' => 1,
+                    'admin_created_at' => time(),
+                ]
             ]
         );
 
@@ -90,6 +100,10 @@ class DatabaseSeeder extends Seeder
                 [
                     'module_id' => 11,
                     'module_name' => 'Gallery',
+                ],
+                [
+                    'module_id' => 12,
+                    'module_name' => 'ACL',
                 ],
             ]
         );

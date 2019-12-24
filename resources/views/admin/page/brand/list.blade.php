@@ -80,14 +80,14 @@
                                                                                 name="post[]"><i></i></label>
                                     </td>
                                     <td>
-                                        <a href="{{URL::to('/admin/brand/detail')}}/{{$brandItem->brand_id}}">{{$brandItem->brand_name }}</a>
+                                        <a href="{{URL::to('/admin/brand/read/detail')}}/{{$brandItem->brand_id}}">{{$brandItem->brand_name }}</a>
                                     </td>
                                     <td>
                                         @if($brandItem->brand_status == 0)
-                                            <a href="{{URL::to('/admin/brand/change-status')}}/{{$brandItem->brand_id}}/{{$brandItem->brand_status}}"><span
+                                            <a href="{{URL::to('/admin/brand/update/change-status')}}/{{$brandItem->brand_id}}/{{$brandItem->brand_status}}"><span
                                                     class="label label-default">Inactive</span></a>
                                         @else
-                                            <a href="{{URL::to('/admin/brand/change-status')}}/{{$brandItem->brand_id}}/{{$brandItem->brand_status}}"><span
+                                            <a href="{{URL::to('/admin/brand/update/change-status')}}/{{$brandItem->brand_id}}/{{$brandItem->brand_status}}"><span
                                                     class="label label-success">Active</span></a>
                                         @endif
                                     </td>
@@ -119,7 +119,7 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="{{URL::to('/admin/brand/edit')}}/{{$brandItem->brand_id}}"
+                                        <a href="{{URL::to('/admin/brand/update')}}/{{$brandItem->brand_id}}"
                                            class="active" ui-toggle-class="">
                                             <i class="fa fa-edit text-success text-active"></i>
                                         </a>

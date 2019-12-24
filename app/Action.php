@@ -70,4 +70,61 @@ class Action extends Model
                 $moduleId
             )->get();
     }
+
+    public static function getActionByModuleIdAdminId($moduleId, $adminId)
+    {
+        $moduleId = intval($moduleId);
+        $adminId = intval($adminId);
+
+        return DB::table(Constant::TABLE_ACTION)
+            ->distinct()
+            ->select(
+                [
+                    Constant::TABLE_MODULE . '.module_id',
+                    Constant::TABLE_MODULE . '.module_name',
+                    Constant::TABLE_ACTION . '.action_id',
+                    Constant::TABLE_ACTION . '.action_name'
+                ]
+            )
+            ->join(
+                Constant::TABLE_ACTION_MODULE,
+                Constant::TABLE_ACTION . '.action_id',
+                '=',
+                Constant::TABLE_ACTION_MODULE . '.action_id'
+            )
+            ->join(
+                Constant::TABLE_MODULE,
+                Constant::TABLE_ACTION_MODULE . '.module_id',
+                '=',
+                Constant::TABLE_MODULE . '.module_id'
+            )
+            ->join(
+                Constant::TABLE_ADMIN_ACTION_MODULE,
+                Constant::TABLE_ACTION_MODULE . '.action_module_id',
+                '=',
+                Constant::TABLE_ACTION_MODULE . '.action_module_id'
+            )
+            ->where(
+                Constant::TABLE_ADMIN_ACTION_MODULE . '.admin_id',
+                '=',
+                $adminId
+            )
+            ->where(
+                Constant::TABLE_MODULE . '.module_id',
+                '=',
+                $moduleId
+            )->get();
+    }
+
+    public static function getByName($actionName)
+    {
+        $actionName = trim($actionName);
+
+        return DB::table(Constant::TABLE_ACTION)
+            ->where(
+                Constant::TABLE_ACTION . '.action_name',
+                '=',
+                $actionName
+            )->first();
+    }
 }

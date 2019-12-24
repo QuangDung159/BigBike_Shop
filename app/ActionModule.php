@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $action_module_id
@@ -55,5 +56,23 @@ class ActionModule extends Model
     public function admins()
     {
         return $this->hasMany('App\Admin', 'action_module_id', 'action_module_id');
+    }
+
+    public static function getByActionIdModuleId($actionId, $moduleId)
+    {
+        $actionId = intval($actionId);
+        $moduleId = intval($moduleId);
+
+        return DB::table(Constant::TABLE_ACTION_MODULE)
+            ->where(
+                Constant::TABLE_ACTION_MODULE . '.action_id',
+                '=',
+                $actionId
+            )
+            ->where(
+                Constant::TABLE_ACTION_MODULE . '.module_id',
+                '=',
+                $moduleId
+            )->first();
     }
 }
