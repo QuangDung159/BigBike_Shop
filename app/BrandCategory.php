@@ -155,6 +155,47 @@ class BrandCategory extends Model
                 Constant::TABLE_BRAND_CATEGORY . '.category_id',
                 '=',
                 $categoryId
+            )
+            ->where(
+                Constant::TABLE_BRAND_CATEGORY . '.brand_category_is_deleted',
+                '=',
+                0
             )->first();
+    }
+
+    public static function getBrandNameCategoryNameById($brandCategoryId)
+    {
+        $brandCategoryId = intval($brandCategoryId);
+        return DB::table(Constant::TABLE_BRAND_CATEGORY)
+            ->select(
+                [
+                    Constant::TABLE_BRAND_CATEGORY . '.*',
+                    Constant::TABLE_BRAND . '.brand_name',
+                    Constant::TABLE_CATEGORY . '.category_name',
+                ]
+            )
+            ->join(
+                Constant::TABLE_BRAND,
+                Constant::TABLE_BRAND_CATEGORY . '.brand_id',
+                '=',
+                Constant::TABLE_BRAND . '.brand_id'
+            )
+            ->join(
+                Constant::TABLE_CATEGORY,
+                Constant::TABLE_BRAND_CATEGORY . '.category_id',
+                '=',
+                Constant::TABLE_CATEGORY . '.category_id'
+            )
+            ->where(
+                Constant::TABLE_BRAND_CATEGORY . '.brand_category_id',
+                '=',
+                $brandCategoryId
+            )
+            ->where(
+                Constant::TABLE_BRAND_CATEGORY . '.brand_category_is_deleted',
+                '=',
+                0
+            )
+            ->first();
     }
 }

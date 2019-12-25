@@ -61,6 +61,16 @@ Route::group(['middleware' => 'authen.admin'], function () {
         //Route::get('/admin/brand_category/read/detail/{categoryId}', Constant::CONTROLLER_BRAND_CATEGORY . 'showDetailPage');
         Route::get('/admin/brand_category/update/{categoryId}', Constant::CONTROLLER_BRAND_CATEGORY . 'showEditPage');
         Route::post('/admin/brand_category/update', Constant::CONTROLLER_BRAND_CATEGORY . 'doEditBrandCategory');
+
+        // product
+        Route::get('/admin/product/read', Constant::CONTROLLER_CATEGORY . 'showListPage');
+        Route::get('/admin/product/delete/{productId}', Constant::CONTROLLER_CATEGORY . 'deleteProduct');
+        Route::get('/admin/product/create', Constant::CONTROLLER_CATEGORY . 'showCreateProductPage');
+        Route::post('/admin/product/create', Constant::CONTROLLER_CATEGORY . 'doCreateProduct');
+        Route::get('/admin/product/update/change-status/{productId}/{status}', Constant::CONTROLLER_CATEGORY . 'changeStatus');
+        Route::get('/admin/product/read/detail/{productId}', Constant::CONTROLLER_CATEGORY . 'showDetailPage');
+        Route::get('/admin/product/update/{productId}', Constant::CONTROLLER_CATEGORY . 'showEditPage');
+        Route::post('/admin/product/update', Constant::CONTROLLER_CATEGORY . 'doEditProduct');
     });
 });
 

@@ -34,19 +34,19 @@ class BrandCategoryController extends Controller
             ->with('assocAdmin', $arrAssocAdmin);
     }
 
-    public function deleteCategory($categoryId)
+    public function deleteBrandCategory($brandCategoryId)
     {
         $data = [
-            Constant::TABLE_CATEGORY . '.category_is_deleted' => 1,
-            Constant::TABLE_CATEGORY . '.category_updated_at' => time(),
-            Constant::TABLE_CATEGORY . '.category_updated_by' => 1
+            Constant::TABLE_BRAND_CATEGORY . '.brand_category_is_deleted' => 1,
+            Constant::TABLE_BRAND_CATEGORY . '.brand_category_updated_at' => time(),
+            Constant::TABLE_BRAND_CATEGORY . '.brand_category_updated_by' => Session::get('admin_id'),
         ];
 
-        Category::updateByCategoryId($categoryId, $data);
+        BrandCategory::updateByBrandCategoryId($brandCategoryId, $data);
 
-        Session::put('msg_delete_success', 'Delete category successfully!');
+        Session::put('msg_delete_success', 'Delete brand - category successfully!');
 
-        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/read');
+        return Redirect::to(Constant::URL_ADMIN_BRAND_CATEGORY . '/read');
     }
 
     public function showCreateBrandCategoryPage()
@@ -133,49 +133,38 @@ class BrandCategoryController extends Controller
 
     public function showEditPage($brandCategoryId)
     {
-        $brandCategory = BrandCategory::where(
-            Constant::TABLE_BRAND_CATEGORY . '.brand_category_id',
-            '=',
-            $brandCategoryId
-        )->where(
-            Constant::TABLE_BRAND_CATEGORY . '.brand_category_is_deleted',
-            '=',
-            0
-        )->first();
+        $brandCategory = BrandCategory::getBrandNameCategoryNameById($brandCategoryId);
+
+        $listBrand = Brand::getAllByStatusIsDeleted();
+        $listCategory = Category::getAllByStatusIsDeleted();
 
         return view(Constant::PATH_ADMIN_BRAND_CATEGORY_EDIT)
-            ->with('brandCategory', $brandCategory);
+            ->with('brandCategory', $brandCategory)
+            ->with('listBrand', $listBrand)
+            ->with('listCategory', $listCategory);
     }
 
-    public function doEditCategory(Request $req)
+    public function doEditBrandCategory(Request $req)
     {
-        $this->validate(
-            $req,
-            [
-                'category_name' => 'required',
-                'category_description' => 'required',
-            ],
-            [
-                'category_name.required' => 'Please enter category name',
-                'category_description.required' => 'Please enter category description',
-            ]
-        );
-
-        $categoryName = $req->category_name;
-        $categoryDesc = $req->category_description;
+        $brandId = $req->brand_id;
         $categoryId = $req->category_id;
+        $brandCategoryId = $req->brand_category_id;
 
-        $data = [
-            'category_name' => $categoryName,
-            'category_desc' => $categoryDesc,
-            'category_updated_by' => 1,
-            'category_updated_at' => time()
-        ];
+        $brandCategory = BrandCategory::getByBrandIdCategoryId($brandId, $categoryId);
 
-        Category::updateByCategoryId($categoryId, $data);
+        if (!$brandCategory || $brandCategory->brand_category_id == $brandCategoryId) {
+            $data = [];
+            $data['brand_id'] = $brandId;
+            $data['category_id'] = $categoryId;
+            $data['brand_category_updated_at'] = time();
+            $data['brand_category_updated_by'] = Session::get('admin_id');
 
-        Session::put('msg_update_success', 'Update category successfully!');
-
-        return Redirect::to(Constant::URL_ADMIN_CATEGORY . '/read/detail/' . $categoryId);
+            BrandCategory::updateByBrandCategoryId($brandCategoryId, $data);
+            Session::put('msg_update_success', 'Update category successfully!');
+            return Redirect::to(Constant::URL_ADMIN_BRAND_CATEGORY . '/read');
+        } else {
+            Session::put('msg_exist', 'Brand - Category was existed.');
+            return Redirect::to(Constant::URL_ADMIN_BRAND_CATEGORY . '/update/' . $brandCategoryId);
+        }
     }
 }
