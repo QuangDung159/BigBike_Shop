@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $gallery_id
@@ -40,23 +43,23 @@ class Gallery extends Model
     protected $fillable = ['product_id', 'gallery_created_by', 'gallery_updated_by', 'gallery_created_at', 'gallery_updated_at', 'gallery_status', 'gallery_is_deleted'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function admin()
+    public function admin_created()
     {
         return $this->belongsTo('App\Admin', 'gallery_created_by', 'admin_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function admin()
+    public function admin_updated()
     {
         return $this->belongsTo('App\Admin', 'gallery_updated_by', 'admin_id');
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function product()
     {
@@ -64,10 +67,37 @@ class Gallery extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function images()
     {
         return $this->hasMany('App\Image', 'gallery_id', 'gallery_id');
+    }
+
+    public static function getAll()
+    {
+        return DB::table(Constant::TABLE_GALLERY)
+            ->select(
+                [
+                    Constant::TABLE_GALLERY . '.*',
+                    Constant::TABLE_PRODUCT . '.product_name',
+                ]
+            )
+            ->join(
+                Constant::TABLE_PRODUCT,
+                Constant::TABLE_GALLERY . '.product_id',
+                '=',
+                Constant::TABLE_PRODUCT . '.product_id'
+            )
+            ->where(
+                Constant::TABLE_GALLERY . '.gallery_is_deleted',
+                '=',
+                0
+            )
+            ->orderBy(
+                Constant::TABLE_GALLERY . '.gallery_created_at',
+                'desc'
+            )
+            ->paginate(10);
     }
 }

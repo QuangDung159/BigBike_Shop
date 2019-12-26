@@ -22,7 +22,7 @@ class Image extends Migration
             $table->unsignedInteger('image_updated_by')->nullable();
             $table->unsignedInteger('image_created_by');
             $table->tinyInteger('image_status')->default(1);
-            $table->tinyInteger('image_is_delete')->default(0);
+            $table->tinyInteger('image_is_deleted')->default(0);
         });
     }
 
