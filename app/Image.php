@@ -103,4 +103,10 @@ class Image extends Model
             )
             ->get();
     }
+
+    public static function insert($data)
+    {
+        return DB::table(Constant::TABLE_IMAGE)
+            ->insert($data);
+    }
 }

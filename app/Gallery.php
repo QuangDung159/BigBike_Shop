@@ -100,4 +100,10 @@ class Gallery extends Model
             )
             ->paginate(10);
     }
+
+    public static function insertGetId($data)
+    {
+        return DB::table(Constant::TABLE_GALLERY)
+            ->insertGetId($data);
+    }
 }

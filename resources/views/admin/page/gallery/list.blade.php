@@ -66,7 +66,6 @@
                                 </th>
                                 <th>Gallery Name</th>
                                 <th>Product Name</th>
-                                <th>Status</th>
                                 <th>Created At</th>
                                 <th>Created By</th>
                                 <th>Updated At</th>
@@ -89,15 +88,6 @@
                                         <span class="text-ellipsis">
                                             {{$galleryItem->product_name}}
                                         </span>
-                                    </td>
-                                    <td>
-                                        @if($galleryItem->gallery_status == 0)
-                                            <a href="{{URL::to('/admin/gallery/update/change-status')}}/{{$galleryItem->gallery_id}}/{{$galleryItem->gallery_status}}"><span
-                                                    class="label label-default">Inactive</span></a>
-                                        @else
-                                            <a href="{{URL::to('/admin/gallery/update/change-status')}}/{{$galleryItem->gallery_id}}/{{$galleryItem->gallery_status}}"><span
-                                                    class="label label-success">Active</span></a>
-                                        @endif
                                     </td>
                                     <td>
                                         <span class="text-ellipsis">
@@ -130,10 +120,6 @@
                                         <a href="{{URL::to('/admin/gallery/update')}}/{{$galleryItem->gallery_id}}"
                                            class="active" ui-toggle-class="">
                                             <i class="fa fa-edit text-success text-active"></i>
-                                        </a>
-                                        <a href="{{URL::to('/admin/gallery/delete')}}/{{$galleryItem->gallery_id}}"
-                                           onclick="return confirm('Are you want to delete this?')">
-                                            <i class="fa fa-trash text-danger text"></i>
                                         </a>
                                     </td>
                                 </tr>

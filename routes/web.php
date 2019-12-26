@@ -74,10 +74,8 @@ Route::group(['middleware' => 'authen.admin'], function () {
 
         // gallery
         Route::get('/admin/gallery/read', Constant::CONTROLLER_GALLERY . 'showListPage');
-        Route::get('/admin/gallery/delete/{productId}', Constant::CONTROLLER_GALLERY . 'deleteProduct');
-        Route::get('/admin/gallery/create', Constant::CONTROLLER_GALLERY . 'showCreateProductPage');
-        Route::post('/admin/gallery/create', Constant::CONTROLLER_GALLERY . 'doCreateProduct');
-        Route::get('/admin/gallery/update/change-status/{productId}/{status}', Constant::CONTROLLER_GALLERY . 'changeStatus');
+        Route::get('/admin/gallery/create', Constant::CONTROLLER_GALLERY . 'showCreateGalleryPage');
+        Route::post('/admin/gallery/create', Constant::CONTROLLER_GALLERY . 'doCreateGallery');
         Route::get('/admin/gallery/read/detail/{productId}', Constant::CONTROLLER_GALLERY . 'showDetailPage');
         Route::get('/admin/gallery/update/{productId}', Constant::CONTROLLER_GALLERY . 'showEditPage');
         Route::post('/admin/gallery/update', Constant::CONTROLLER_GALLERY . 'doEditProduct');

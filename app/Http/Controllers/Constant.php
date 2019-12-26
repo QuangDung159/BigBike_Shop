@@ -43,6 +43,7 @@ class Constant
     const URL_ADMIN_BRAND = '/admin/brand';
     const URL_ADMIN_CATEGORY = '/admin/category';
     const URL_ADMIN_BRAND_CATEGORY = '/admin/brand_category';
+    const URL_ADMIN_BRAND_GALLERY = '/admin/gallery';
 
     const PATH_TO_UPLOAD_LOGO = '/upload/logo';
 

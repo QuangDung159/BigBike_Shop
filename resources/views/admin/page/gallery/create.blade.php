@@ -8,7 +8,7 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                Create New Brand - Category
+                                Create New Gallery
                                 <span class="tools pull-right">
 {{--                                <a class="fa fa-chevron-down" href="javascript:;"></a>--}}
                                     {{--                                <a class="fa fa-cog" href="javascript:;"></a>--}}
@@ -17,42 +17,69 @@
                             </header>
                             <div class="panel-body">
                                 <form role="form" class="form-horizontal bucket-form"
-                                      action="{{URL::to('/admin/brand_category/create')}}"
-                                      method="post">
+                                      action="{{URL::to('/admin/gallery/create')}}"
+                                      method="post" enctype="multipart/form-data">
                                     {{csrf_field()}}
 
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label col-lg-3" for="brand_id">
-                                            Brand Name
-                                        </label>
+                                        <label class="col-lg-3 control-label">Gallery Name</label>
                                         <div class="col-lg-6">
-                                            <select class="form-control m-bot15" name="brand_id" id="brand_id">
-                                                @foreach($listBrand as $key => $brandItem)
+                                            <input type="text" placeholder="Enter gallery name" name="gallery_name"
+                                                   id="f-name"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label col-lg-3" for="product_id">
+                                            Product Name
+                                        </label>
+                                        <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right"
+                                           title="List product without gallery"></i>
+                                        <div class="col-lg-6">
+                                            <select class="form-control m-bot15" name="product_id"
+                                                    id="product_id">
+                                                @foreach($listProduct as $key => $productItem)
                                                     <option
-                                                        value="{{$brandItem->brand_id}}">{{$brandItem->brand_name}}</option>
+                                                        value="{{$productItem->product_id}}">{{$productItem->product_name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label col-lg-3" for="category_id">
-                                            Category Name
-                                        </label>
+                                        <label class="col-lg-3 control-label">Image 1</label>
                                         <div class="col-lg-6">
-                                            <select class="form-control m-bot15" name="category_id"
-                                                    id="category_id">
-                                                @foreach($listCategory as $key => $categoryItem)
-                                                    <option
-                                                        value="{{$categoryItem->category_id}}">{{$categoryItem->category_name}}</option>
-                                                @endforeach
-                                            </select>
+                                            <input type="file" name="image_path_1">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Image 2</label>
+                                        <div class="col-lg-6">
+                                            <input type="file" name="image_path_2">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Image 3</label>
+                                        <div class="col-lg-6">
+                                            <input type="file" name="image_path_3">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label"></label>
                                         <div class="col-lg-6">
+
+                                            @if($errors->any())
+                                                <div class="alert alert-danger" style="margin-top: 10px">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                    @foreach($errors->all() as $errorItem)
+                                                        <p>{{$errorItem}}</p>
+                                                    @endforeach
+                                                </div>
+                                            @endif
 
                                             <?php
                                             if (Session::has('msg_exist')) {
@@ -89,4 +116,9 @@
         </div>
         <!-- / footer -->
     </section>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 @endsection
