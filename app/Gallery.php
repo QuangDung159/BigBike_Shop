@@ -121,6 +121,7 @@ class Gallery extends Model
                     Constant::TABLE_GALLERY . '.*',
                     Constant::TABLE_PRODUCT . '.product_name',
                     Constant::TABLE_PRODUCT . '.product_id',
+                    Constant::TABLE_PRODUCT . '.product_name',
                 ]
             )
             ->join(
@@ -140,5 +141,43 @@ class Gallery extends Model
                 $galleryId
             )
             ->first();
+    }
+
+    /**
+     * @param int $galleryId
+     * @return Model|Builder|object|null
+     */
+    public static function getById($galleryId)
+    {
+        $galleryId = intval($galleryId);
+        return DB::table(Constant::TABLE_GALLERY)
+            ->where(
+                Constant::TABLE_GALLERY . '.gallery_is_deleted',
+                '=',
+                0
+            )
+            ->where(
+                Constant::TABLE_GALLERY . '.gallery_id',
+                '=',
+                $galleryId
+            )
+            ->first();
+    }
+
+    /**
+     * @param int $galleryId
+     * @param array $data
+     * @return int
+     */
+    public static function updateById($galleryId, $data)
+    {
+        $galleryId = intval($galleryId);
+        return DB::table(Constant::TABLE_GALLERY)
+            ->where(
+                Constant::TABLE_GALLERY . '.gallery_id',
+                '=',
+                $galleryId
+            )
+            ->update($data);
     }
 }

@@ -9,7 +9,7 @@
                 echo '<div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>' . Session::get('msg_update_success') .
-                    '<a href="' . URL::to('/admin/gallery/update') . '/' . $gallery->gallery_id . '"> Continue edit </a>' . ' or <a href="' . URL::to('/admin/category/read') . '"> back to listing.</a>' . '</strong>
+                    '<a href="' . URL::to('/admin/gallery/update') . '/' . $gallery->gallery_id . '"> Continue edit </a>' . ' or <a href="' . URL::to('/admin/gallery/read') . '"> back to listing.</a>' . '</strong>
                       </div>';
                 Session::put('msg_update_success', null);
             }
@@ -41,10 +41,10 @@
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Product Name</label>
                                         <div class="col-lg-6">
-                                            <textarea type="text"
-                                                      name="gallery_description"
-                                                      id="l-name" disabled
-                                                      class="form-control">{{$gallery->product_name}}</textarea>
+                                            <input type="text"
+                                                   name="gallery_description"
+                                                   id="l-name" disabled
+                                                   class="form-control" value="{{$gallery->product_name}}">
                                         </div>
                                     </div>
 
@@ -52,7 +52,7 @@
                                         <label class="col-lg-3 control-label">Gallery Images</label>
                                         @foreach($listImage as $key => $imageItem)
                                             <img width="100" alt=""
-                                                 src="{{asset('/upload/logo')}}/{{$imageItem->image_path}}">
+                                                 src="{{asset('/client/img/product/product')}}/{{$imageItem->image_path}}">
                                         @endforeach
                                     </div>
                                 </form>

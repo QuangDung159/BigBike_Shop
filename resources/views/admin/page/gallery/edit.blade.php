@@ -8,7 +8,7 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                Edit {{$brandCategory->brand_name}} - {{$brandCategory->category_name}}
+                                Edit {{$gallery->gallery_name}}
                                 <span class="tools pull-right">
 {{--                                <a class="fa fa-chevron-down" href="javascript:;"></a>--}}
                                     {{--                                <a class="fa fa-cog" href="javascript:;"></a>--}}
@@ -17,81 +17,64 @@
                             </header>
                             <div class="panel-body">
                                 <form role="form" class="form-horizontal"
-                                      action="{{URL::to('/admin/brand_category/update')}}"
+                                      action="{{URL::to('/admin/gallery/update')}}"
                                       method="post"
                                       enctype="multipart/form-data">
                                     {{csrf_field()}}
-                                    <input type="hidden" value="{{$brandCategory->brand_category_id}}"
-                                           name="brand_category_id">
+                                    <input type="hidden" value="{{$gallery->gallery_id}}" name="gallery_id">
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label col-lg-3" for="brand_id">
-                                            Brand Name
+                                        <label class="col-lg-3 control-label">Gallery Name</label>
+                                        <div class="col-lg-6">
+                                            <input type="text" name="gallery_name"
+                                                   id="f-name" value="{{$gallery->gallery_name}}"
+                                                   class="form-control">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label col-lg-3" for="product_id">
+                                            Product Name
                                         </label>
                                         <div class="col-lg-6">
-                                            <select class="form-control m-bot15" name="brand_id" id="brand_id">
-                                                @foreach($listBrand as $key => $brandItem)
-                                                    @if($brandItem->brand_id == $brandCategory->brand_id)
-                                                        <option
-                                                            value="{{$brandItem->brand_id}}"
-                                                            selected>{{$brandItem->brand_name}}</option>
-                                                    @else
-                                                        <option
-                                                            value="{{$brandItem->brand_id}}">{{$brandItem->brand_name}}</option>
-                                                    @endif
+                                            <select class="form-control m-bot15" name="product_id"
+                                                    id="product_id">
+                                                <option
+                                                    value="{{$gallery->product_id}}"
+                                                    selected>{{$gallery->product_name}}</option>
+                                                @foreach($listProduct as $key => $productItem)
+                                                    <option
+                                                        value="{{$productItem->product_id}}">{{$productItem->product_name}}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label col-lg-3" for="category_id">
-                                            Category Name
-                                        </label>
+                                        <label class="col-lg-3 control-label">Gallery Images</label>
+                                        @foreach($listImage as $key => $imageItem)
+                                            <img width="100" alt=""
+                                                 src="{{asset('/client/img/product/product')}}/{{$imageItem->image_path}}">
+                                        @endforeach
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Image 1</label>
                                         <div class="col-lg-6">
-                                            <select class="form-control m-bot15" name="category_id"
-                                                    id="category_id">
-                                                @foreach($listCategory as $key => $categoryItem)
-                                                    @if($categoryItem->category_id == $brandCategory->category_id)
-                                                        <option
-                                                            value="{{$categoryItem->category_id}}"
-                                                            selected>{{$categoryItem->category_name}}</option>
-                                                    @else
-                                                        <option
-                                                            value="{{$categoryItem->category_id}}">{{$categoryItem->category_name}}</option>
-                                                    @endif
-                                                @endforeach
-                                            </select>
+                                            <input type="file" name="image_path_1">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label"></label>
+                                        <label class="col-lg-3 control-label">Image 2</label>
                                         <div class="col-lg-6">
-                                            @if($errors->any())
-                                                <div class="alert alert-danger" style="margin-top: 10px">
-                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                    @foreach($errors->all() as $errorItem)
-                                                        <p>{{$errorItem}}</p>
-                                                    @endforeach
-                                                </div>
-                                            @endif
+                                            <input type="file" name="image_path_2">
                                         </div>
                                     </div>
+
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label"></label>
+                                        <label class="col-lg-3 control-label">Image 3</label>
                                         <div class="col-lg-6">
-
-                                            <?php
-                                            if (Session::has('msg_exist')) {
-                                                echo
-                                                    '<div class="alert alert-danger" style="margin-top: 10px">
-                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                    <p>' . Session::get('msg_exist') . '</p>
-                                                </div>';
-                                                Session::forget('msg_exist');
-                                            }
-                                            ?>
-
+                                            <input type="file" name="image_path_3">
                                         </div>
                                     </div>
                                     <div class="form-group">

@@ -104,7 +104,7 @@ class GalleryController extends Controller
 
         Session::put('msg_add_success', 'Create brand successfully!');
 
-        return Redirect::to(Constant::URL_ADMIN_BRAND_GALLERY . '/read');
+        return Redirect::to(Constant::URL_ADMIN_GALLERY . '/read');
     }
 
     public function showDetailPage($galleryId)
@@ -117,59 +117,45 @@ class GalleryController extends Controller
             ->with('listImage', $listImage);
     }
 
-    public function showEditPage($brandId)
+    public function showEditPage($galleryId)
     {
-        $brand = Brand::where(
-            Constant::TABLE_BRAND . '.brand_id',
-            '=',
-            $brandId
-        )->where(
-            Constant::TABLE_BRAND . '.brand_is_deleted',
-            '=',
-            0
-        )->first();
+        $gallery = Gallery::getGalleryProductById($galleryId);
+        $listProduct = Product::getListProductWithoutGallery();
+        $listImage = Image::getImageByGalleryId($galleryId);
 
-        return view(Constant::PATH_ADMIN_BRAND_EDIT)
-            ->with('brand', $brand);
+        return view(Constant::PATH_ADMIN_GALLERY_EDIT)
+            ->with('gallery', $gallery)
+            ->with('listProduct', $listProduct)
+            ->with('listImage', $listImage);
     }
 
-    public function doEditBrand(Request $req)
+    public function doEditGallery(Request $req)
     {
         $this->validate(
             $req,
             [
-                'brand_name' => 'required',
-                'brand_description' => 'required',
+                'gallery_name' => 'required',
             ],
             [
-                'brand_name.required' => 'Please enter brand name',
-                'brand_description.required' => 'Please enter brand description',
+                'gallery_name.required' => 'Please enter gallery name',
             ]
         );
 
-        $brandName = $req->brand_name;
-        $brandDesc = $req->brand_description;
-        $brandId = $req->brand_id;
-        $image = $req->file('brand_logo');
+        $galleryName = $req->gallery_name;
+        $productId = $req->product_id;
+        $galleryId = $req->gallery_id;
 
-        $data = [
-            'brand_name' => $brandName,
-            'brand_desc' => $brandDesc,
-            'brand_updated_by' => 1,
-            'brand_updated_at' => time()
-        ];
+        $galleryData = [];
+        $galleryData['gallery_name'] = $galleryName;
+        $galleryData['product_id'] = $productId;
+        $galleryData['gallery_updated_at'] = time();
+        $galleryData['gallery_updated_by'] = Session::get('admin_id');
 
-        if ($image) {
-            $newName = time() . '_' . rand(0, 9) . '_' . $req->name . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path() . Constant::PATH_TO_UPLOAD_LOGO, $newName);
-            $data['brand_logo'] = $newName;
-        }
+        Gallery::updateById($galleryId, $galleryData);
 
-        Brand::updateByBrandId($brandId, $data);
+        Session::put('msg_update_success', 'Update gallery successfully!');
 
-        Session::put('msg_update_success', 'Update brand successfully!');
-
-        return Redirect::to(Constant::URL_ADMIN_BRAND . '/read/detail/' . $brandId);
+        return Redirect::to(Constant::URL_ADMIN_GALLERY . '/read/detail/' . $galleryId);
     }
 
     /**
@@ -196,7 +182,7 @@ class GalleryController extends Controller
     public function getNameAndMoveImage($image)
     {
         $newName = time() . '_' . rand(0, 99) . '.' . $image->getClientOriginalExtension();
-        $image->move(public_path() . Constant::PATH_TO_UPLOAD_LOGO, $newName);
+        $image->move(public_path() . Constant::PATH_TO_UPLOAD_PRODUCT_IMAGE, $newName);
         return $newName;
     }
 }
