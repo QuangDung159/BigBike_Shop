@@ -5,11 +5,11 @@
 
             <?php
             if (Session::get('msg_update_success') != null) {
-                /** @var TYPE_NAME $category */
+                /** @var TYPE_NAME $gallery */
                 echo '<div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>' . Session::get('msg_update_success') .
-                    '<a href="' . URL::to('/admin/category/update') . '/' . $category->category_id . '"> Continue edit </a>' . ' or <a href="' . URL::to('/admin/category/read') . '"> back to listing.</a>' . '</strong>
+                    '<a href="' . URL::to('/admin/gallery/update') . '/' . $gallery->gallery_id . '"> Continue edit </a>' . ' or <a href="' . URL::to('/admin/category/read') . '"> back to listing.</a>' . '</strong>
                       </div>';
                 Session::put('msg_update_success', null);
             }
@@ -21,7 +21,7 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                {{$category->category_name}}
+                                {{$gallery->gallery_name}}
                                 <span class="tools pull-right">
 {{--                                <a class="fa fa-chevron-down" href="javascript:;"></a>--}}
                                     {{--                                <a class="fa fa-cog" href="javascript:;"></a>--}}
@@ -31,21 +31,29 @@
                             <div class="panel-body">
                                 <form role="form" class="form-horizontal">
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Category Name</label>
+                                        <label class="col-lg-3 control-label">Gallery Name</label>
                                         <div class="col-lg-6">
-                                            <input type="text" name="category_name"
-                                                   id="f-name" value="{{$category->category_name}}"
+                                            <input type="text" name="gallery_name"
+                                                   id="f-name" value="{{$gallery->gallery_name}}"
                                                    class="form-control" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-lg-3 control-label">Category Description</label>
+                                        <label class="col-lg-3 control-label">Product Name</label>
                                         <div class="col-lg-6">
                                             <textarea type="text"
-                                                      name="category_description"
+                                                      name="gallery_description"
                                                       id="l-name" disabled
-                                                      class="form-control">{{$category->category_desc}}</textarea>
+                                                      class="form-control">{{$gallery->product_name}}</textarea>
                                         </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-lg-3 control-label">Gallery Images</label>
+                                        @foreach($listImage as $key => $imageItem)
+                                            <img width="100" alt=""
+                                                 src="{{asset('/upload/logo')}}/{{$imageItem->image_path}}">
+                                        @endforeach
                                     </div>
                                 </form>
                             </div>

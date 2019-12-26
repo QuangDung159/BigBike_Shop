@@ -80,9 +80,10 @@
                                                                                 name="post[]"><i></i></label>
                                     </td>
                                     <td>
-                                        <span class="text-ellipsis">
+                                        <a href="{{URL::to('/admin/gallery/read/detail')}}/{{$galleryItem->gallery_id}}"><span
+                                                class="text-ellipsis">
                                             {{$galleryItem->gallery_name}}
-                                        </span>
+                                        </span></a>
                                     </td>
                                     <td>
                                         <span class="text-ellipsis">

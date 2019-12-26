@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -105,5 +106,39 @@ class Gallery extends Model
     {
         return DB::table(Constant::TABLE_GALLERY)
             ->insertGetId($data);
+    }
+
+    /**
+     * @param int $galleryId
+     * @return Model|Builder|object|null
+     */
+    public static function getGalleryProductById($galleryId)
+    {
+        $galleryId = intval($galleryId);
+        return DB::table(Constant::TABLE_GALLERY)
+            ->select(
+                [
+                    Constant::TABLE_GALLERY . '.*',
+                    Constant::TABLE_PRODUCT . '.product_name',
+                    Constant::TABLE_PRODUCT . '.product_id',
+                ]
+            )
+            ->join(
+                Constant::TABLE_PRODUCT,
+                Constant::TABLE_GALLERY . '.product_id',
+                '=',
+                Constant::TABLE_PRODUCT . '.product_id'
+            )
+            ->where(
+                Constant::TABLE_GALLERY . '.gallery_is_deleted',
+                '=',
+                0
+            )
+            ->where(
+                Constant::TABLE_GALLERY . '.gallery_id',
+                '=',
+                $galleryId
+            )
+            ->first();
     }
 }

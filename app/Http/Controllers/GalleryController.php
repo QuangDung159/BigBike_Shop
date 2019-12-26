@@ -107,20 +107,14 @@ class GalleryController extends Controller
         return Redirect::to(Constant::URL_ADMIN_BRAND_GALLERY . '/read');
     }
 
-    public function showDetailPage($brandId)
+    public function showDetailPage($galleryId)
     {
-        $brand = Brand::where(
-            Constant::TABLE_BRAND . '.brand_id',
-            '=',
-            $brandId
-        )->where(
-            Constant::TABLE_BRAND . '.brand_is_deleted',
-            '=',
-            0
-        )->first();
+        $gallery = Gallery::getGalleryProductById($galleryId);
+        $listImage = Image::getImageByGalleryId($galleryId);
 
-        return view(Constant::PATH_ADMIN_BRAND_DETAIL)
-            ->with('brand', $brand);
+        return view(Constant::PATH_ADMIN_GALLERY_DETAIL)
+            ->with('gallery', $gallery)
+            ->with('listImage', $listImage);
     }
 
     public function showEditPage($brandId)
