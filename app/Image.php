@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -130,5 +131,36 @@ class Image extends Model
                 0
             )
             ->get();
+    }
+
+    /**
+     * @param int $imageId
+     * @param array $data
+     * @return int
+     */
+    public static function updateById($imageId, $data)
+    {
+        return DB::table(Constant::TABLE_IMAGE)
+            ->where(
+                Constant::TABLE_IMAGE . '.image_id',
+                '=',
+                $imageId
+            )
+            ->update($data);
+    }
+
+    /**
+     * @param int $imageId
+     * @return Model|Builder|object|null
+     */
+    public static function getById($imageId)
+    {
+        $imageId = intval($imageId);
+        return DB::table(Constant::TABLE_IMAGE)
+            ->where(
+                Constant::TABLE_IMAGE . '.image_id',
+                '=',
+                $imageId
+            )->first();
     }
 }
