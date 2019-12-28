@@ -10,9 +10,6 @@
                             <header class="panel-heading">
                                 Edit {{$gallery->gallery_name}}
                                 <span class="tools pull-right">
-{{--                                <a class="fa fa-chevron-down" href="javascript:;"></a>--}}
-                                    {{--                                <a class="fa fa-cog" href="javascript:;"></a>--}}
-                                    {{--                                <a class="fa fa-times" href="javascript:;"></a>--}}
                              </span>
                             </header>
                             <div class="panel-body">
@@ -49,34 +46,23 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Gallery Images</label>
-                                        @foreach($listImage as $key => $imageItem)
+                                    @foreach($listImage as $key => $imageItem)
+                                        <div class="form-group">
+                                            <label class="col-lg-3 control-label">Image {{$key + 1}}</label>
+                                            <input type="hidden" value="{{$imageItem->image_id}}"
+                                                   name="image_id_{{$key + 1}}">
                                             <img width="100" alt=""
                                                  src="{{asset('/client/img/product/product')}}/{{$imageItem->image_path}}">
-                                        @endforeach
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Image 1</label>
-                                        <div class="col-lg-6">
-                                            <input type="file" name="image_path_1">
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Image 2</label>
-                                        <div class="col-lg-6">
-                                            <input type="file" name="image_path_2">
+                                        <div class="form-group">
+                                            <label class="col-lg-3 control-label"></label>
+                                            <div class="col-lg-6">
+                                                <input type="file" name="image_path_{{$key + 1}}">
+                                            </div>
                                         </div>
-                                    </div>
+                                    @endforeach
 
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label">Image 3</label>
-                                        <div class="col-lg-6">
-                                            <input type="file" name="image_path_3">
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
                                             <button class="btn btn-primary" type="submit">Submit</button>

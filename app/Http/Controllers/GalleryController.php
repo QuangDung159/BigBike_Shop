@@ -72,7 +72,7 @@ class GalleryController extends Controller
 
         $image1 = $req->file('image_path_1');
         $imageData1 = $this->createImageDataArray(
-            $this->getNameAndMoveImage($image1),
+            $this->getNameAndMoveImage($image1, 1),
             $galleryId,
             time(),
             Session::get('admin_id')
@@ -80,7 +80,7 @@ class GalleryController extends Controller
 
         $image2 = $req->file('image_path_2');
         $imageData2 = $this->createImageDataArray(
-            $this->getNameAndMoveImage($image2),
+            $this->getNameAndMoveImage($image2, 2),
             $galleryId,
             time(),
             Session::get('admin_id')
@@ -88,7 +88,7 @@ class GalleryController extends Controller
 
         $image3 = $req->file('image_path_3');
         $imageData3 = $this->createImageDataArray(
-            $this->getNameAndMoveImage($image3),
+            $this->getNameAndMoveImage($image3, 3),
             $galleryId,
             time(),
             Session::get('admin_id')
@@ -153,6 +153,9 @@ class GalleryController extends Controller
 
         Gallery::updateById($galleryId, $galleryData);
 
+        // image
+        $this->updateRemoveImageByGalleryId($req, $galleryId);
+
         Session::put('msg_update_success', 'Update gallery successfully!');
 
         return Redirect::to(Constant::URL_ADMIN_GALLERY . '/read/detail/' . $galleryId);
@@ -177,12 +180,75 @@ class GalleryController extends Controller
 
     /**
      * @param $image
+     * @param int $counter
      * @return string
      */
-    public function getNameAndMoveImage($image)
+    public function getNameAndMoveImage($image, $counter)
     {
-        $newName = time() . '_' . rand(0, 99) . '.' . $image->getClientOriginalExtension();
+        $newName = time() . '_' . rand(0, 99) . '_' . $counter . '.' . $image->getClientOriginalExtension();
         $image->move(public_path() . Constant::PATH_TO_UPLOAD_PRODUCT_IMAGE, $newName);
         return $newName;
+    }
+
+    /**
+     * @param int $imageId
+     */
+    public function removeImageFileById($imageId)
+    {
+        $currentImage = Image::getById($imageId);
+        $currentImageName = $currentImage->image_path;
+        unlink(public_path() . Constant::PATH_TO_UPLOAD_PRODUCT_IMAGE . $currentImageName);
+    }
+
+    /**
+     * @param Request $req
+     * @param int $galleryId
+     */
+    public function updateRemoveImageByGalleryId(Request $req, $galleryId)
+    {
+        $image1 = $req->file('image_path_1');
+        if ($image1) {
+            $imageId1 = $req->image_id_1;
+            $imageData1 = $this->createImageDataArray(
+                $this->getNameAndMoveImage($image1, 1),
+                $galleryId,
+                time(),
+                Session::get('admin_id')
+            );
+
+            $this->removeImageFileById($imageId1);
+
+            Image::updateById($imageId1, $imageData1);
+        }
+
+        $image2 = $req->file('image_path_2');
+        if ($image2) {
+            $imageId2 = $req->image_id_2;
+            $imageData2 = $this->createImageDataArray(
+                $this->getNameAndMoveImage($image2, 2),
+                $galleryId,
+                time(),
+                Session::get('admin_id')
+            );
+
+            $this->removeImageFileById($imageId2);
+
+            Image::updateById($imageId2, $imageData2);
+        }
+
+        $image3 = $req->file('image_path_3');
+        if ($image3) {
+            $imageId3 = $req->image_id_3;
+            $imageData3 = $this->createImageDataArray(
+                $this->getNameAndMoveImage($image3, 3),
+                $galleryId,
+                time(),
+                Session::get('admin_id')
+            );
+
+            $this->removeImageFileById($imageId3);
+
+            Image::updateById($imageId3, $imageData3);
+        }
     }
 }
