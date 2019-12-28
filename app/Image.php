@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -98,6 +99,33 @@ class Image extends Model
             )
             ->where(
                 Constant::TABLE_IMAGE . '.image_is_delete',
+                '=',
+                0
+            )
+            ->get();
+    }
+
+    public static function insert($data)
+    {
+        return DB::table(Constant::TABLE_IMAGE)
+            ->insert($data);
+    }
+
+    /**
+     * @param int $galleryId
+     * @return Collection
+     */
+    public static function getImageByGalleryId($galleryId)
+    {
+        $galleryId = intval($galleryId);
+        return DB::table(Constant::TABLE_IMAGE)
+            ->where(
+                Constant::TABLE_IMAGE . '.gallery_id',
+                '=',
+                $galleryId
+            )
+            ->where(
+                Constant::TABLE_IMAGE . '.image_is_deleted',
                 '=',
                 0
             )

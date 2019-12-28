@@ -354,4 +354,54 @@ class Product extends Model
 
         return $result;
     }
+
+    public static function getByStatus($status)
+    {
+        $status = intval($status);
+        return DB::table(Constant::TABLE_PRODUCT)
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_status',
+                '=',
+                $status
+            )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_is_deleted',
+                '=',
+                0
+            )
+            ->get();
+    }
+
+    public static function getAll()
+    {
+        return DB::table(Constant::TABLE_PRODUCT)
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_is_deleted',
+                '=',
+                0
+            )->get();
+    }
+
+    public static function getListProductWithoutGallery()
+    {
+        return DB::table(Constant::TABLE_PRODUCT)
+            ->select(
+                [
+                    Constant::TABLE_PRODUCT . '.product_name',
+                    Constant::TABLE_PRODUCT . '.product_id',
+                ]
+            )
+            ->leftJoin(
+                Constant::TABLE_GALLERY,
+                Constant::TABLE_PRODUCT . '.product_id',
+                '=',
+                Constant::TABLE_GALLERY . '.product_id'
+            )
+            ->where(
+                Constant::TABLE_GALLERY . '.gallery_id',
+                '=',
+                null
+            )
+            ->get();
+    }
 }
