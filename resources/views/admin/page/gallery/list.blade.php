@@ -143,6 +143,36 @@
                     </footer>
                 </div>
             </div>
+
+            <?php
+            if (Session::get('product_id_after_create_gallery') != null) {
+                echo '<input type="hidden" class="btn btn-info btn-lg" id="btn_trigger_modal_list_gallery" data-toggle="modal"
+                   data-target="#myModal">
+                    <div id="myModal" class="modal fade" role="dialog">
+                        <div class="modal-dialog">
+
+                            <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Create gallery with product successfully!</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Do you want to active this product?</p>
+                            </div>
+                            <a id="update_status_trigger" href="' . URL::to('/admin/product/update/change-status') . '/' . Session::get('product_id_after_create_gallery') . '/0">
+                            </a>
+
+                            <div class="modal-footer">
+                                <button type="button" onclick="doClickActive()" class="btn btn-info">Active product</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+            }
+            ?>
+
         </section>
         <!-- footer -->
         <div class="footer">

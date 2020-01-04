@@ -411,6 +411,11 @@ class Product extends Model
                 '=',
                 null
             )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_is_deleted',
+                '=',
+                0
+            )
             ->get();
     }
 
@@ -457,5 +462,26 @@ class Product extends Model
                 '=',
                 $productName
             )->first();
+    }
+
+    /**
+     * @param int $productId
+     * @return Model|Builder|object|null
+     */
+    public static function getById($productId)
+    {
+        $productId = intval($productId);
+        return DB::table(Constant::TABLE_PRODUCT)
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_id',
+                '=',
+                $productId
+            )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_is_deleted',
+                '=',
+                0
+            )
+            ->first();
     }
 }

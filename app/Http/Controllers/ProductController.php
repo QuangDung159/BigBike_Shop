@@ -7,6 +7,7 @@ use App\Brand;
 use App\BrandCategory;
 use App\Category;
 use App\Constant;
+use App\Gallery;
 use App\Image;
 use App\Product;
 use App\Review;
@@ -70,6 +71,14 @@ class ProductController extends Controller
     public function changeStatus($productId, $status)
     {
         $data = [];
+
+        $gallery = Gallery::getGalleryByProductId($productId);
+        if (!$gallery) {
+            Session::put('msg_create_gallery_to_active', 'Please create gallery with this product to active.');
+            Session::put('product_id_to_add_gallery', $productId);
+            return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/read');
+        }
+
         if ($status == 0) {
             $data['product_status'] = 1;
         } else {
@@ -82,6 +91,10 @@ class ProductController extends Controller
         Product::updateByProductId($productId, $data);
 
         Session::put('msg_update_success', 'Update product successfully!');
+
+        if (Session::get('product_id_after_create_gallery') != null) {
+            Session::put('product_id_after_create_gallery', null);
+        }
         return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/read');
     }
 
@@ -187,6 +200,7 @@ class ProductController extends Controller
             'product_created_by' => Session::get('admin_id'),
             'brand_category_id' => $brandCategoryId,
             'product_rate' => 0,
+            'product_status' => 0,
         ];
 
         if ($thumbnail) {
@@ -200,5 +214,55 @@ class ProductController extends Controller
         Session::put('msg_add_success', 'Create product successfully!');
 
         return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/read');
+    }
+
+    /**
+     * @param int $productId
+     * @return Factory|RedirectResponse|View
+     */
+    public function showDetailPage($productId)
+    {
+        if (!$productId) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        $product = Product::getById($productId);
+        if (!$product) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        $brandCategory = BrandCategory::getBrandNameCategoryNameById($product->brand_category_id);
+        if (!$brandCategory) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        $listImage = Image::getListImageByProductIdClient($productId);
+        if (!$listImage) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        return view(Constant::PATH_ADMIN_PRODUCT_DETAIL)
+            ->with('product', $product)
+            ->with('brandCategory', $brandCategory)
+            ->with('listImage', $listImage);
+    }
+
+    /**
+     * @param int $productId
+     * @return Factory|RedirectResponse|View
+     */
+    public function showEditPage($productId)
+    {
+        if (!$productId) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        $product = Product::getById($productId);
+        if (!$product) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        return view(Constant::PATH_ADMIN_PRODUCT_EDIT)
+            ->with('product', $product);
     }
 }

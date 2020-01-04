@@ -180,4 +180,36 @@ class Gallery extends Model
             )
             ->update($data);
     }
+
+    /**
+     * @param int $productId
+     * @return Model|Builder|object|null
+     */
+    public static function getGalleryByProductId($productId)
+    {
+        $productId = intval($productId);
+        return DB::table(Constant::TABLE_GALLERY)
+            ->join(
+                Constant::TABLE_PRODUCT,
+                Constant::TABLE_GALLERY . '.product_id',
+                '=',
+                Constant::TABLE_PRODUCT . '.product_id'
+            )
+            ->where(
+                Constant::TABLE_GALLERY . '.gallery_is_deleted',
+                '=',
+                0
+            )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_is_deleted',
+                '=',
+                0
+            )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_id',
+                '=',
+                $productId
+            )
+            ->first();
+    }
 }

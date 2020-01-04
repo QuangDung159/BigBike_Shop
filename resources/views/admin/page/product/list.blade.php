@@ -15,6 +15,18 @@
             ?>
 
             <?php
+            if (Session::get('msg_create_gallery_to_active') != null) {
+                echo '<div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>' . Session::get('msg_create_gallery_to_active') .
+                    '<a href="' . URL::to('/admin/gallery/create?product_id=') . Session::get('product_id_to_add_gallery') . '"> Add gallery.</a>' . '</strong>
+                      </div>';
+                Session::put('msg_create_gallery_to_active', null);
+                Session::put('product_id_to_add_gallery', null);
+            }
+            ?>
+
+            <?php
             if (Session::get('msg_delete_success') != null) {
                 echo '<div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
