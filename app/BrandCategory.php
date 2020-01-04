@@ -172,6 +172,8 @@ class BrandCategory extends Model
                     Constant::TABLE_BRAND_CATEGORY . '.*',
                     Constant::TABLE_BRAND . '.brand_name',
                     Constant::TABLE_CATEGORY . '.category_name',
+                    Constant::TABLE_BRAND_CATEGORY . '.brand_id',
+                    Constant::TABLE_BRAND_CATEGORY . '.category_id',
                 ]
             )
             ->join(

@@ -262,7 +262,117 @@ class ProductController extends Controller
             return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
         }
 
+        $brandCategory = BrandCategory::getBrandNameCategoryNameById($product->brand_category_id);
+
+        $listBrand = Brand::getAllByStatusIsDeleted();
+        $listCategory = Category::getAllByStatusIsDeleted();
+
+        $listImage = Image::getListImageByProductIdClient($productId);
+        if (!$listImage) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        $gallery = Gallery::getGalleryByProductId($productId);
+        if (!$gallery) {
+            Session::put('msg_create_gallery_to_active', 'Please create gallery with this product to edit.');
+            Session::put('product_id_to_add_gallery', $productId);
+            return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/read');
+        }
+
         return view(Constant::PATH_ADMIN_PRODUCT_EDIT)
-            ->with('product', $product);
+            ->with('product', $product)
+            ->with('listBrand', $listBrand)
+            ->with('listCategory', $listCategory)
+            ->with('listImage', $listImage)
+            ->with('gallery', $gallery)
+            ->with('brandCategory', $brandCategory);
+    }
+
+    /**
+     * @param Request $req
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
+    public function doEditProduct(Request $req)
+    {
+        $this->validate(
+            $req,
+            [
+                'product_name' => 'required',
+                'product_desc' => 'required',
+                'product_content' => 'required',
+                'product_price' => 'required|between:1,1000',
+                'product_promotion_price' => 'required|between:1,1000',
+                'product_stock' => 'required|integer|between:1,100',
+
+            ],
+            [
+                'product_name.required' => 'Please enter product name',
+                'product_desc.required' => 'Please enter product description',
+                'product_content.required' => 'Please enter product content',
+                'product_price.required' => 'Please enter product price',
+                'product_promotion_price.required' => 'Please enter product promotion price',
+                'product_stock.required' => 'Please enter product stock',
+                'product_price.between' => 'Product price must be between 1 - 1000',
+                'product_promotion_price.between' => 'Product promotion price must be between 1 - 1000',
+                'product_stock.integer' => 'Product stock must be integer',
+                'product_stock.between' => 'Product stock must be between 1 - 100',
+            ]
+        );
+
+        $productId = $req->product_id;
+        $productName = $req->product_name;
+        $productDesc = $req->product_desc;
+        $productContent = $req->product_content;
+        $productPrice = $req->product_price;
+        $productPromotionPrice = $req->product_promotion_price;
+        $productStock = $req->product_stock;
+        $brandId = $req->brand_id;
+        $categoryId = $req->category_id;
+        $thumbnail = $req->file('product_thumbnail');
+
+        $productGetByName = Product::getProductByName($productName);
+        if ($productGetByName && $productGetByName->product_id != $productId) {
+            Session::put('msg_name_existed', 'Product name was existed');
+            return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/update/' . $productId);
+        }
+
+        $brandCategory = BrandCategory::getByBrandIdCategoryId($brandId, $categoryId);
+        if (!$brandCategory) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+        $brandCategoryId = $brandCategory->brand_category_id;
+
+        $data = [
+            'product_name' => $productName,
+            'product_desc' => $productDesc,
+            'product_content' => $productContent,
+            'product_price' => $productPrice,
+            'product_promotion_price' => $productPromotionPrice,
+            'product_stock' => $productStock,
+            'product_updated_at' => time(),
+            'product_updated_by' => Session::get('admin_id'),
+            'brand_category_id' => $brandCategoryId,
+            'product_rate' => 0,
+        ];
+
+        $productById = Product::getById($productId);
+        if (!$productById) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        if ($thumbnail) {
+            $oldImage = $productById->product_thumbnail;
+            unlink(public_path() . Constant::PATH_TO_UPLOAD_PRODUCT_IMAGE . $oldImage);
+            $newName = time() . '_' . rand(0, 9) . '_' . $req->product_name . '.' . $thumbnail->getClientOriginalExtension();
+            $thumbnail->move(public_path() . Constant::PATH_TO_UPLOAD_PRODUCT_IMAGE, $newName);
+            $data['product_thumbnail'] = $newName;
+        }
+
+        Product::updateByProductId($productId, $data);
+
+        Session::put('msg_update_success', 'Update product successfully!');
+
+        return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/read');
     }
 }

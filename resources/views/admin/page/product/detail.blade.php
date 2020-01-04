@@ -122,16 +122,20 @@
 
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Product Thumbnail</label>
-                                        <img width="100" alt=""
-                                             src="{{asset('/client/img/product/product')}}/{{$product->product_thumbnail}}">
+                                        <div class="col-lg-6">
+                                            <img width="100" alt=""
+                                                 src="{{asset('/client/img/product/product')}}/{{$product->product_thumbnail}}">
+                                        </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label class="col-lg-3 control-label">Product Gallery</label>
-                                        @foreach($listImage as $key => $imageItem)
-                                            <img width="100" alt=""
-                                                 src="{{asset('/client/img/product/product')}}/{{$imageItem->image_path}}">
-                                        @endforeach
+                                        <div class="col-lg-6">
+                                            @foreach($listImage as $key => $imageItem)
+                                                <img width="100" alt=""
+                                                     src="{{asset('/client/img/product/product')}}/{{$imageItem->image_path}}">
+                                            @endforeach
+                                        </div>
                                     </div>
                                 </form>
                             </div>
