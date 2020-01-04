@@ -88,6 +88,9 @@ class Brand extends Model
         Redis::del('list_brand');
     }
 
+    /**
+     * @param array $data
+     */
     public static function insert($data)
     {
         DB::table(Constant::TABLE_BRAND)

@@ -415,8 +415,8 @@ class Product extends Model
     }
 
     /**
-     * @param $productId
-     * @param $arrData
+     * @param int $productId
+     * @param array $arrData
      */
     public static function updateByProductId($productId, $arrData)
     {
@@ -428,5 +428,34 @@ class Product extends Model
                 $productId
             )
             ->update($arrData);
+    }
+
+    /**
+     * @param array $data
+     */
+    public static function insert($data)
+    {
+        DB::table(Constant::TABLE_PRODUCT)
+            ->insert($data);
+    }
+
+    /**
+     * @param string $productName
+     * @return Model|Builder|object
+     */
+    public static function getProductByName($productName)
+    {
+        $productName = trim($productName);
+        return DB::table(Constant::TABLE_PRODUCT)
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_is_deleted',
+                '=',
+                0
+            )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_name',
+                '=',
+                $productName
+            )->first();
     }
 }
