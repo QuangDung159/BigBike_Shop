@@ -3,7 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 /**
  * @property int $product_id
@@ -372,6 +375,9 @@ class Product extends Model
             ->get();
     }
 
+    /**
+     * @return Builder
+     */
     public static function getAll()
     {
         return DB::table(Constant::TABLE_PRODUCT)
@@ -379,9 +385,12 @@ class Product extends Model
                 Constant::TABLE_PRODUCT . '.product_is_deleted',
                 '=',
                 0
-            )->get();
+            );
     }
 
+    /**
+     * @return Collection
+     */
     public static function getListProductWithoutGallery()
     {
         return DB::table(Constant::TABLE_PRODUCT)
@@ -403,5 +412,21 @@ class Product extends Model
                 null
             )
             ->get();
+    }
+
+    /**
+     * @param $productId
+     * @param $arrData
+     */
+    public static function updateByProductId($productId, $arrData)
+    {
+        $productId = intval($productId);
+        DB::table(Constant::TABLE_PRODUCT)
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_id',
+                '=',
+                $productId
+            )
+            ->update($arrData);
     }
 }

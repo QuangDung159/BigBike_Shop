@@ -44,6 +44,7 @@ class Constant
     const URL_ADMIN_CATEGORY = '/admin/category';
     const URL_ADMIN_BRAND_CATEGORY = '/admin/brand_category';
     const URL_ADMIN_GALLERY = '/admin/gallery';
+    const URL_ADMIN_PRODUCT = '/admin/product';
 
     const PATH_TO_UPLOAD_LOGO = '/upload/logo';
     const PATH_TO_UPLOAD_PRODUCT_IMAGE = '/client/img/product/product/';
@@ -71,4 +72,9 @@ class Constant
     const PATH_ADMIN_GALLERY_CREATE = 'admin.page.gallery.create';
     const PATH_ADMIN_GALLERY_DETAIL = 'admin.page.gallery.detail';
     const PATH_ADMIN_GALLERY_EDIT = 'admin.page.gallery.edit';
+
+    const PATH_ADMIN_PRODUCT_LIST = 'admin.page.product.list';
+    const PATH_ADMIN_PRODUCT_CREATE = 'admin.page.product.create';
+    const PATH_ADMIN_PRODUCT_DETAIL = 'admin.page.product.detail';
+    const PATH_ADMIN_PRODUCT_EDIT = 'admin.page.product.edit';
 }

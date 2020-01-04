@@ -70,6 +70,10 @@ class Brand extends Model
         return $this->hasMany('App\BrandCategory', 'brand_id', 'brand_id');
     }
 
+    /**
+     * @param int $brandId
+     * @param array $arrData
+     */
     public static function updateByBrandId($brandId, $arrData)
     {
         $brandId = intval($brandId);

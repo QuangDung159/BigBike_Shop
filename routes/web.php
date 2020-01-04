@@ -63,14 +63,14 @@ Route::group(['middleware' => 'authen.admin'], function () {
         Route::post('/admin/brand_category/update', Constant::CONTROLLER_BRAND_CATEGORY . 'doEditBrandCategory');
 
         // product
-        Route::get('/admin/product/read', Constant::CONTROLLER_CATEGORY . 'showListPage');
-        Route::get('/admin/product/delete/{productId}', Constant::CONTROLLER_CATEGORY . 'deleteProduct');
-        Route::get('/admin/product/create', Constant::CONTROLLER_CATEGORY . 'showCreateProductPage');
-        Route::post('/admin/product/create', Constant::CONTROLLER_CATEGORY . 'doCreateProduct');
-        Route::get('/admin/product/update/change-status/{productId}/{status}', Constant::CONTROLLER_CATEGORY . 'changeStatus');
-        Route::get('/admin/product/read/detail/{productId}', Constant::CONTROLLER_CATEGORY . 'showDetailPage');
-        Route::get('/admin/product/update/{productId}', Constant::CONTROLLER_CATEGORY . 'showEditPage');
-        Route::post('/admin/product/update', Constant::CONTROLLER_CATEGORY . 'doEditProduct');
+        Route::get('/admin/product/read', Constant::CONTROLLER_PRODUCT . 'showListPage');
+        Route::get('/admin/product/delete/{productId}', Constant::CONTROLLER_PRODUCT . 'deleteProduct');
+        Route::get('/admin/product/create', Constant::CONTROLLER_PRODUCT . 'showCreateProductPage');
+        Route::post('/admin/product/create', Constant::CONTROLLER_PRODUCT . 'doCreateProduct');
+        Route::get('/admin/product/update/change-status/{productId}/{status}', Constant::CONTROLLER_PRODUCT . 'changeStatus');
+        Route::get('/admin/product/read/detail/{productId}', Constant::CONTROLLER_PRODUCT . 'showDetailPage');
+        Route::get('/admin/product/update/{productId}', Constant::CONTROLLER_PRODUCT . 'showEditPage');
+        Route::post('/admin/product/update', Constant::CONTROLLER_PRODUCT . 'doEditProduct');
 
         // gallery
         Route::get('/admin/gallery/read', Constant::CONTROLLER_GALLERY . 'showListPage');
