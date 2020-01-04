@@ -8,9 +8,11 @@ use App\Constant;
 use App\Gallery;
 use App\Image;
 use App\Product;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\View\View;
 
 class GalleryController extends Controller
 {
@@ -33,11 +35,22 @@ class GalleryController extends Controller
             ->with('assocAdmin', $arrAssocAdmin);
     }
 
-    public function showCreateGalleryPage()
+    /**
+     * @param Request $req
+     * @return Factory|View
+     */
+    public function showCreateGalleryPage(Request $req)
     {
+        $productId = $req->product_id;
         $listProduct = Product::getListProductWithoutGallery();
-        return view(Constant::PATH_ADMIN_GALLERY_CREATE)
-            ->with('listProduct', $listProduct);
+        if ($productId) {
+            return view(Constant::PATH_ADMIN_GALLERY_CREATE)
+                ->with('listProduct', $listProduct)
+                ->with('productId', $productId);
+        } else {
+            return view(Constant::PATH_ADMIN_GALLERY_CREATE)
+                ->with('listProduct', $listProduct);
+        }
     }
 
     public function doCreateGallery(Request $req)
@@ -103,6 +116,7 @@ class GalleryController extends Controller
         Image::insert($arrImageData);
 
         Session::put('msg_add_success', 'Create brand successfully!');
+        Session::put('product_id_after_create_gallery', $productId);
 
         return Redirect::to(Constant::URL_ADMIN_GALLERY . '/read');
     }

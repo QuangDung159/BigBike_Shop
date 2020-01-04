@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\Brand;
 use App\Constant;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
@@ -35,6 +36,10 @@ class BrandController extends Controller
             ->with('assocAdmin', $arrAssocAdmin);
     }
 
+    /**
+     * @param int $brandId
+     * @return RedirectResponse
+     */
     public function deleteBrand($brandId)
     {
         $data = [
@@ -95,6 +100,11 @@ class BrandController extends Controller
         return Redirect::to(Constant::URL_ADMIN_BRAND . '/read');
     }
 
+    /**
+     * @param $brandId
+     * @param $status
+     * @return RedirectResponse
+     */
     public function changeStatus($brandId, $status)
     {
         $data = [];

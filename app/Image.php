@@ -99,7 +99,7 @@ class Image extends Model
                 1
             )
             ->where(
-                Constant::TABLE_IMAGE . '.image_is_delete',
+                Constant::TABLE_IMAGE . '.image_is_deleted',
                 '=',
                 0
             )

@@ -3,7 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redis;
 
 /**
  * @property int $product_id
@@ -372,6 +375,9 @@ class Product extends Model
             ->get();
     }
 
+    /**
+     * @return Builder
+     */
     public static function getAll()
     {
         return DB::table(Constant::TABLE_PRODUCT)
@@ -379,9 +385,12 @@ class Product extends Model
                 Constant::TABLE_PRODUCT . '.product_is_deleted',
                 '=',
                 0
-            )->get();
+            );
     }
 
+    /**
+     * @return Collection
+     */
     public static function getListProductWithoutGallery()
     {
         return DB::table(Constant::TABLE_PRODUCT)
@@ -402,6 +411,77 @@ class Product extends Model
                 '=',
                 null
             )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_is_deleted',
+                '=',
+                0
+            )
             ->get();
+    }
+
+    /**
+     * @param int $productId
+     * @param array $arrData
+     */
+    public static function updateByProductId($productId, $arrData)
+    {
+        $productId = intval($productId);
+        DB::table(Constant::TABLE_PRODUCT)
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_id',
+                '=',
+                $productId
+            )
+            ->update($arrData);
+    }
+
+    /**
+     * @param array $data
+     */
+    public static function insert($data)
+    {
+        DB::table(Constant::TABLE_PRODUCT)
+            ->insert($data);
+    }
+
+    /**
+     * @param string $productName
+     * @return Model|Builder|object
+     */
+    public static function getProductByName($productName)
+    {
+        $productName = trim($productName);
+        return DB::table(Constant::TABLE_PRODUCT)
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_is_deleted',
+                '=',
+                0
+            )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_name',
+                '=',
+                $productName
+            )->first();
+    }
+
+    /**
+     * @param int $productId
+     * @return Model|Builder|object|null
+     */
+    public static function getById($productId)
+    {
+        $productId = intval($productId);
+        return DB::table(Constant::TABLE_PRODUCT)
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_id',
+                '=',
+                $productId
+            )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_is_deleted',
+                '=',
+                0
+            )
+            ->first();
     }
 }

@@ -8,9 +8,21 @@
                 echo '<div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>' . Session::get('msg_add_success') .
-                    '<a href="' . URL::to('/admin/gallery/create') . '"> Add more.</a>' . '</strong>
+                    '<a href="' . URL::to('/admin/product/create') . '"> Add more.</a>' . '</strong>
                       </div>';
                 Session::put('msg_add_success', null);
+            }
+            ?>
+
+            <?php
+            if (Session::get('msg_create_gallery_to_active') != null) {
+                echo '<div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>' . Session::get('msg_create_gallery_to_active') .
+                    '<a href="' . URL::to('/admin/gallery/create?product_id=') . Session::get('product_id_to_add_gallery') . '"> Add gallery.</a>' . '</strong>
+                      </div>';
+                Session::put('msg_create_gallery_to_active', null);
+                Session::put('product_id_to_add_gallery', null);
             }
             ?>
 
@@ -19,7 +31,7 @@
                 echo '<div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>' . Session::get('msg_delete_success') .
-                    '<a href="' . URL::to('/admin/gallery/create') . '"> Add more.</a>' . '</strong>
+                    '<a href="' . URL::to('/admin/product/create') . '"> Add more.</a>' . '</strong>
                       </div>';
                 Session::put('msg_delete_success', null);
             }
@@ -30,7 +42,7 @@
                 echo '<div class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <strong>' . Session::get('msg_update_success') .
-                    '<a href="' . URL::to('/admin/gallery/create') . '"> Add more.</a>' . '</strong>
+                    '<a href="' . URL::to('/admin/product/create') . '"> Add more.</a>' . '</strong>
                       </div>';
                 Session::put('msg_update_success', null);
             }
@@ -39,7 +51,7 @@
             <div class="table-agile-info">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Gallery
+                        Product
                     </div>
                     <div class="row w3-res-tb">
                         {{--                        <div class="col-sm-5 m-b-xs">--}}
@@ -64,8 +76,10 @@
                                         <input type="checkbox"><i></i>
                                     </label>
                                 </th>
-                                <th>Gallery Name</th>
-                                <th>Product Name</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Price</th>
+                                <th>Stock</th>
                                 <th>Created At</th>
                                 <th>Created By</th>
                                 <th>Updated At</th>
@@ -74,53 +88,66 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($listGallery as $key => $galleryItem)
+                            @foreach($listProduct as $key => $productItem)
                                 <tr>
                                     <td><label class="i-checks m-b-none"><input type="checkbox"
                                                                                 name="post[]"><i></i></label>
                                     </td>
                                     <td>
-                                        <a href="{{URL::to('/admin/gallery/read/detail')}}/{{$galleryItem->gallery_id}}"><span
-                                                class="text-ellipsis">
-                                            {{$galleryItem->gallery_name}}
-                                        </span></a>
+                                        <a href="{{URL::to('/admin/product/read/detail')}}/{{$productItem->product_id}}">{{$productItem->product_name }}</a>
                                     </td>
                                     <td>
-                                        <span class="text-ellipsis">
-                                            {{$galleryItem->product_name}}
+                                        @if($productItem->product_status == 0)
+                                            <a href="{{URL::to('/admin/product/update/change-status')}}/{{$productItem->product_id}}/{{$productItem->product_status}}"><span
+                                                    class="label label-default">Inactive</span></a>
+                                        @else
+                                            <a href="{{URL::to('/admin/product/update/change-status')}}/{{$productItem->product_id}}/{{$productItem->product_status}}"><span
+                                                    class="label label-success">Active</span></a>
+                                        @endif
+                                    </td>
+                                    <td><span class="text-ellipsis">
+                                            {{$productItem->product_price}}
+                                        </span>
+                                    </td>
+                                    <td><span class="text-ellipsis">
+                                            {{$productItem->product_stock}}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="text-ellipsis">
-                                            {{date('Y/m/d H:i:s', $galleryItem->gallery_created_at)}}
+                                            {{date('Y/m/d H:i:s', $productItem->product_created_at)}}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="text-ellipsis">
-                                            {{$assocAdmin[$galleryItem->gallery_created_by]}}
+                                            {{$assocAdmin[$productItem->product_created_by]}}
                                         </span>
                                     </td>
                                     <td>
                                         <span class="text-ellipsis">
-                                            @if(!$galleryItem->gallery_updated_by)
+                                            @if(!$productItem->product_updated_by)
                                                 N/A
                                             @else
-                                                {{date('Y/m/d H:i:s', $galleryItem->gallery_updated_at)}}
+                                                {{date('Y/m/d H:i:s', $productItem->product_updated_at)}}
                                             @endif
                                         </span>
                                     </td>
                                     <td><span class="text-ellipsis">
-                                            @if(!$galleryItem->gallery_updated_by)
+                                            @if(!$productItem->product_updated_by)
                                                 N/A
                                             @else
-                                                {{$assocAdmin[$galleryItem->gallery_updated_by]}}
+                                                {{$assocAdmin[$productItem->product_updated_by]}}
                                             @endif
                                         </span>
                                     </td>
                                     <td>
-                                        <a href="{{URL::to('/admin/gallery/update')}}/{{$galleryItem->gallery_id}}"
+                                        <a href="{{URL::to('/admin/product/update')}}/{{$productItem->product_id}}"
                                            class="active" ui-toggle-class="">
                                             <i class="fa fa-edit text-success text-active"></i>
+                                        </a>
+                                        <a href="{{URL::to('/admin/product/delete')}}/{{$productItem->product_id}}"
+                                           onclick="return confirm('Are you want to delete this?')">
+                                            <i class="fa fa-trash text-danger text"></i>
                                         </a>
                                     </td>
                                 </tr>
@@ -131,48 +158,16 @@
                     <footer class="panel-footer">
                         <div class="row">
                             <div class="col-sm-5 text-center">
-                                <small
-                                    class="text-muted inline m-t-sm m-b-sm">Showing {{$listGallery->firstItem()}}
-                                    - {{$listGallery->lastItem()}} of {{$listGallery->total()}}
-                                    items</small>
+                                <small class="text-muted inline m-t-sm m-b-sm">Showing {{$listProduct->firstItem()}}
+                                    - {{$listProduct->lastItem()}} of {{$listProduct->total()}} items</small>
                             </div>
                             <div class="col-sm-7 text-right text-center-xs">
-                                {!!$listGallery->links()!!}
+                                {!!$listProduct->links()!!}
                             </div>
                         </div>
                     </footer>
                 </div>
             </div>
-
-            <?php
-            if (Session::get('product_id_after_create_gallery') != null) {
-                echo '<input type="hidden" class="btn btn-info btn-lg" id="btn_trigger_modal_list_gallery" data-toggle="modal"
-                   data-target="#myModal">
-                    <div id="myModal" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
-
-                            <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Create gallery with product successfully!</h4>
-                            </div>
-                            <div class="modal-body">
-                                <p>Do you want to active this product?</p>
-                            </div>
-                            <a id="update_status_trigger" href="' . URL::to('/admin/product/update/change-status') . '/' . Session::get('product_id_after_create_gallery') . '/0">
-                            </a>
-
-                            <div class="modal-footer">
-                                <button type="button" onclick="doClickActive()" class="btn btn-info">Active product</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>';
-            }
-            ?>
-
         </section>
         <!-- footer -->
         <div class="footer">

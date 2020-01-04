@@ -70,6 +70,10 @@ class Brand extends Model
         return $this->hasMany('App\BrandCategory', 'brand_id', 'brand_id');
     }
 
+    /**
+     * @param int $brandId
+     * @param array $arrData
+     */
     public static function updateByBrandId($brandId, $arrData)
     {
         $brandId = intval($brandId);
@@ -84,6 +88,9 @@ class Brand extends Model
         Redis::del('list_brand');
     }
 
+    /**
+     * @param array $data
+     */
     public static function insert($data)
     {
         DB::table(Constant::TABLE_BRAND)
