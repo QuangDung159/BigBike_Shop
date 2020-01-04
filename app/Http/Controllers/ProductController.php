@@ -373,6 +373,6 @@ class ProductController extends Controller
 
         Session::put('msg_update_success', 'Update product successfully!');
 
-        return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/read');
+        return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/read/detail/' . $productId);
     }
 }
