@@ -40,7 +40,7 @@
                                             <select class="form-control m-bot15" name="product_id"
                                                     id="product_id">
                                                 @foreach($listProduct as $key => $productItem)
-                                                    @if ($productItem->product_id == $productId)
+                                                    @if (isset($productId) && $productItem->product_id == $productId)
                                                         <option
                                                             value="{{$productItem->product_id}}"
                                                             selected>{{$productItem->product_name}}</option>
