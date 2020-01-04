@@ -91,6 +91,10 @@ class ProductController extends Controller
      */
     public function deleteProduct($productId)
     {
+        if (!$productId) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
         $data = [
             Constant::TABLE_PRODUCT . '.product_is_deleted' => 1,
             Constant::TABLE_PRODUCT . '.product_updated_at' => time(),
