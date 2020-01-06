@@ -79,6 +79,9 @@ Route::group(['middleware' => 'authen.admin'], function () {
         Route::get('/admin/gallery/read/detail/{galleryId}', Constant::CONTROLLER_GALLERY . 'showDetailPage');
         Route::get('/admin/gallery/update/{galleryId}', Constant::CONTROLLER_GALLERY . 'showEditPage');
         Route::post('/admin/gallery/update', Constant::CONTROLLER_GALLERY . 'doEditGallery');
+
+        // user
+        Route::get('/admin/user/read', Constant::CONTROLLER_USER . 'showListPage');
     });
 });
 

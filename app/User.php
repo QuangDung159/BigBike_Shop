@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $user_id
@@ -16,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property Order[] $orders
  * @property Review[] $reviews
  */
-class user extends Model
+class User extends Model
 {
     /**
      * The table associated with the model.
@@ -38,7 +41,7 @@ class user extends Model
     protected $fillable = ['user_name', 'user_email', 'user_password', 'user_address', 'user_phone', 'user_created_at', 'user_updated_at'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function orders()
     {
@@ -46,10 +49,18 @@ class user extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function reviews()
     {
         return $this->hasMany('App\Review', 'user_id', 'user_id');
+    }
+
+    /**
+     * @return Builder
+     */
+    public static function getAll()
+    {
+        return DB::table(Constant::TABLE_USER);
     }
 }

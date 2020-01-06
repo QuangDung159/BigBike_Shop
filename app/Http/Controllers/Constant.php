@@ -35,6 +35,7 @@ class Constant
     const CONTROLLER_ADMIN = 'AdminController@';
     const CONTROLLER_BRAND_CATEGORY = 'BrandCategoryController@';
     const CONTROLLER_GALLERY = 'GalleryController@';
+    const CONTROLLER_USER = 'UserController@';
 
     const URL_PRODUCT_DETAIL = '/product/';
 
@@ -45,6 +46,7 @@ class Constant
     const URL_ADMIN_BRAND_CATEGORY = '/admin/brand_category';
     const URL_ADMIN_GALLERY = '/admin/gallery';
     const URL_ADMIN_PRODUCT = '/admin/product';
+    const URL_ADMIN_USER = '/admin/user';
 
     const PATH_TO_UPLOAD_LOGO = '/upload/logo';
     const PATH_TO_UPLOAD_PRODUCT_IMAGE = '/client/img/product/product/';
@@ -77,4 +79,6 @@ class Constant
     const PATH_ADMIN_PRODUCT_CREATE = 'admin.page.product.create';
     const PATH_ADMIN_PRODUCT_DETAIL = 'admin.page.product.detail';
     const PATH_ADMIN_PRODUCT_EDIT = 'admin.page.product.edit';
+
+    const PATH_ADMIN_USER_LIST = 'admin.page.user.list';
 }
