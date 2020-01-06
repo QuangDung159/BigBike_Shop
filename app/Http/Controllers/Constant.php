@@ -81,4 +81,9 @@ class Constant
     const PATH_ADMIN_PRODUCT_EDIT = 'admin.page.product.edit';
 
     const PATH_ADMIN_USER_LIST = 'admin.page.user.list';
+
+    const PATH_ADMIN_ADMIN_LIST = 'admin.page.admin.list';
+    const PATH_ADMIN_ADMIN_CREATE = 'admin.page.admin.create';
+    const PATH_ADMIN_ADMIN_DETAIL = 'admin.page.admin.detail';
+    const PATH_ADMIN_ADMIN_EDIT = 'admin.page.admin.edit';
 }

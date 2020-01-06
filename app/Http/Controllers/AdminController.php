@@ -4,17 +4,30 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use App\Constant;
+use App\Product;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class AdminController extends Controller
 {
+    /**
+     * @return Factory|View
+     */
     public function showAdminLoginPage()
     {
         return view(Constant::PATH_ADMIN_ADMIN_LOGIN);
     }
 
+    /**
+     * @param Request $req
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
     public function doLogin(Request $req)
     {
         $adminEmail = $req->admin_email;
@@ -41,9 +54,32 @@ class AdminController extends Controller
         }
     }
 
+    /**
+     * @return RedirectResponse
+     */
     public function doLogout()
     {
         Session::forget('admin_id');
         return Redirect::to(Constant::URL_ADMIN_LOGIN);
+    }
+
+    /**
+     * @return Factory|View
+     */
+    public function showListPage()
+    {
+        $listAdminToShow = Admin::getAll()
+            ->orderBy(Constant::TABLE_ADMIN . '.admin_created_at', 'desc')
+            ->paginate(10);
+
+        $listAdmin = Admin::getAll()->get();
+
+        $listAdmin = HelperController::convertStdToArray($listAdmin);
+
+        $arrAssocAdmin = array_column($listAdmin, 'admin_name', 'admin_id');
+
+        return view(Constant::PATH_ADMIN_ADMIN_LIST)
+            ->with('listAdminToShow', $listAdminToShow)
+            ->with('assocAdmin', $arrAssocAdmin);
     }
 }
