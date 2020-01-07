@@ -13,7 +13,3 @@ triggerModalCreatedGallery().then(r => function () {
 function doClickActive() {
     document.getElementById('update_status_trigger').click();
 }
-
-function onChange() {
-    alert('asd');
-}

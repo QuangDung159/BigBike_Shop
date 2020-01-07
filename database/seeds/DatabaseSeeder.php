@@ -68,6 +68,7 @@ class DatabaseSeeder extends Seeder
                     'module_alias' => 'category',
                 ],
                 [
+                    // r
                     'module_id' => 3,
                     'module_name' => 'User',
                     'module_alias' => 'user',
@@ -98,24 +99,15 @@ class DatabaseSeeder extends Seeder
                     'module_alias' => 'order',
                 ],
                 [
-                    'module_id' => 9,
-                    'module_name' => 'Image',
-                    'module_alias' => 'image',
-                ],
-                [
                     'module_id' => 10,
                     'module_name' => 'Brand - Category',
                     'module_alias' => 'brand_category',
                 ],
                 [
+                    // c-r-u
                     'module_id' => 11,
                     'module_name' => 'Gallery',
                     'module_alias' => 'gallery',
-                ],
-                [
-                    'module_id' => 12,
-                    'module_name' => 'ACL',
-                    'module_alias' => 'acl',
                 ],
             ]
         );

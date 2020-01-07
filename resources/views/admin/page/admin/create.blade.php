@@ -88,45 +88,28 @@
                         <div class="panel panel-default">
                             <div class="panel-heading">Access Control List</div>
                             <div class="panel-body">
-                                <div class="form-group">
-                                    <h2>Brand</h2>
-                                    <hr/>
-                                    <div class="row">
-                                        <div class="col-lg-1"></div>
-                                        <div class="col-lg-10">
-                                            <div class="col-lg-3">
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" checked data-toggle="toggle"
-                                                           data-on="Enabled"
-                                                           data-off="Disabled">Create
-                                                </label>
+                                @foreach($listModule as $key => $moduleItem)
+                                    <div class="form-group">
+                                        <h2>{{$moduleItem->module_name}}</h2>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-lg-1"></div>
+                                            <div class="col-lg-10">
+                                                @foreach($moduleItem->list_action as $keyAction => $actionItem)
+                                                    <div class="col-lg-3">
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" checked data-toggle="toggle"
+                                                                   data-on="Enabled"
+                                                                   data-off="Disabled">{{$actionItem->action_name}}
+                                                        </label>
+                                                    </div>
+                                                @endforeach
                                             </div>
-                                            <div class="col-lg-3">
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" checked data-toggle="toggle"
-                                                           data-on="Enabled"
-                                                           data-off="Disabled">Read
-                                                </label>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" checked data-toggle="toggle"
-                                                           data-on="Enabled"
-                                                           data-off="Disabled">Update
-                                                </label>
-                                            </div>
-                                            <div class="col-lg-3">
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" checked data-toggle="toggle"
-                                                           data-on="Enabled"
-                                                           data-off="Disabled">Delete
-                                                </label>
-                                            </div>
+                                            <div class="col-lg-1"></div>
                                         </div>
-                                        <div class="col-lg-1"></div>
+                                        <hr/>
                                     </div>
-                                    <hr/>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
