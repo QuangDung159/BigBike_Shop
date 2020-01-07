@@ -67,13 +67,13 @@
                                                 @endif
 
                                                 <?php
-                                                if (Session::has('msg_name_existed')) {
+                                                if (Session::has('msg_email_exist')) {
                                                     echo
                                                         '<div class="alert alert-danger" style="margin-top: 10px">
                                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                    <p>' . Session::get('msg_name_existed') . '</p>
+                                                    <p>' . Session::get('msg_email_exist') . '</p>
                                                 </div>';
-                                                    Session::forget('msg_name_existed');
+                                                    Session::forget('msg_email_exist');
                                                 }
                                                 ?>
                                             </div>

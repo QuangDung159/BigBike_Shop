@@ -23,21 +23,13 @@ use Illuminate\Support\Facades\DB;
  * @property boolean $admin_is_deleted
  * @property ActionModule $actionModule
  * @property Admin $admin
- * @property Admin $admin
- * @property Brand[] $brands
  * @property Brand[] $brands
  * @property BrandCategory[] $brandCategories
- * @property BrandCategory[] $brandCategories
- * @property Category[] $categories
  * @property Category[] $categories
  * @property Gallery[] $galleries
- * @property Gallery[] $galleries
- * @property Image[] $images
  * @property Image[] $images
  * @property Order[] $orders
  * @property Product[] $products
- * @property Product[] $products
- * @property Slide[] $slides
  * @property Slide[] $slides
  */
 class Admin extends Model

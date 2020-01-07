@@ -124,6 +124,11 @@ class AdminController extends Controller
             ->with('listModule', $listModule);
     }
 
+    /**
+     * @param Request $req
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
     public function doCreateAdmin(Request $req)
     {
         $this->validate($req,
@@ -146,7 +151,7 @@ class AdminController extends Controller
         $adminByEmail = Admin::getByEmail($adminEmail);
         if ($adminByEmail) {
             Session::put('msg_email_exist', 'Admin email already existed.');
-            return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
+            return Redirect::to(Constant::URL_ADMIN_ADMIN . '/create');
         }
 
         $data = [];
@@ -198,5 +203,29 @@ class AdminController extends Controller
         }
 
         return HelperController::convertArrayToStd($listModule);
+    }
+
+    /**
+     * @param int $adminId
+     * @return RedirectResponse
+     */
+    public function deleteAdmin($adminId)
+    {
+        if (!$adminId) {
+            return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
+        }
+
+        $admin = Admin::getById($adminId);
+
+        $data = [];
+        $data['admin_updated_at'] = time();
+        $data['admin_email'] = $admin->admin_email . '.removed';
+        $data['admin_updated_by'] = Session::get('admin_id');
+        $data['admin_is_deleted'] = 1;
+
+        Admin::updateByAdminId($adminId, $data);
+        Session::put('msg_delete_success', 'Delete admin successfully!');
+
+        return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
     }
 }

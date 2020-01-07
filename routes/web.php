@@ -85,10 +85,10 @@ Route::group(['middleware' => 'authen.admin'], function () {
 
         // admin
         Route::get('/admin/admin/read', Constant::CONTROLLER_ADMIN . 'showListPage');
-        Route::get('/admin/admin/delete/{categoryId}', Constant::CONTROLLER_ADMIN . 'deleteAdmin');
+        Route::get('/admin/admin/delete/{adminId}', Constant::CONTROLLER_ADMIN . 'deleteAdmin');
         Route::get('/admin/admin/create', Constant::CONTROLLER_ADMIN . 'showCreateAdminPage');
         Route::post('/admin/admin/create', Constant::CONTROLLER_ADMIN . 'doCreateAdmin');
-        Route::get('/admin/admin/update/change-status/{categoryId}/{status}', Constant::CONTROLLER_ADMIN . 'changeStatus');
+        Route::get('/admin/admin/update/change-status/{adminIdId}/{status}', Constant::CONTROLLER_ADMIN . 'changeStatus');
         Route::get('/admin/admin/read/detail/{adminId}', Constant::CONTROLLER_ADMIN . 'showDetailPage');
         Route::get('/admin/admin/update/{adminId}', Constant::CONTROLLER_ADMIN . 'showEditPage');
         Route::post('/admin/admin/update', Constant::CONTROLLER_ADMIN . 'doEditAdmin');
