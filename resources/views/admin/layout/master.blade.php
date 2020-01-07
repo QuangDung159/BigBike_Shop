@@ -133,6 +133,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script language="javascript" type="text/javascript" src="{{asset('/admin/js/flot-chart/excanvas.min.js')}}"></script><![endif]-->
 <script src="{{asset('/admin/js/jquery.scrollTo.js')}}"></script>
 <script src="{{asset('/admin/js/home.js')}}"></script>
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <!-- morris JavaScript -->
 <script>
     $(document).ready(function () {

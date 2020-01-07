@@ -84,6 +84,51 @@
                                 </form>
                             </div>
                         </section>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Access Control List</div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    <h2>Brand</h2>
+                                    <hr/>
+                                    <div class="row">
+                                        <div class="col-lg-1"></div>
+                                        <div class="col-lg-10">
+                                            <div class="col-lg-3">
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" checked data-toggle="toggle"
+                                                           data-on="Enabled"
+                                                           data-off="Disabled">Create
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" checked data-toggle="toggle"
+                                                           data-on="Enabled"
+                                                           data-off="Disabled">Read
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" checked data-toggle="toggle"
+                                                           data-on="Enabled"
+                                                           data-off="Disabled">Update
+                                                </label>
+                                            </div>
+                                            <div class="col-lg-3">
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" checked data-toggle="toggle"
+                                                           data-on="Enabled"
+                                                           data-off="Disabled">Delete
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1"></div>
+                                    </div>
+                                    <hr/>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- page end-->
