@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -15,8 +16,6 @@ use Illuminate\Support\Facades\DB;
  * @property int $admin_action_module_created_at
  * @property int $admin_action_module_updated_at
  * @property ActionModule $actionModule
- * @property Admin $admin
- * @property Admin $admin
  * @property Admin $admin
  */
 class AdminActionModule extends Model
@@ -99,5 +98,53 @@ class AdminActionModule extends Model
     {
         return DB::table(Constant::TABLE_ADMIN_ACTION_MODULE)
             ->insert($arrData);
+    }
+
+    /**
+     * @param int $adminId
+     * @return Collection
+     */
+    public static function getListActionModuleByAdminId($adminId)
+    {
+        $adminId = intval($adminId);
+        return DB::table(Constant::TABLE_ADMIN_ACTION_MODULE)
+            ->select(
+                [
+                    Constant::TABLE_ACTION . '.action_name',
+                    Constant::TABLE_ACTION . '.action_id',
+                    Constant::TABLE_MODULE . '.module_name',
+                    Constant::TABLE_MODULE . '.module_id',
+                ]
+            )
+            ->join(
+                Constant::TABLE_ADMIN,
+                Constant::TABLE_ADMIN_ACTION_MODULE . '.admin_id',
+                '=',
+                Constant::TABLE_ADMIN . '.admin_id'
+            )
+            ->join(
+                Constant::TABLE_ACTION_MODULE,
+                Constant::TABLE_ADMIN_ACTION_MODULE . '.action_module_id',
+                '=',
+                Constant::TABLE_ACTION_MODULE . '.action_module_id'
+            )
+            ->join(
+                Constant::TABLE_ACTION,
+                Constant::TABLE_ACTION_MODULE . '.action_id',
+                '=',
+                Constant::TABLE_ACTION . '.action_id'
+            )
+            ->join(
+                Constant::TABLE_MODULE,
+                Constant::TABLE_ACTION_MODULE . '.module_id',
+                '=',
+                Constant::TABLE_MODULE . '.module_id'
+            )
+            ->where(
+                Constant::TABLE_ADMIN . '.admin_id',
+                '=',
+                $adminId
+            )
+            ->get();
     }
 }

@@ -238,6 +238,27 @@ class Admin extends Model
     }
 
     /**
+     * @param int $adminId
+     * @return Model|Builder|object|null
+     */
+    public static function getByIdIsNotDeleted($adminId)
+    {
+        $adminId = intval($adminId);
+        return DB::table(Constant::TABLE_ADMIN)
+            ->where(
+                Constant::TABLE_ADMIN . '.admin_id',
+                '=',
+                $adminId
+            )
+            ->where(
+                Constant::TABLE_ADMIN . '.admin_is_deleted',
+                '=',
+                0
+            )
+            ->first();
+    }
+
+    /**
      * @return Builder
      */
     public static function getAll()

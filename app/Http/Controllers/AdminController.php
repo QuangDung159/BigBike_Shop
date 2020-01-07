@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Action;
 use App\Admin;
+use App\AdminActionModule;
 use App\Constant;
+use App\Module;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -227,5 +229,46 @@ class AdminController extends Controller
         Session::put('msg_delete_success', 'Delete admin successfully!');
 
         return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
+    }
+
+    /**
+     * @param int $adminId
+     * @return Factory|RedirectResponse|View
+     */
+    public function showDetailPage($adminId)
+    {
+        if (!$adminId) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        $admin = Admin::getByIdIsNotDeleted($adminId);
+        if (!$admin) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        $listActionModule = $this->getModuleWithAction();
+        $listActionModuleByAdmin = HelperController::convertStdToArray(AdminActionModule::getListActionModuleByAdminId($adminId));
+
+        $arrActionModule = [];
+        foreach ($listActionModuleByAdmin as $key => $item) {
+            array_push($arrActionModule, [$item['action_id'], $item['module_id']]);
+        }
+
+        // check [action, module] in admin_action_module get from db
+        foreach ($listActionModule as $key => $module) {
+            foreach ($module->list_action as $actionKey => &$action) {
+                $action = HelperController::convertStdToArray($action);
+                if (in_array(array($action['action_id'], $module->module_id), $arrActionModule)) {
+                    $action = $action + ['is_active' => 1];
+                } else {
+                    $action = $action + ['is_active' => 0];
+                }
+                $action = HelperController::convertArrayToStd($action);
+            }
+        }
+
+        return view(Constant::PATH_ADMIN_ADMIN_DETAIL)
+            ->with('admin', $admin)
+            ->with('listActionModule', $listActionModule);
     }
 }
