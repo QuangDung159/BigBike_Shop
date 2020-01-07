@@ -156,10 +156,20 @@ class AdminController extends Controller
         $data['admin_created_at'] = time();
         $data['admin_created_by'] = Session::get('admin_id');
 
-        Admin::insertAdmin($data);
+        $adminId = Admin::insertAdminAndGetId($data);
+
+        if (!$adminId) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        $adminData = Admin::getById($adminId);
+        if (!$adminData) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
 
         Session::put('msg_add_success', 'Create admin successfully!');
-        return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
+        return Redirect::to(Constant::URL_ADMIN_ADMIN . '/create')
+            ->with('admin', $adminData);
 
     }
 
@@ -181,6 +191,7 @@ class AdminController extends Controller
                 array_push($arrAction, [
                     'action_name' => $actionItem['action_name'],
                     'action_url' => strtolower($url),
+                    'action_id' => $actionItem['action_id'],
                 ]);
             }
             $moduleItem = $moduleItem + ['list_action' => $arrAction];

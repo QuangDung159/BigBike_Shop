@@ -13,3 +13,7 @@ triggerModalCreatedGallery().then(r => function () {
 function doClickActive() {
     document.getElementById('update_status_trigger').click();
 }
+
+function onChangeAcl(actionId, moduleId) {
+    alert(actionId + ' - ' + moduleId);
+}

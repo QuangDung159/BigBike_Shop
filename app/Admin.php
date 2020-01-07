@@ -294,9 +294,9 @@ class Admin extends Model
      * @param array $arrData
      * @return bool
      */
-    public static function insertAdmin($arrData)
+    public static function insertAdminAndGetId($arrData)
     {
         return DB::table(Constant::TABLE_ADMIN)
-            ->insert($arrData);
+            ->insertGetId($arrData);
     }
 }
