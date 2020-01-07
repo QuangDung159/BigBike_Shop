@@ -36,10 +36,21 @@
             }
             ?>
 
+            <?php
+            if (Session::get('msg_cannot_update_status_yourself') != null) {
+                echo '<div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>' . Session::get('msg_cannot_update_status_yourself') .
+                    '</strong>
+                      </div>';
+                Session::put('msg_cannot_update_status_yourself', null);
+            }
+            ?>
+
             <div class="table-agile-info">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        Product
+                        Admin
                     </div>
                     <div class="row w3-res-tb">
                         {{--                        <div class="col-sm-5 m-b-xs">--}}
@@ -50,8 +61,8 @@
                             <div class="input-group">
                                 <input type="text" class="input-sm form-control" placeholder="Search">
                                 <span class="input-group-btn">
-            <button class="btn btn-sm btn-default" type="button">Go!</button>
-          </span>
+                                    <button class="btn btn-sm btn-default" type="button">Go!</button>
+                                </span>
                             </div>
                         </div>
                     </div>

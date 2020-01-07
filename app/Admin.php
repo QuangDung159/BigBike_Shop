@@ -257,4 +257,46 @@ class Admin extends Model
                 0
             );
     }
+
+    /**
+     * @param int $adminId
+     * @param array $arrData
+     */
+    public static function updateByAdminId($adminId, $arrData)
+    {
+        $adminId = intval($adminId);
+        DB::table(Constant::TABLE_ADMIN)
+            ->where(
+                Constant::TABLE_ADMIN . '.admin_id',
+                '=',
+                $adminId
+            )
+            ->update($arrData);
+    }
+
+    /**
+     * @param string $adminEmail
+     * @return Model|Builder|object|null
+     */
+    public static function getByEmail($adminEmail)
+    {
+        $adminEmail = trim($adminEmail);
+        return DB::table(Constant::TABLE_ADMIN)
+            ->where(
+                Constant::TABLE_ADMIN . '.admin_email',
+                '=',
+                $adminEmail
+            )
+            ->first();
+    }
+
+    /**
+     * @param array $arrData
+     * @return bool
+     */
+    public static function insertAdminAndGetId($arrData)
+    {
+        return DB::table(Constant::TABLE_ADMIN)
+            ->insertGetId($arrData);
+    }
 }

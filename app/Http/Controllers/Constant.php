@@ -36,6 +36,7 @@ class Constant
     const CONTROLLER_BRAND_CATEGORY = 'BrandCategoryController@';
     const CONTROLLER_GALLERY = 'GalleryController@';
     const CONTROLLER_USER = 'UserController@';
+    const CONTROLLER_ACL = 'AclController@';
 
     const URL_PRODUCT_DETAIL = '/product/';
 
@@ -47,6 +48,7 @@ class Constant
     const URL_ADMIN_GALLERY = '/admin/gallery';
     const URL_ADMIN_PRODUCT = '/admin/product';
     const URL_ADMIN_USER = '/admin/user';
+    const URL_ADMIN_ADMIN = '/admin/admin';
 
     const PATH_TO_UPLOAD_LOGO = '/upload/logo';
     const PATH_TO_UPLOAD_PRODUCT_IMAGE = '/client/img/product/product/';

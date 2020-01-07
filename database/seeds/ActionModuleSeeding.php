@@ -18,6 +18,18 @@ class ActionModuleSeeding extends Seeder
         $count = 1;
         foreach ($listAction as $action) {
             foreach ($listModule as $module) {
+                if ($module->module_alias == 'gallery') {
+                    if ($action->action_name == 'Update') {
+                        continue;
+                    }
+                }
+
+                if ($module->module_alias == 'user') {
+                    if ($action->action_name != 'Read') {
+                        continue;
+                    }
+                }
+
                 $data = [];
                 $data['action_id'] = $action->action_id;
                 $data['module_id'] = $module->module_id;

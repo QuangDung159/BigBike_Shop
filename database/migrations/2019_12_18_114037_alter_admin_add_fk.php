@@ -19,9 +19,6 @@ class AlterAdminAddFk extends Migration
 
             $table->foreign('admin_updated_by', 'fk_admin_to_admin_updated')
                 ->references('admin_id')->on('admin');
-
-            $table->foreign('action_module_id', 'fk_admin_to_action_module')
-                ->references('action_module_id')->on('action_module');
         });
     }
 

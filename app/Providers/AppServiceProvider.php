@@ -70,6 +70,9 @@ class AppServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * @return mixed
+     */
     public function getModuleWithAction()
     {
         $listModule = json_decode(Redis::get('list_module'));
@@ -95,6 +98,10 @@ class AppServiceProvider extends ServiceProvider
         return HelperController::convertArrayToStd($listModule);
     }
 
+    /**
+     * @param int $adminId
+     * @return mixed
+     */
     public function getModuleWithActionAdminId($adminId)
     {
         $listModule = Module::getByAdminId($adminId);

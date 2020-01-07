@@ -92,6 +92,9 @@ Route::group(['middleware' => 'authen.admin'], function () {
         Route::get('/admin/admin/read/detail/{adminId}', Constant::CONTROLLER_ADMIN . 'showDetailPage');
         Route::get('/admin/admin/update/{adminId}', Constant::CONTROLLER_ADMIN . 'showEditPage');
         Route::post('/admin/admin/update', Constant::CONTROLLER_ADMIN . 'doEditAdmin');
+
+        // acl
+        Route::post('/admin/admin/create/acl', Constant::CONTROLLER_ACL . 'doCreateAcl');
     });
 });
 

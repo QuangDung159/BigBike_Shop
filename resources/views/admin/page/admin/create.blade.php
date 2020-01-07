@@ -8,152 +8,152 @@
                     <div class="col-lg-12">
                         <section class="panel">
                             <header class="panel-heading">
-                                Create New Product
+                                Create New Admin
                                 <span class="tools pull-right">
 {{--                                <a class="fa fa-chevron-down" href="javascript:;"></a>--}}
                                     {{--                                <a class="fa fa-cog" href="javascript:;"></a>--}}
                                     {{--                                <a class="fa fa-times" href="javascript:;"></a>--}}
                              </span>
                             </header>
-                            <div class="panel-body">
-                                <form role="form" class="form-horizontal" action="{{URL::to('/admin/product/create')}}"
-                                      method="post"
-                                      enctype="multipart/form-data">
-                                    {{csrf_field()}}
-                                    <div class="form-group">
-                                        <label for="product_name" class="col-lg-3 control-label">Product Name</label>
-                                        <div class="col-lg-6">
-                                            <input type="text" placeholder="Enter product name" name="product_name"
-                                                   id="product_name"
-                                                   class="form-control">
+                            @if(!session('admin'))
+                                <div class="panel-body">
+                                    <form role="form" class="form-horizontal"
+                                          action="{{URL::to('/admin/admin/create')}}"
+                                          method="post"
+                                          enctype="multipart/form-data">
+                                        {{csrf_field()}}
+                                        <div class="form-group">
+                                            <label for="admin_name" class="col-lg-3 control-label">Admin Name</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" placeholder="Enter admin name" name="admin_name"
+                                                       id="admin_name"
+                                                       class="form-control">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label col-lg-3" for="brand_id">
-                                            Brand Name
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <select class="form-control m-bot15" name="brand_id" id="brand_id">
-                                                @foreach($listBrand as $key => $brandItem)
-                                                    <option
-                                                        value="{{$brandItem->brand_id}}">{{$brandItem->brand_name}}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="form-group">
+                                            <label for="admin_email" class="col-lg-3 control-label">Admin
+                                                Email</label>
+                                            <div class="col-lg-6">
+                                                <input type="email" placeholder="Enter admin email"
+                                                       name="admin_email"
+                                                       id="admin_email"
+                                                       class="form-control">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label col-lg-3" for="category_id">
-                                            Category Name
-                                        </label>
-                                        <div class="col-lg-6">
-                                            <select class="form-control m-bot15" name="category_id"
-                                                    id="category_id">
-                                                @foreach($listCategory as $key => $categoryItem)
-                                                    <option
-                                                        value="{{$categoryItem->category_id}}">{{$categoryItem->category_name}}</option>
-                                                @endforeach
-                                            </select>
+                                        <div class="form-group">
+                                            <label for="admin_password" class="col-lg-3 control-label">Admin
+                                                Password</label>
+                                            <div class="col-lg-6">
+                                                <input type="password" placeholder="Enter admin password"
+                                                       name="admin_password"
+                                                       id="admin_password"
+                                                       class="form-control">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <label for="product_desc" class="col-lg-3 control-label">Product
-                                            Description</label>
-                                        <div class="col-lg-6">
-                                            <textarea type="text" placeholder="Enter product description"
-                                                      name="product_desc"
-                                                      id="product_desc"
-                                                      class="form-control"></textarea>
-                                        </div>
-                                    </div>
+                                        <div class="form-group">
+                                            <label class="col-lg-3 control-label"></label>
+                                            <div class="col-lg-6">
+                                                @if($errors->any())
+                                                    <div class="alert alert-danger" style="margin-top: 10px">
+                                                        <a href="#" class="close" data-dismiss="alert"
+                                                           aria-label="close">&times;</a>
+                                                        @foreach($errors->all() as $errorItem)
+                                                            <p>{{$errorItem}}</p>
+                                                        @endforeach
+                                                    </div>
+                                                @endif
 
-                                    <div class="form-group">
-                                        <label for="product_content" class="col-lg-3 control-label">Product
-                                            Content</label>
-                                        <div class="col-lg-6">
-                                            <textarea type="text" placeholder="Enter product content"
-                                                      name="product_content"
-                                                      id="product_content"
-                                                      class="form-control"></textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="product_price" class="col-lg-3 control-label">Product
-                                            Price</label>
-                                        <div class="col-lg-6">
-                                            <input type="number" placeholder="Enter product price"
-                                                   name="product_price"
-                                                   id="product_price"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="product_promotion_price" class="col-lg-3 control-label">Product
-                                            Promotion Price</label>
-                                        <div class="col-lg-6">
-                                            <input type="number" placeholder="Enter product promotion price"
-                                                   name="product_promotion_price"
-                                                   id="product_promotion_price"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="product_stock" class="col-lg-3 control-label">Product
-                                            Stock</label>
-                                        <div class="col-lg-6">
-                                            <input type="number" placeholder="Enter product stock"
-                                                   name="product_stock"
-                                                   id="product_stock"
-                                                   class="form-control">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="product_thumbnail" class="col-lg-3 control-label">Product
-                                            Thumbnail</label>
-                                        <div class="col-lg-6">
-                                            <input type="file" id="product_thumbnail" name="product_thumbnail">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label class="col-lg-3 control-label"></label>
-                                        <div class="col-lg-6">
-                                            @if($errors->any())
-                                                <div class="alert alert-danger" style="margin-top: 10px">
-                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                    @foreach($errors->all() as $errorItem)
-                                                        <p>{{$errorItem}}</p>
-                                                    @endforeach
-                                                </div>
-                                            @endif
-
-                                            <?php
-                                            if (Session::has('msg_name_existed')) {
-                                                echo
-                                                    '<div class="alert alert-danger" style="margin-top: 10px">
+                                                <?php
+                                                if (Session::has('msg_name_existed')) {
+                                                    echo
+                                                        '<div class="alert alert-danger" style="margin-top: 10px">
                                                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                                     <p>' . Session::get('msg_name_existed') . '</p>
                                                 </div>';
-                                                Session::forget('msg_name_existed');
-                                            }
-                                            ?>
+                                                    Session::forget('msg_name_existed');
+                                                }
+                                                ?>
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="form-group">
-                                        <div class="col-lg-offset-3 col-lg-6">
-                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                        <div class="form-group">
+                                            <div class="col-lg-offset-3 col-lg-6">
+                                                <button class="btn btn-primary" type="submit">Submit</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
-                            </div>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="panel-body">
+                                    <form role="form" class="form-horizontal"
+                                          action="{{URL::to('/admin/admin/create')}}"
+                                          method="post"
+                                          enctype="multipart/form-data">
+                                        {{csrf_field()}}
+                                        <div class="form-group">
+                                            <label for="admin_name" class="col-lg-3 control-label">Admin Name</label>
+                                            <div class="col-lg-6">
+                                                <input type="text" placeholder="Enter admin name" name="admin_name"
+                                                       id="admin_name"
+                                                       class="form-control" value="{{session('admin')->admin_name}}"
+                                                       disabled>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="admin_email" class="col-lg-3 control-label">Admin
+                                                Email</label>
+                                            <div class="col-lg-6">
+                                                <input type="email" placeholder="Enter admin email"
+                                                       name="admin_email"
+                                                       id="admin_email"
+                                                       class="form-control" value="{{session('admin')->admin_email}}"
+                                                       disabled>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            @endif
                         </section>
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Access Control List</div>
+                            <div class="panel-body">
+                                @foreach($listModule as $key => $moduleItem)
+                                    <div class="form-group">
+                                        <h2>{{$moduleItem->module_name}}</h2>
+                                        <hr/>
+                                        <div class="row">
+                                            <div class="col-lg-1"></div>
+                                            <div class="col-lg-10">
+                                                @foreach($moduleItem->list_action as $keyAction => $actionItem)
+                                                    <div class="col-lg-3">
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" data-toggle="toggle"
+                                                                   data-on="Enabled"
+                                                                   data-off="Disabled"
+                                                                   id="{{$actionItem->action_id}}-{{$moduleItem->module_id}}"
+                                                                   onchange="onChangeAcl({{$actionItem->action_id}}, {{$moduleItem->module_id}})">{{$actionItem->action_name}}
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                            <div class="col-lg-1"></div>
+                                        </div>
+                                        <hr/>
+                                    </div>
+                                @endforeach
+                                @if(session('admin'))
+                                    <div class="form-group">
+                                        <input style="float: right" type="button" class="btn btn-primary" value="Done"
+                                               onclick="doSendAcl({{session('admin')->admin_id}})">
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- page end-->
