@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use App\Constant;
-use App\Gallery;
-use App\Product;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -112,5 +110,52 @@ class AdminController extends Controller
         Session::put('msg_update_success', 'Update admin successfully!');
 
         return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
+    }
+
+    /**
+     * @return Factory|View
+     */
+    public function showCreateAdminPage()
+    {
+        return view(Constant::PATH_ADMIN_ADMIN_CREATE);
+    }
+
+    public function doCreateAdmin(Request $req)
+    {
+        $this->validate($req,
+            [
+                'admin_name' => 'required',
+                'admin_email' => 'required',
+                'admin_password' => 'required',
+            ],
+            [
+                'admin_name.required' => 'Please enter admin name',
+                'admin_email.required' => 'Please enter admin email',
+                'admin_password.required' => 'Please enter admin password',
+            ]
+        );
+
+        $adminName = $req->admin_name;
+        $adminEmail = $req->admin_email;
+        $adminPassword = $req->admin_password;
+
+        $adminByEmail = Admin::getByEmail($adminEmail);
+        if ($adminByEmail) {
+            Session::put('msg_email_exist', 'Admin email already existed.');
+            return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
+        }
+
+        $data = [];
+        $data['admin_name'] = $adminName;
+        $data['admin_password'] = md5($adminPassword);
+        $data['admin_email'] = $adminEmail;
+        $data['admin_created_at'] = time();
+        $data['admin_created_by'] = Session::get('admin_id');
+
+        Admin::insertAdmin($data);
+
+        Session::put('msg_add_success', 'Create admin successfully!');
+        return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
+
     }
 }
