@@ -3,7 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -60,7 +62,7 @@ class Admin extends Model
     protected $fillable = ['action_module_id', 'admin_created_by', 'admin_updated_by', 'admin_name', 'admin_email', 'admin_password', 'admin_is_root', 'admin_created_at', 'admin_updated_at', 'admin_status', 'admin_is_deleted'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function actionModule()
     {
@@ -68,7 +70,7 @@ class Admin extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function admin_created()
     {
@@ -76,7 +78,7 @@ class Admin extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function admin_updated()
     {
@@ -203,6 +205,11 @@ class Admin extends Model
         return $this->hasMany('App\Slide', 'slide_updated_by', 'admin_id');
     }
 
+    /**
+     * @param string $adminEmail
+     * @param string $adminPassword
+     * @return Model|Builder|object|null
+     */
     public static function getAdminByEmailPassword($adminEmail, $adminPassword)
     {
         $adminEmail = trim($adminEmail);
@@ -222,6 +229,10 @@ class Admin extends Model
             ->first();
     }
 
+    /**
+     * @param int $adminId
+     * @return Model|Builder|object|null
+     */
     public static function getById($adminId)
     {
         $adminId = intval($adminId);
@@ -232,5 +243,18 @@ class Admin extends Model
                 $adminId
             )
             ->first();
+    }
+
+    /**
+     * @return Builder
+     */
+    public static function getAll()
+    {
+        return DB::table(Constant::TABLE_ADMIN)
+            ->where(
+                Constant::TABLE_ADMIN . '.admin_is_deleted',
+                '=',
+                0
+            );
     }
 }
