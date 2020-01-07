@@ -135,6 +135,7 @@
                                                             <input type="checkbox" data-toggle="toggle"
                                                                    data-on="Enabled"
                                                                    data-off="Disabled"
+                                                                   id="{{$actionItem->action_id}}-{{$moduleItem->module_id}}"
                                                                    onchange="onChangeAcl({{$actionItem->action_id}}, {{$moduleItem->module_id}})">{{$actionItem->action_name}}
                                                         </label>
                                                     </div>
@@ -145,9 +146,12 @@
                                         <hr/>
                                     </div>
                                 @endforeach
-                                <div class="form-group">
-                                    <input style="float: right" type="button" class="btn btn-primary" value="Done">
-                                </div>
+                                @if(session('admin'))
+                                    <div class="form-group">
+                                        <input style="float: right" type="button" class="btn btn-primary" value="Done"
+                                               onclick="doSendAcl({{session('admin')->admin_id}})">
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

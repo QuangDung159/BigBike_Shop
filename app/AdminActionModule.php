@@ -90,4 +90,14 @@ class AdminActionModule extends Model
             )
             ->first();
     }
+
+    /**
+     * @param array $arrData
+     * @return bool
+     */
+    public static function insert($arrData)
+    {
+        return DB::table(Constant::TABLE_ADMIN_ACTION_MODULE)
+            ->insert($arrData);
+    }
 }

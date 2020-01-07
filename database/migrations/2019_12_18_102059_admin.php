@@ -18,7 +18,6 @@ class Admin extends Migration
             $table->string('admin_name');
             $table->string('admin_email')->unique();
             $table->string('admin_password');
-            $table->unsignedInteger('action_module_id');
             $table->tinyInteger('admin_is_root')->default(0);
             $table->unsignedInteger('admin_created_at');
             $table->unsignedInteger('admin_updated_at')->nullable();
