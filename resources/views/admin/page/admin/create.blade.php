@@ -145,6 +145,9 @@
                                         <hr/>
                                     </div>
                                 @endforeach
+                                <div class="form-group">
+                                    <input style="float: right" type="button" class="btn btn-primary" value="Done">
+                                </div>
                             </div>
                         </div>
                     </div>

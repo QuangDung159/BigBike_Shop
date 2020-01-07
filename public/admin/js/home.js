@@ -14,6 +14,17 @@ function doClickActive() {
     document.getElementById('update_status_trigger').click();
 }
 
+let arrActionModule = [];
+
 function onChangeAcl(actionId, moduleId) {
-    alert(actionId + ' - ' + moduleId);
+    arrActionModule.push(
+        {
+            'action_id': actionId,
+            'module_id': moduleId,
+        }
+    );
+
+    console.log(
+        arrActionModule
+    );
 }
