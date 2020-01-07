@@ -257,4 +257,20 @@ class Admin extends Model
                 0
             );
     }
+
+    /**
+     * @param int $adminId
+     * @param array $arrData
+     */
+    public static function updateByAdminId($adminId, $arrData)
+    {
+        $adminId = intval($adminId);
+        DB::table(Constant::TABLE_ADMIN)
+            ->where(
+                Constant::TABLE_ADMIN . '.admin_id',
+                '=',
+                $adminId
+            )
+            ->update($arrData);
+    }
 }

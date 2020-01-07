@@ -36,6 +36,17 @@
             }
             ?>
 
+            <?php
+            if (Session::get('msg_cannot_update_status_yourself') != null) {
+                echo '<div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>' . Session::get('msg_cannot_update_status_yourself') .
+                    '</strong>
+                      </div>';
+                Session::put('msg_cannot_update_status_yourself', null);
+            }
+            ?>
+
             <div class="table-agile-info">
                 <div class="panel panel-default">
                     <div class="panel-heading">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Admin;
 use App\Constant;
+use App\Gallery;
 use App\Product;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -81,5 +82,35 @@ class AdminController extends Controller
         return view(Constant::PATH_ADMIN_ADMIN_LIST)
             ->with('listAdminToShow', $listAdminToShow)
             ->with('assocAdmin', $arrAssocAdmin);
+    }
+
+    /**
+     * @param int $adminId
+     * @param int $status
+     * @return RedirectResponse
+     */
+    public function changeStatus($adminId, $status)
+    {
+        $data = [];
+
+        if ($status == 0) {
+            $data['admin_status'] = 1;
+        } else {
+            $data['admin_status'] = 0;
+        }
+
+        if ($adminId == Session::get('admin_id')) {
+            Session::put('msg_cannot_update_status_yourself', 'Sorry, you cannot update your status.');
+            return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
+        }
+
+        $data['admin_updated_at'] = time();
+        $data['admin_updated_by'] = Session::get('admin_id');
+
+        Admin::updateByAdminId($adminId, $data);
+
+        Session::put('msg_update_success', 'Update admin successfully!');
+
+        return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
     }
 }
