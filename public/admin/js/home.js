@@ -91,15 +91,19 @@ function ajaxDoSendAclUpdate(adminId) {
 function onClickLabelChangePassword() {
     $('#input_admin_password_new').prop('hidden', null);
     $('#input_admin_password_re').prop('hidden', null);
-    $('#admin_password_current').prop('disabled', null).val('');
+    $('#admin_password_current').prop('disabled', null).val(null);
     $('#label_change').attr('hidden', true);
     $('#label_cancel').prop('hidden', null);
+    $('#is_change_password').val(1);
 }
 
 function onClickCancelChangePassword(adminPassword) {
     $('#input_admin_password_new').prop('hidden', true);
     $('#input_admin_password_re').prop('hidden', true);
     $('#admin_password_current').prop('disabled', true).val(adminPassword);
+    $('#admin_password_new').val(null);
+    $('#admin_password_re').val(null);
     $('#label_change').attr('hidden', null);
     $('#label_cancel').prop('hidden', true);
+    $('#is_change_password').val(0);
 }

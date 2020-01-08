@@ -35,6 +35,7 @@
                                       enctype="multipart/form-data">
                                     {{csrf_field()}}
                                     <input type="hidden" value="{{$admin->admin_id}}" name="admin_id">
+                                    <input type="hidden" value="0" id="is_change_password" name="is_change_password">
                                     <div class="form-group">
                                         <label for="admin_name" class="col-lg-3 control-label">Admin Name</label>
                                         <div class="col-lg-6">
@@ -119,6 +120,61 @@
                                                     <p>' . Session::get('msg_email_exist') . '</p>
                                                 </div>';
                                                 Session::forget('msg_email_exist');
+                                            }
+                                            ?>
+
+                                            <?php
+                                            if (Session::has('msg_enter_current')) {
+                                                echo
+                                                    '<div class="alert alert-danger" style="margin-top: 10px">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                    <p>' . Session::get('msg_enter_current') . '</p>
+                                                </div>';
+                                                Session::forget('msg_enter_current');
+                                            }
+                                            ?>
+
+                                            <?php
+                                            if (Session::has('msg_enter_new')) {
+                                                echo
+                                                    '<div class="alert alert-danger" style="margin-top: 10px">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                    <p>' . Session::get('msg_enter_new') . '</p>
+                                                </div>';
+                                                Session::forget('msg_enter_new');
+                                            }
+                                            ?>
+
+                                            <?php
+                                            if (Session::has('msg_re_enter')) {
+                                                echo
+                                                    '<div class="alert alert-danger" style="margin-top: 10px">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                    <p>' . Session::get('msg_re_enter') . '</p>
+                                                </div>';
+                                                Session::forget('msg_re_enter');
+                                            }
+                                            ?>
+
+                                            <?php
+                                            if (Session::has('msg_wrong_password')) {
+                                                echo
+                                                    '<div class="alert alert-danger" style="margin-top: 10px">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                    <p>' . Session::get('msg_wrong_password') . '</p>
+                                                </div>';
+                                                Session::forget('msg_wrong_password');
+                                            }
+                                            ?>
+
+                                            <?php
+                                            if (Session::has('msg_re_password_incorrect')) {
+                                                echo
+                                                    '<div class="alert alert-danger" style="margin-top: 10px">
+                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                    <p>' . Session::get('msg_re_password_incorrect') . '</p>
+                                                </div>';
+                                                Session::forget('msg_re_password_incorrect');
                                             }
                                             ?>
                                         </div>

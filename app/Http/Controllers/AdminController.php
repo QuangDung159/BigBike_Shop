@@ -320,9 +320,9 @@ class AdminController extends Controller
                 'admin_id' => 'required',
             ],
             [
-                'admin_name.required' => 'Please enter admin name',
-                'admin_email.required' => 'Please enter admin email',
-                'admin_id.required' => 'Please enter admin id',
+                'admin_name.required' => 'Please enter admin name.',
+                'admin_email.required' => 'Please enter admin email.',
+                'admin_id.required' => 'Please enter admin id.',
             ]
         );
 
@@ -341,6 +341,43 @@ class AdminController extends Controller
         $data['admin_email'] = $adminEmail;
         $data['admin_updated_at'] = time();
         $data['admin_updated_by'] = Session::get('admin_id');
+
+        $isChangePassword = $req->is_change_password;
+        if ($isChangePassword == 1) {
+            $currentPass = $req->admin_password_current;
+            $newPass = $req->admin_password_new;
+            $reNewPass = $req->admin_password_re;
+
+            if (!$currentPass) {
+                Session::put('msg_enter_current', 'Please enter current password.');
+                return Redirect::to(Constant::URL_ADMIN_ADMIN . '/update/' . $adminId);
+            }
+            if (!$newPass) {
+                Session::put('msg_enter_new', 'Please enter new password.');
+                return Redirect::to(Constant::URL_ADMIN_ADMIN . '/update/' . $adminId);
+            }
+            if (!$reNewPass) {
+                Session::put('msg_re_enter', 'Please re-enter new password.');
+                return Redirect::to(Constant::URL_ADMIN_ADMIN . '/update/' . $adminId);
+            }
+
+            $admin = Admin::getByIdIsNotDeleted($adminId);
+            if (!$admin) {
+                return Redirect::to(Constant::URL_ADMIN_ADMIN . '/dashboard');
+            }
+
+            if (md5($currentPass) != $admin->admin_password) {
+                Session::put('msg_wrong_password', 'Admin password is wrong.');
+                return Redirect::to(Constant::URL_ADMIN_ADMIN . '/update/' . $adminId);
+            }
+
+            if ($newPass != $reNewPass) {
+                Session::put('msg_re_password_incorrect', 'Admin re-password incorrect.');
+                return Redirect::to(Constant::URL_ADMIN_ADMIN . '/update/' . $adminId);
+            }
+
+            $data['admin_password'] = md5($newPass);
+        }
 
         Admin::updateByAdminId($adminId, $data);
 
