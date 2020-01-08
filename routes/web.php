@@ -95,6 +95,7 @@ Route::group(['middleware' => 'authen.admin'], function () {
 
         // acl
         Route::post('/admin/admin/create/acl', Constant::CONTROLLER_ACL . 'doCreateAcl');
+        Route::post('/admin/admin/update/acl', Constant::CONTROLLER_ACL . 'doUpdateAclByAdminId');
     });
 });
 

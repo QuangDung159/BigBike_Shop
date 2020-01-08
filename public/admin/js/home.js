@@ -35,7 +35,13 @@ function onChangeAcl(actionId, moduleId) {
 }
 
 function doSendAcl(adminId) {
-    ajaxDoSendAcl(adminId)
+    ajaxDoSendAcl(adminId);
+    arrActionModule = [];
+}
+
+function doSendAclUpdate(adminId) {
+    ajaxDoSendAclUpdate(adminId);
+    arrActionModule = [];
 }
 
 function ajaxDoSendAcl(adminId) {
@@ -58,4 +64,42 @@ function ajaxDoSendAcl(adminId) {
             },
         }
     )
+}
+
+function ajaxDoSendAclUpdate(adminId) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax(
+        {
+            url: '/admin/admin/update/acl',
+            type: 'post',
+            data: {
+                'data': JSON.stringify(arrActionModule),
+                'admin_id': adminId
+            },
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = data.url;
+            },
+        }
+    )
+}
+
+function onClickLabelChangePassword() {
+    $('#input_admin_password_new').prop('hidden', null);
+    $('#input_admin_password_re').prop('hidden', null);
+    $('#admin_password_current').prop('disabled', null).val('');
+    $('#label_change').attr('hidden', true);
+    $('#label_cancel').prop('hidden', null);
+}
+
+function onClickCancelChangePassword(adminPassword) {
+    $('#input_admin_password_new').prop('hidden', true);
+    $('#input_admin_password_re').prop('hidden', true);
+    $('#admin_password_current').prop('disabled', true).val(adminPassword);
+    $('#label_change').attr('hidden', null);
+    $('#label_cancel').prop('hidden', true);
 }
