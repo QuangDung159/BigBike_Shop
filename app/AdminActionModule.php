@@ -101,6 +101,22 @@ class AdminActionModule extends Model
     }
 
     /**
+     * @param int $adminActionModuleId
+     * @return int
+     */
+    public static function remove($adminActionModuleId)
+    {
+        $adminActionModuleId = intval($adminActionModuleId);
+        return DB::table(Constant::TABLE_ADMIN_ACTION_MODULE)
+            ->where(
+                Constant::TABLE_ADMIN_ACTION_MODULE . '.admin_action_module_id',
+                '=',
+                $adminActionModuleId
+            )
+            ->delete();
+    }
+
+    /**
      * @param int $adminId
      * @return Collection
      */
@@ -147,4 +163,5 @@ class AdminActionModule extends Model
             )
             ->get();
     }
+
 }

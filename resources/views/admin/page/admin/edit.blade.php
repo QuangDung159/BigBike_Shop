@@ -55,25 +55,46 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="admin_password" class="col-lg-3 control-label">Admin
+                                    <div class="form-group" id="input_admin_password_current">
+                                        <label for="admin_password" class="col-lg-3 control-label">Admin Current
                                             Password</label>
                                         <div class="col-lg-6">
-                                            <input type="password" placeholder="Enter admin password"
-                                                   name="admin_password"
-                                                   id="admin_password"
+                                            <input type="password" placeholder="Enter current admin password"
+                                                   name="admin_password_current"
+                                                   id="admin_password_current"
                                                    class="form-control" value="{{$admin->admin_password}}" disabled>
+                                        </div>
+                                        <label for="admin_password" class="control-label" id="label_change">
+                                            <a onclick="onClickLabelChangePassword()">
+                                                Change
+                                            </a>
+                                        </label>
+                                        <label for="admin_password" class="control-label" hidden id="label_cancel">
+                                            <a onclick="onClickCancelChangePassword('{{$admin->admin_password}}')">
+                                                Cancel
+                                            </a>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-group" hidden id="input_admin_password_new">
+                                        <label for="admin_password_re" class="col-lg-3 control-label">New
+                                            Password</label>
+                                        <div class="col-lg-6">
+                                            <input type="password" placeholder="Enter new admin password"
+                                                   name="admin_password_new"
+                                                   id="admin_password_new"
+                                                   class="form-control">
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="admin_password_re" class="col-lg-3 control-label">Admin
-                                            Password (re)</label>
+                                    <div class="form-group" hidden id="input_admin_password_re">
+                                        <label for="admin_password_re" class="col-lg-3 control-label">Re-Enter New
+                                            Password</label>
                                         <div class="col-lg-6">
-                                            <input type="password" placeholder="Re-enter admin password"
+                                            <input type="password" placeholder="Re-enter new admin password"
                                                    name="admin_password_re"
                                                    id="admin_password_re"
-                                                   class="form-control" value="{{$admin->admin_password}}" disabled>
+                                                   class="form-control">
                                         </div>
                                     </div>
 
