@@ -47,6 +47,28 @@
             }
             ?>
 
+            <?php
+            if (Session::get('msg_delete_fail') != null) {
+                echo '<div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>' . Session::get('msg_delete_fail') .
+                    '</strong>
+                      </div>';
+                Session::put('msg_delete_fail', null);
+            }
+            ?>
+
+            <?php
+            if (Session::get('msg_update_fail') != null) {
+                echo '<div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>' . Session::get('msg_update_fail') .
+                    '</strong>
+                      </div>';
+                Session::put('msg_update_fail', null);
+            }
+            ?>
+
             <div class="table-agile-info">
                 <div class="panel panel-default">
                     <div class="panel-heading">

@@ -20,11 +20,7 @@ class GalleryController extends Controller
     {
         $listGallery = Gallery::getAll();
 
-        $listAdmin = Admin::where(
-            Constant::TABLE_ADMIN . '.admin_is_deleted',
-            '=',
-            0
-        )->get();
+        $listAdmin = Admin::getAll()->get();
 
         $listAdmin = HelperController::convertStdToArray($listAdmin);
 

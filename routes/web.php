@@ -23,6 +23,7 @@ Route::group([], function () {
     //Route::post('/cart/doAddToCart', Constant::CONTROLLER_CART . 'doAddToCart');
     Route::get('/cart/doAddToCartGet/{productId}', Constant::CONTROLLER_CART . 'doAddToCartGet');
     Route::get('/cart/doAddToCartProductDetail/{productId}', Constant::CONTROLLER_CART . 'doAddToCartProductDetail');
+    Route::get('/cart/submitOrder', Constant::CONTROLLER_CART . 'doSubmitOrder');
 });
 
 // admin
