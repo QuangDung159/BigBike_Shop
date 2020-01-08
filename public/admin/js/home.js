@@ -88,13 +88,15 @@ function ajaxDoSendAclUpdate(adminId) {
     )
 }
 
-function onClickLabelChangePassword() {
-    $('#input_admin_password_new').prop('hidden', null);
-    $('#input_admin_password_re').prop('hidden', null);
-    $('#admin_password_current').prop('disabled', null).val(null);
-    $('#label_change').attr('hidden', true);
-    $('#label_cancel').prop('hidden', null);
-    $('#is_change_password').val(1);
+function onClickLabelChangePassword(currentAdminId, adminId, isRoot) {
+    if (currentAdminId == adminId || isRoot == 1) {
+        $('#input_admin_password_new').prop('hidden', null);
+        $('#input_admin_password_re').prop('hidden', null);
+        $('#admin_password_current').prop('disabled', null).val(null);
+        $('#label_change').attr('hidden', true);
+        $('#label_cancel').prop('hidden', null);
+        $('#is_change_password').val(1);
+    }
 }
 
 function onClickCancelChangePassword(adminPassword) {

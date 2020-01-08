@@ -71,7 +71,7 @@ class AdminController extends Controller
      */
     public function showListPage()
     {
-        $listAdminToShow = Admin::getAll()
+        $listAdminToShow = Admin::getAllWasNotDeleted()
             ->orderBy(Constant::TABLE_ADMIN . '.admin_created_at', 'desc')
             ->paginate(10);
 
@@ -93,27 +93,33 @@ class AdminController extends Controller
      */
     public function changeStatus($adminId, $status)
     {
-        $data = [];
+        if (!$this->checkIsRoot($adminId)) {
+            $data = [];
 
-        if ($status == 0) {
-            $data['admin_status'] = 1;
+            if ($status == 0) {
+                $data['admin_status'] = 1;
+            } else {
+                $data['admin_status'] = 0;
+            }
+
+            if ($adminId == Session::get('admin_id')) {
+                Session::put('msg_cannot_update_status_yourself', 'Sorry, you cannot update your status.');
+                return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
+            }
+
+            $data['admin_updated_at'] = time();
+            $data['admin_updated_by'] = Session::get('admin_id');
+
+            Admin::updateByAdminId($adminId, $data);
+
+            Session::put('msg_update_success', 'Update admin successfully!');
+
+            return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
         } else {
-            $data['admin_status'] = 0;
-        }
+            Session::put('msg_update_fail', 'You cannot update status for Root!');
 
-        if ($adminId == Session::get('admin_id')) {
-            Session::put('msg_cannot_update_status_yourself', 'Sorry, you cannot update your status.');
             return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
         }
-
-        $data['admin_updated_at'] = time();
-        $data['admin_updated_by'] = Session::get('admin_id');
-
-        Admin::updateByAdminId($adminId, $data);
-
-        Session::put('msg_update_success', 'Update admin successfully!');
-
-        return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
     }
 
     /**
@@ -213,22 +219,33 @@ class AdminController extends Controller
      */
     public function deleteAdmin($adminId)
     {
-        if (!$adminId) {
+        if (!$this->checkIsRoot($adminId)) {
+            if (!$adminId) {
+                return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
+            }
+
+            $admin = Admin::getById($adminId);
+
+            if (Session::get('admin_id') == $adminId) {
+                Session::put('msg_delete_fail', 'You cannot remove your account! Please contact to Root Admin to get more information.');
+                return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
+            }
+
+            $data = [];
+            $data['admin_updated_at'] = time();
+            $data['admin_email'] = $admin->admin_email . '.removed';
+            $data['admin_updated_by'] = Session::get('admin_id');
+            $data['admin_is_deleted'] = 1;
+
+            Admin::updateByAdminId($adminId, $data);
+            Session::put('msg_delete_success', 'Delete admin successfully!');
+
+            return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
+        } else {
+            Session::put('msg_delete_fail', 'You cannot delete Root!');
+
             return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
         }
-
-        $admin = Admin::getById($adminId);
-
-        $data = [];
-        $data['admin_updated_at'] = time();
-        $data['admin_email'] = $admin->admin_email . '.removed';
-        $data['admin_updated_by'] = Session::get('admin_id');
-        $data['admin_is_deleted'] = 1;
-
-        Admin::updateByAdminId($adminId, $data);
-        Session::put('msg_delete_success', 'Delete admin successfully!');
-
-        return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
     }
 
     /**
@@ -289,20 +306,29 @@ class AdminController extends Controller
      */
     public function showEditPage($adminId)
     {
-        if (!$adminId) {
-            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        if (!$this->checkIsRoot($adminId)) {
+            if (!$adminId) {
+                return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+            }
+
+            $admin = Admin::getByIdIsNotDeleted($adminId);
+            if (!$admin) {
+                return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+            }
+
+            $listAclByAdminId = $this->getListActionModuleByAdminId($adminId);
+
+            $currentAdmin = Admin::getByIdIsNotDeleted(Session::get('admin_id'));
+
+            return view(Constant::PATH_ADMIN_ADMIN_EDIT)
+                ->with('admin', $admin)
+                ->with('listAcl', $listAclByAdminId)
+                ->with('currentAdminId', Session::get('admin_id'))
+                ->with('isRoot', $currentAdmin->admin_is_root);
+        } else {
+            Session::put('msg_update_fail', 'You cannot update for Root!');
+            return Redirect::to(Constant::URL_ADMIN_ADMIN . '/read');
         }
-
-        $admin = Admin::getByIdIsNotDeleted($adminId);
-        if (!$admin) {
-            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
-        }
-
-        $listAclByAdminId = $this->getListActionModuleByAdminId($adminId);
-
-        return view(Constant::PATH_ADMIN_ADMIN_EDIT)
-            ->with('admin', $admin)
-            ->with('listAcl', $listAclByAdminId);
     }
 
     /**
@@ -383,6 +409,29 @@ class AdminController extends Controller
 
         Session::put('msg_update_success', 'Update admin successfully!');
 
-        return Redirect::to(Constant::URL_ADMIN_ADMIN . '/update/' . $adminId);
+        if ($isChangePassword == 1) {
+            return Redirect::to(Constant::URL_ADMIN_LOGOUT);
+        } else {
+            return Redirect::to(Constant::URL_ADMIN_ADMIN . '/update/' . $adminId);
+        }
+    }
+
+    /**
+     * @param int $adminId
+     * @return bool
+     */
+    public function checkIsRoot($adminId)
+    {
+        $adminId = intval($adminId);
+        $admin = Admin::getByIdIsNotDeleted($adminId);
+        if (!$admin) {
+            return false;
+        }
+
+        if ($admin->admin_is_root == 1) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

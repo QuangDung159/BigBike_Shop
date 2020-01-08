@@ -48,11 +48,7 @@ class ProductController extends Controller
             ->orderBy(Constant::TABLE_PRODUCT . '.product_created_at', 'desc')
             ->paginate(10);
 
-        $listAdmin = Admin::where(
-            Constant::TABLE_ADMIN . '.admin_is_deleted',
-            '=',
-            0
-        )->get();
+        $listAdmin = Admin::getAll()->get();
 
         $listAdmin = HelperController::convertStdToArray($listAdmin);
 

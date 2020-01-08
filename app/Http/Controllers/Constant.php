@@ -42,6 +42,7 @@ class Constant
 
     const URL_ADMIN_DASHBOARD = '/admin/dashboard';
     const URL_ADMIN_LOGIN = '/admin/login';
+    const URL_ADMIN_LOGOUT = '/admin/logout';
     const URL_ADMIN_BRAND = '/admin/brand';
     const URL_ADMIN_CATEGORY = '/admin/category';
     const URL_ADMIN_BRAND_CATEGORY = '/admin/brand_category';

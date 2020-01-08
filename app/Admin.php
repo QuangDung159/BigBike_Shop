@@ -218,6 +218,16 @@ class Admin extends Model
                 '=',
                 md5($adminPassword)
             )
+            ->where(
+                Constant::TABLE_ADMIN . '.admin_status',
+                '=',
+                1
+            )
+            ->where(
+                Constant::TABLE_ADMIN . '.admin_is_deleted',
+                '=',
+                0
+            )
             ->first();
     }
 
@@ -262,6 +272,11 @@ class Admin extends Model
      * @return Builder
      */
     public static function getAll()
+    {
+        return DB::table(Constant::TABLE_ADMIN);
+    }
+
+    public static function getAllWasNotDeleted()
     {
         return DB::table(Constant::TABLE_ADMIN)
             ->where(

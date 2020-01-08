@@ -66,9 +66,11 @@
                                                    class="form-control" value="{{$admin->admin_password}}" disabled>
                                         </div>
                                         <label for="admin_password" class="control-label" id="label_change">
-                                            <a onclick="onClickLabelChangePassword()">
+                                            <a onclick="onClickLabelChangePassword({{$currentAdminId}}, {{$admin->admin_id}}, {{$isRoot}})">
                                                 Change
                                             </a>
+                                            <i class="fa fa-info-circle" data-toggle="tooltip" data-placement="right"
+                                               title="You must be root or owner to change password"></i>
                                         </label>
                                         <label for="admin_password" class="control-label" hidden id="label_cancel">
                                             <a onclick="onClickCancelChangePassword('{{$admin->admin_password}}')">
@@ -249,4 +251,10 @@
         </div>
         <!-- / footer -->
     </section>
+
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 @endsection

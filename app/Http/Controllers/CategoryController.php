@@ -85,11 +85,7 @@ class CategoryController extends Controller
         )->orderBy(Constant::TABLE_CATEGORY . '.category_created_at', 'desc')
             ->paginate(10);
 
-        $listAdmin = Admin::where(
-            Constant::TABLE_ADMIN . '.admin_is_deleted',
-            '=',
-            0
-        )->get();
+        $listAdmin = Admin::getAll()->get();
 
         $listAdmin = HelperController::convertStdToArray($listAdmin);
 
