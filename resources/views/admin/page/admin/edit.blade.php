@@ -2,6 +2,19 @@
 @section('content')
     <section id="main-content">
         <section class="wrapper">
+
+            <?php
+            if (Session::get('msg_update_success') != null) {
+                echo '<div class="alert alert-success">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>' . Session::get('msg_update_success') .
+                    '<a href="' . URL::to('/admin/admin/read') . '"> Back to listing.</a>' .
+                    '</strong>
+                      </div>';
+                Session::put('msg_update_success', null);
+            }
+            ?>
+
             <div class="form-w3layouts">
                 <!-- page start-->
                 <div class="row">
@@ -116,7 +129,8 @@
                                                                 <input type="checkbox" data-toggle="toggle"
                                                                        data-on="Enabled"
                                                                        data-off="Disabled" checked
-                                                                       id="{{$actionItem->action_id}}-{{$moduleItem->module_id}}">
+                                                                       id="{{$actionItem->action_id}}-{{$moduleItem->module_id}}"
+                                                                       onchange="onChangeAcl({{$actionItem->action_id}}, {{$moduleItem->module_id}})">
                                                                 {{$actionItem->action_name}}
                                                             </label>
                                                         </div>
@@ -125,8 +139,9 @@
                                                             <label class="checkbox-inline">
                                                                 <input type="checkbox" data-toggle="toggle"
                                                                        data-on="Enabled"
-                                                                       data-off="Disabled" disabled
-                                                                       id="{{$actionItem->action_id}}-{{$moduleItem->module_id}}">
+                                                                       data-off="Disabled"
+                                                                       id="{{$actionItem->action_id}}-{{$moduleItem->module_id}}"
+                                                                       onchange="onChangeAcl({{$actionItem->action_id}}, {{$moduleItem->module_id}})">
                                                                 {{$actionItem->action_name}}
                                                             </label>
                                                         </div>
@@ -140,7 +155,7 @@
                                 @endforeach
                                 <div class="form-group">
                                     <input style="float: right" type="button" class="btn btn-primary" value="Done"
-                                           onclick="doSendAcl({{$admin->admin_id}})">
+                                           onclick="doSendAclUpdate({{$admin->admin_id}})">
                                 </div>
                             </div>
                         </div>

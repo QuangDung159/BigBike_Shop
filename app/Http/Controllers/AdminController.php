@@ -304,4 +304,48 @@ class AdminController extends Controller
             ->with('admin', $admin)
             ->with('listAcl', $listAclByAdminId);
     }
+
+    /**
+     * @param Request $req
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
+    public function doEditAdmin(Request $req)
+    {
+        $this->validate(
+            $req,
+            [
+                'admin_name' => 'required',
+                'admin_email' => 'required',
+                'admin_id' => 'required',
+            ],
+            [
+                'admin_name.required' => 'Please enter admin name',
+                'admin_email.required' => 'Please enter admin email',
+                'admin_id.required' => 'Please enter admin id',
+            ]
+        );
+
+        $adminName = $req->admin_name;
+        $adminEmail = $req->admin_email;
+        $adminId = $req->admin_id;
+
+        $adminByEmail = Admin::getByEmail($adminEmail);
+        if ($adminByEmail && $adminByEmail->admin_id != $adminId) {
+            Session::put('msg_email_exist', 'Admin email already existed.');
+            return Redirect::to(Constant::URL_ADMIN_ADMIN . '/update/' . $adminId);
+        }
+
+        $data = [];
+        $data['admin_name'] = $adminName;
+        $data['admin_email'] = $adminEmail;
+        $data['admin_updated_at'] = time();
+        $data['admin_updated_by'] = Session::get('admin_id');
+
+        Admin::updateByAdminId($adminId, $data);
+
+        Session::put('msg_update_success', 'Update admin successfully!');
+
+        return Redirect::to(Constant::URL_ADMIN_ADMIN . '/update/' . $adminId);
+    }
 }

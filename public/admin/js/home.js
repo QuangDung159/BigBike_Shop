@@ -35,7 +35,13 @@ function onChangeAcl(actionId, moduleId) {
 }
 
 function doSendAcl(adminId) {
-    ajaxDoSendAcl(adminId)
+    ajaxDoSendAcl(adminId);
+    arrActionModule = [];
+}
+
+function doSendAclUpdate(adminId) {
+    ajaxDoSendAclUpdate(adminId);
+    arrActionModule = [];
 }
 
 function ajaxDoSendAcl(adminId) {
@@ -47,6 +53,28 @@ function ajaxDoSendAcl(adminId) {
     $.ajax(
         {
             url: '/admin/admin/create/acl',
+            type: 'post',
+            data: {
+                'data': JSON.stringify(arrActionModule),
+                'admin_id': adminId
+            },
+            dataType: 'json',
+            success: function (data) {
+                window.location.href = data.url;
+            },
+        }
+    )
+}
+
+function ajaxDoSendAclUpdate(adminId) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax(
+        {
+            url: '/admin/admin/update/acl',
             type: 'post',
             data: {
                 'data': JSON.stringify(arrActionModule),
