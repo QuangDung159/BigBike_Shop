@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -82,5 +83,13 @@ class Order extends Model
     {
         return DB::table(Constant::TABLE_ORDER)
             ->insertGetId($arrData);
+    }
+
+    /**
+     * @return Builder
+     */
+    public static function getAll()
+    {
+        return DB::table(Constant::TABLE_ORDER);
     }
 }

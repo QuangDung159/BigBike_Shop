@@ -97,6 +97,11 @@ Route::group(['middleware' => 'authen.admin'], function () {
         // acl
         Route::post('/admin/admin/create/acl', Constant::CONTROLLER_ACL . 'doCreateAcl');
         Route::post('/admin/admin/update/acl', Constant::CONTROLLER_ACL . 'doUpdateAclByAdminId');
+
+        // order
+        Route::get('/admin/order/read', Constant::CONTROLLER_ORDER . 'showListPage');
+        Route::get('/admin/order/read/detail/{orderId}', Constant::CONTROLLER_ORDER . 'showDetailPage');
+        Route::post('/admin/order/update/{orderId}/{shippingStatus}', Constant::CONTROLLER_ORDER . 'doUpdateShippingStatus');
     });
 });
 
