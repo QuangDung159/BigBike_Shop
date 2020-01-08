@@ -246,6 +246,19 @@ class AdminController extends Controller
             return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
         }
 
+        $listActionModule = $this->getListActionModuleByAdminId($adminId);
+
+        return view(Constant::PATH_ADMIN_ADMIN_DETAIL)
+            ->with('admin', $admin)
+            ->with('listActionModule', $listActionModule);
+    }
+
+    /**
+     * @param int $adminId
+     * @return mixed
+     */
+    public function getListActionModuleByAdminId($adminId)
+    {
         $listActionModule = $this->getModuleWithAction();
         $listActionModuleByAdmin = HelperController::convertStdToArray(AdminActionModule::getListActionModuleByAdminId($adminId));
 
@@ -267,8 +280,28 @@ class AdminController extends Controller
             }
         }
 
-        return view(Constant::PATH_ADMIN_ADMIN_DETAIL)
+        return $listActionModule;
+    }
+
+    /**
+     * @param int $adminId
+     * @return Factory|RedirectResponse|View
+     */
+    public function showEditPage($adminId)
+    {
+        if (!$adminId) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        $admin = Admin::getByIdIsNotDeleted($adminId);
+        if (!$admin) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        $listAclByAdminId = $this->getListActionModuleByAdminId($adminId);
+
+        return view(Constant::PATH_ADMIN_ADMIN_EDIT)
             ->with('admin', $admin)
-            ->with('listActionModule', $listActionModule);
+            ->with('listAcl', $listAclByAdminId);
     }
 }
