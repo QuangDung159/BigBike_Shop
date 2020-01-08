@@ -79,17 +79,17 @@
                                          src="{{asset('/client/img/product/product')}}/{{$product->product_thumbnail}}"
                                          alt="" width="330" height="160">
                                     <div class="p_icon">
-{{--                                        <a href="javascript:{}"--}}
-{{--                                           onclick="submitAddToCartHomePage('{{$product->product_id}}')">--}}
-{{--                                            <form action="{{URL::to('/cart/doAddToCart')}}" method="post"--}}
-{{--                                                  id="add_to_cart_form_{{$product->product_id}}">--}}
-{{--                                                {{csrf_field()}}--}}
-{{--                                                <input type="hidden" name="qty" value="1">--}}
-{{--                                                <input type="hidden" name="current_url" value="/">--}}
-{{--                                                <input type="hidden" name="product_id" value="{{$product->product_id}}">--}}
-{{--                                            </form>--}}
-{{--                                            <i class="lnr lnr-cart"></i>--}}
-{{--                                        </a>--}}
+                                        {{--                                        <a href="javascript:{}"--}}
+                                        {{--                                           onclick="submitAddToCartHomePage('{{$product->product_id}}')">--}}
+                                        {{--                                            <form action="{{URL::to('/cart/doAddToCart')}}" method="post"--}}
+                                        {{--                                                  id="add_to_cart_form_{{$product->product_id}}">--}}
+                                        {{--                                                {{csrf_field()}}--}}
+                                        {{--                                                <input type="hidden" name="qty" value="1">--}}
+                                        {{--                                                <input type="hidden" name="current_url" value="/">--}}
+                                        {{--                                                <input type="hidden" name="product_id" value="{{$product->product_id}}">--}}
+                                        {{--                                            </form>--}}
+                                        {{--                                            <i class="lnr lnr-cart"></i>--}}
+                                        {{--                                        </a>--}}
                                         <a href="{{URL::to('/cart/doAddToCartGet')}}/{{$product->product_id}}">
                                             <i class="lnr lnr-cart"></i>
                                         </a>
@@ -130,6 +130,32 @@
         ';
 
         Session::forget('msg_add_to_cart_success');
+    }
+    ?>
+
+    <?php
+    if (Session::has('msg_submit_order_success')) {
+        echo '
+        <input type="hidden" id="btn_trigger_modal" class="btn btn-info btn-lg" data-toggle="modal"
+           data-target="#myModal">
+
+            <!-- Modal -->
+            <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h2>' . Session::get('msg_submit_order_success') . '</h2>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        ';
+
+        Session::forget('msg_submit_order_success');
     }
     ?>
 @endsection

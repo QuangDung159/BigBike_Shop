@@ -39,6 +39,7 @@ class Constant
     const CONTROLLER_ACL = 'AclController@';
 
     const URL_PRODUCT_DETAIL = '/product/';
+    const URL_HOME = '/home/';
 
     const URL_ADMIN_DASHBOARD = '/admin/dashboard';
     const URL_ADMIN_LOGIN = '/admin/login';

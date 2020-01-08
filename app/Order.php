@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $order_id
@@ -40,7 +43,7 @@ class Order extends Model
     protected $fillable = ['shipping_status_id', 'user_id', 'order_updated_by', 'order_created_at', 'order_updated_at', 'order_status', 'order_is_deleted'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function admin()
     {
@@ -48,7 +51,7 @@ class Order extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function shippingStatus()
     {
@@ -56,7 +59,7 @@ class Order extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -64,10 +67,20 @@ class Order extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function orderProducts()
     {
         return $this->hasMany('App\OrderProduct', 'order_id', 'order_id');
+    }
+
+    /**
+     * @param array $arrData
+     * @return int
+     */
+    public static function insertOrderGetId($arrData)
+    {
+        return DB::table(Constant::TABLE_ORDER)
+            ->insertGetId($arrData);
     }
 }

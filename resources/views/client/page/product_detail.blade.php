@@ -185,8 +185,6 @@
     </section>
 
     <?php
-
-    echo '<h1>' . Session::get('msg_add_to_cart_success') . '</h1>';
     if (Session::has('msg_add_to_cart_success')) {
         echo '
         <input type="hidden" id="btn_trigger_modal" class="btn btn-info btn-lg" data-toggle="modal"
