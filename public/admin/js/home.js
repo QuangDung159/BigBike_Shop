@@ -62,6 +62,9 @@ function ajaxDoSendAcl(adminId) {
             success: function (data) {
                 window.location.href = data.url;
             },
+            error: function (data) {
+
+            }
         }
     )
 }
@@ -108,4 +111,32 @@ function onClickCancelChangePassword(adminPassword) {
     $('#label_change').attr('hidden', null);
     $('#label_cancel').prop('hidden', true);
     $('#is_change_password').val(0);
+}
+
+function doChangeShippingStatus(orderId) {
+    let shippingStatusId = $('#shipping_status_id').val();
+    $.ajaxSetup(
+        {
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }
+    );
+
+    $.ajax(
+        {
+            url: '/admin/order/update/change-shipping-status',
+            type: 'POST',
+            dataType: 'JSON',
+            data: {
+                'shipping_status_id': shippingStatusId,
+                'order_id': orderId,
+            },
+            success: function (data) {
+                window.location.href = data.url;
+            },
+            error: function () {
+            },
+        }
+    )
 }

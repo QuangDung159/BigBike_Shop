@@ -7,7 +7,9 @@ use App\Constant;
 use App\Order;
 use App\ShippingStatus;
 use App\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
@@ -33,5 +35,29 @@ class OrderController extends Controller
             ->with('assocAdmin', $arrAssocAdmin)
             ->with('assocUser', $arrAssocUser)
             ->with('listShippingStatus', $listShippingStatus);
+    }
+
+    /**
+     * @param Request $req
+     * @return JsonResponse
+     */
+    public function doUpdateShippingStatus(Request $req)
+    {
+        $shippingStatusId = $req->shipping_status_id;
+        $orderId = $req->order_id;
+
+        $data = [];
+        $data['shipping_status_id'] = $shippingStatusId;
+        $data['order_updated_at'] = time();
+        $data['order_updated_by'] = Session::get('admin_id');
+
+        Order::updateById($orderId, $data);
+
+        Session::put('msg_update_success', 'Update order successfully!');
+        return response()->json(
+            [
+                'url' => Constant::URL_ADMIN_ORDER . '/read',
+            ], 200
+        );
     }
 }

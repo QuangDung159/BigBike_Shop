@@ -101,7 +101,7 @@ Route::group(['middleware' => 'authen.admin'], function () {
         // order
         Route::get('/admin/order/read', Constant::CONTROLLER_ORDER . 'showListPage');
         Route::get('/admin/order/read/detail/{orderId}', Constant::CONTROLLER_ORDER . 'showDetailPage');
-        Route::post('/admin/order/update/{orderId}/{shippingStatus}', Constant::CONTROLLER_ORDER . 'doUpdateShippingStatus');
+        Route::post('/admin/order/update/change-shipping-status', Constant::CONTROLLER_ORDER . 'doUpdateShippingStatus');
     });
 });
 

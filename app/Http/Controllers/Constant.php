@@ -52,6 +52,7 @@ class Constant
     const URL_ADMIN_PRODUCT = '/admin/product';
     const URL_ADMIN_USER = '/admin/user';
     const URL_ADMIN_ADMIN = '/admin/admin';
+    const URL_ADMIN_ORDER = '/admin/order';
 
     const PATH_TO_UPLOAD_LOGO = '/upload/logo';
     const PATH_TO_UPLOAD_PRODUCT_IMAGE = '/client/img/product/product/';

@@ -61,7 +61,9 @@
                                         <a href="{{URL::to('/admin/order/read/detail')}}/{{$orderItem->order_id}}">{{$orderItem->order_id}}</a>
                                     </td>
                                     <td>
-                                        <select class="form-control m-bot15" name="brand_id" id="brand_id">
+                                        <select class="form-control m-bot15" name="shipping_status_id"
+                                                id="shipping_status_id"
+                                                onchange="doChangeShippingStatus({{$orderItem->order_id}})">
                                             @foreach($listShippingStatus as $key => $shippingStatusItem)
                                                 @if($shippingStatusItem->shipping_status_id == $orderItem->shipping_status_id)
                                                     <option

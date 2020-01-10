@@ -92,4 +92,21 @@ class Order extends Model
     {
         return DB::table(Constant::TABLE_ORDER);
     }
+
+    /**
+     * @param int $orderId
+     * @param array $data
+     * @return int
+     */
+    public static function updateById($orderId, $data)
+    {
+        $orderId = intval($orderId);
+        return DB::table(Constant::TABLE_ORDER)
+            ->where(
+                Constant::TABLE_ORDER . '.order_id',
+                '=',
+                $orderId
+            )
+            ->update($data);
+    }
 }
