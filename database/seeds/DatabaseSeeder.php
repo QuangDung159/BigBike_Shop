@@ -51,7 +51,11 @@ class DatabaseSeeder extends Seeder
                 [
                     'shipping_status_id' => 4,
                     'shipping_status_name' => 'Delivered'
-                ]
+                ],
+                [
+                    'shipping_status_id' => 5,
+                    'shipping_status_name' => 'Canceled'
+                ],
             ]
         );
 

@@ -118,6 +118,9 @@ class CartController extends Controller
         return Redirect::to(Constant::URL_PRODUCT_DETAIL . $productId);
     }
 
+    /**
+     * @return RedirectResponse
+     */
     public function doSubmitOrder()
     {
         $orderData = [];

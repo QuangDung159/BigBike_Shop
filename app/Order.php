@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -82,5 +83,51 @@ class Order extends Model
     {
         return DB::table(Constant::TABLE_ORDER)
             ->insertGetId($arrData);
+    }
+
+    /**
+     * @return Builder
+     */
+    public static function getAll()
+    {
+        return DB::table(Constant::TABLE_ORDER);
+    }
+
+    /**
+     * @param int $orderId
+     * @param array $data
+     * @return int
+     */
+    public static function updateById($orderId, $data)
+    {
+        $orderId = intval($orderId);
+        return DB::table(Constant::TABLE_ORDER)
+            ->where(
+                Constant::TABLE_ORDER . '.order_id',
+                '=',
+                $orderId
+            )
+            ->update($data);
+    }
+
+    /**
+     * @param int $orderId
+     * @return Model|Builder|object|null
+     */
+    public static function getByIdIsNotDeleted($orderId)
+    {
+        $orderId = intval($orderId);
+        return DB::table(Constant::TABLE_ORDER)
+            ->where(
+                Constant::TABLE_ORDER . '.order_is_deleted',
+                '=',
+                0
+            )
+            ->where(
+                Constant::TABLE_ORDER . '.order_id',
+                '=',
+                $orderId
+            )
+            ->first();
     }
 }
