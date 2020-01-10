@@ -2,7 +2,10 @@
 
 namespace App;
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -24,7 +27,6 @@ use Illuminate\Support\Facades\Redis;
  * @property int $product_updated_at
  * @property boolean $product_status
  * @property boolean $product_is_deleted
- * @property Admin $admin
  * @property Admin $admin
  * @property BrandCategory $brandCategory
  * @property Gallery[] $galleries
@@ -53,7 +55,7 @@ class Product extends Model
     protected $fillable = ['brand_category_id', 'product_created_by', 'product_updated_by', 'product_name', 'product_desc', 'product_content', 'product_price', 'product_promotion_price', 'product_stock', 'product_rate', 'product_created_at', 'product_updated_at', 'product_status', 'product_is_deleted'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function admin_created()
     {
@@ -61,7 +63,7 @@ class Product extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function admin_updated()
     {
@@ -69,7 +71,7 @@ class Product extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function brandCategory()
     {
@@ -77,7 +79,7 @@ class Product extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function galleries()
     {
@@ -85,7 +87,7 @@ class Product extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function orderProducts()
     {
@@ -93,13 +95,16 @@ class Product extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function reviews()
     {
         return $this->hasMany('App\Review', 'product_id', 'product_id');
     }
 
+    /**
+     * @return Collection
+     */
     public static function getFeatureProduct()
     {
         return DB::table(Constant::TABLE_PRODUCT)
@@ -124,6 +129,10 @@ class Product extends Model
             ->get()->take(10);
     }
 
+    /**
+     * @param int $productId
+     * @return Model|Builder|object|null
+     */
     public static function getByIdClient($productId)
     {
         $productId = intval($productId);
@@ -169,7 +178,10 @@ class Product extends Model
             ->first();
     }
 
-
+    /**
+     * @param int $categoryId
+     * @return LengthAwarePaginator
+     */
     public static function getProductByCategoryClient($categoryId)
     {
         $categoryId = intval($categoryId);
@@ -218,6 +230,11 @@ class Product extends Model
             ->paginate(16);
     }
 
+    /**
+     * @param int $categoryId
+     * @param int $brandId
+     * @return LengthAwarePaginator
+     */
     public static function getProductByCategoryBrandClient($categoryId, $brandId)
     {
         $categoryId = intval($categoryId);
@@ -272,6 +289,13 @@ class Product extends Model
             ->paginate(16);
     }
 
+    /**
+     * @param int $categoryId
+     * @param int $brandId
+     * @param int $sortType
+     * @param int $itemPerPage
+     * @return LengthAwarePaginator|Builder
+     */
     public static function getProductClient($categoryId, $brandId, $sortType, $itemPerPage)
     {
         $categoryId = intval($categoryId);
@@ -348,7 +372,6 @@ class Product extends Model
             }
         }
 
-
         if ($itemPerPage == 0) {
             $result = $result->paginate(12);
         } else {
@@ -358,6 +381,10 @@ class Product extends Model
         return $result;
     }
 
+    /**
+     * @param int $status
+     * @return Collection
+     */
     public static function getByStatus($status)
     {
         $status = intval($status);
@@ -483,5 +510,35 @@ class Product extends Model
                 0
             )
             ->first();
+    }
+
+    /**
+     * @param int $orderId
+     * @return Collection
+     */
+    public static function getListProductByOrderId($orderId)
+    {
+        $orderId = intval($orderId);
+        return DB::table(Constant::TABLE_PRODUCT)
+            ->select(
+                [
+                    Constant::TABLE_PRODUCT . '.product_name',
+                    Constant::TABLE_PRODUCT . '.product_thumbnail',
+                    Constant::TABLE_PRODUCT . '.product_promotion_price',
+                    Constant::TABLE_ORDER_PRODUCT . '.order_product_qty',
+                ]
+            )
+            ->join(
+                Constant::TABLE_ORDER_PRODUCT,
+                Constant::TABLE_PRODUCT . '.product_id',
+                '=',
+                Constant::TABLE_ORDER_PRODUCT . '.product_id'
+            )
+            ->where(
+                Constant::TABLE_ORDER_PRODUCT . '.order_id',
+                '=',
+                $orderId
+            )
+            ->get();
     }
 }

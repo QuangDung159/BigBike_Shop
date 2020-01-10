@@ -109,4 +109,25 @@ class Order extends Model
             )
             ->update($data);
     }
+
+    /**
+     * @param int $orderId
+     * @return Model|Builder|object|null
+     */
+    public static function getByIdIsNotDeleted($orderId)
+    {
+        $orderId = intval($orderId);
+        return DB::table(Constant::TABLE_ORDER)
+            ->where(
+                Constant::TABLE_ORDER . '.order_is_deleted',
+                '=',
+                0
+            )
+            ->where(
+                Constant::TABLE_ORDER . '.order_id',
+                '=',
+                $orderId
+            )
+            ->first();
+    }
 }

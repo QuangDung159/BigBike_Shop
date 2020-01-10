@@ -48,7 +48,6 @@
                                 <th>Created At</th>
                                 <th>Updated At</th>
                                 <th>Updated By</th>
-                                <th style="width:30px;"></th>
                             </tr>
                             </thead>
                             <tbody>
@@ -58,7 +57,8 @@
                                                                                 name="post[]"><i></i></label>
                                     </td>
                                     <td>
-                                        <a href="{{URL::to('/admin/order/read/detail')}}/{{$orderItem->order_id}}">{{$orderItem->order_id}}</a>
+                                        <a href="{{URL::to('/admin/order/read/detail')}}/{{$orderItem->order_id}}">Order
+                                            #{{$orderItem->order_id}}</a>
                                     </td>
                                     <td>
                                         <select class="form-control m-bot15" name="shipping_status_id"
@@ -103,16 +103,6 @@
                                                 {{$assocAdmin[$orderItem->order_updated_by]}}
                                             @endif
                                         </span>
-                                    </td>
-                                    <td>
-                                        <a href="{{URL::to('/admin/order/update')}}/{{$orderItem->order_id}}"
-                                           class="active" ui-toggle-class="">
-                                            <i class="fa fa-edit text-success text-active"></i>
-                                        </a>
-                                        <a href="{{URL::to('/admin/order/delete')}}/{{$orderItem->order_id}}"
-                                           onclick="return confirm('Are you want to delete this?')">
-                                            <i class="fa fa-trash text-danger text"></i>
-                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
