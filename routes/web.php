@@ -102,6 +102,10 @@ Route::group(['middleware' => 'authen.admin'], function () {
         Route::get('/admin/order/read', Constant::CONTROLLER_ORDER . 'showListPage');
         Route::get('/admin/order/read/detail/{orderId}', Constant::CONTROLLER_ORDER . 'showDetailPage');
         Route::post('/admin/order/update/change-shipping-status', Constant::CONTROLLER_ORDER . 'doUpdateShippingStatus');
+
+        // review
+        Route::get('/admin/review/read', Constant::CONTROLLER_REVIEW . 'showListPage');
+        Route::get('/admin/review/delete/{reviewId}', Constant::CONTROLLER_REVIEW . 'deleteReview');
     });
 });
 
