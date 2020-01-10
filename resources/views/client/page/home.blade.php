@@ -37,29 +37,6 @@
         </div>
     </section>
     <!--================End Hot Deals Area =================-->
-    <!--================Clients Logo Area =================-->
-    <section class="clients_logo_area">
-        <div class="container-fluid">
-            <div class="clients_slider owl-carousel">
-                <div class="item">
-                    <img src="{{asset('/client/img/clients-logo/c-logo-1.png')}}" alt="">
-                </div>
-                <div class="item">
-                    <img src="{{asset('/client/img/clients-logo/c-logo-2.png')}}" alt="">
-                </div>
-                <div class="item">
-                    <img src="{{asset('/client/img/clients-logo/c-logo-3.png')}}" alt="">
-                </div>
-                <div class="item">
-                    <img src="{{asset('/client/img/clients-logo/c-logo-4.png')}}" alt="">
-                </div>
-                <div class="item">
-                    <img src="{{asset('/client/img/clients-logo/c-logo-5.png')}}" alt="">
-                </div>
-            </div>
-        </div>
-    </section>
-    <!--================End Clients Logo Area =================-->
 
     <!--================Feature Product Area =================-->
     <section class="feature_product_area section_gap">
@@ -79,17 +56,6 @@
                                          src="{{asset('/client/img/product/product')}}/{{$product->product_thumbnail}}"
                                          alt="" width="330" height="160">
                                     <div class="p_icon">
-                                        {{--                                        <a href="javascript:{}"--}}
-                                        {{--                                           onclick="submitAddToCartHomePage('{{$product->product_id}}')">--}}
-                                        {{--                                            <form action="{{URL::to('/cart/doAddToCart')}}" method="post"--}}
-                                        {{--                                                  id="add_to_cart_form_{{$product->product_id}}">--}}
-                                        {{--                                                {{csrf_field()}}--}}
-                                        {{--                                                <input type="hidden" name="qty" value="1">--}}
-                                        {{--                                                <input type="hidden" name="current_url" value="/">--}}
-                                        {{--                                                <input type="hidden" name="product_id" value="{{$product->product_id}}">--}}
-                                        {{--                                            </form>--}}
-                                        {{--                                            <i class="lnr lnr-cart"></i>--}}
-                                        {{--                                        </a>--}}
                                         <a href="{{URL::to('/cart/doAddToCartGet')}}/{{$product->product_id}}">
                                             <i class="lnr lnr-cart"></i>
                                         </a>
