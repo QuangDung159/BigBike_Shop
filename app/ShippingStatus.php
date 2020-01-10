@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\DB;
 
 /**
  * @property int $shipping_status_id
@@ -31,10 +34,18 @@ class ShippingStatus extends Model
     protected $fillable = ['shipping_status_name'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function orders()
     {
         return $this->hasMany('App\Order', 'shipping_status_id', 'shipping_status_id');
+    }
+
+    /**
+     * @return Builder
+     */
+    public static function getAll()
+    {
+        return DB::table(Constant::TABLE_SHIPPING_STATUS);
     }
 }

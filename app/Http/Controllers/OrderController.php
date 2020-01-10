@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\Constant;
 use App\Order;
+use App\ShippingStatus;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -25,9 +26,12 @@ class OrderController extends Controller
         $listUser = HelperController::convertStdToArray($listUser);
         $arrAssocUser = array_column($listUser, 'user_email', 'user_id');
 
+        $listShippingStatus = ShippingStatus::getAll()->get();
+
         return view(Constant::PATH_ADMIN_ORDER_LIST)
             ->with('listOrder', $listOrder)
             ->with('assocAdmin', $arrAssocAdmin)
-            ->with('assocUser', $arrAssocUser);
+            ->with('assocUser', $arrAssocUser)
+            ->with('listShippingStatus', $listShippingStatus);
     }
 }

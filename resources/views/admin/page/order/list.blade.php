@@ -61,13 +61,21 @@
                                         <a href="{{URL::to('/admin/order/read/detail')}}/{{$orderItem->order_id}}">{{$orderItem->order_id}}</a>
                                     </td>
                                     <td>
-                                        @if($orderItem->order_status == 0)
-                                            <a href="{{URL::to('/admin/order/update/change-status')}}/{{$orderItem->order_id}}/{{$orderItem->order_status}}"><span
-                                                    class="label label-default">Inactive</span></a>
-                                        @else
-                                            <a href="{{URL::to('/admin/order/update/change-status')}}/{{$orderItem->order_id}}/{{$orderItem->order_status}}"><span
-                                                    class="label label-success">Active</span></a>
-                                        @endif
+                                        <select class="form-control m-bot15" name="brand_id" id="brand_id">
+                                            @foreach($listShippingStatus as $key => $shippingStatusItem)
+                                                @if($shippingStatusItem->shipping_status_id == $orderItem->shipping_status_id)
+                                                    <option
+                                                        value="{{$shippingStatusItem->shipping_status_id}}" selected>
+                                                        {{$shippingStatusItem->shipping_status_name}}
+                                                    </option>
+                                                @else
+                                                    <option
+                                                        value="{{$shippingStatusItem->shipping_status_id}}">
+                                                        {{$shippingStatusItem->shipping_status_name}}
+                                                    </option>
+                                                @endif
+                                            @endforeach
+                                        </select>
                                     </td>
                                     <td>
                                         {{$assocUser[$orderItem->user_id]}}
