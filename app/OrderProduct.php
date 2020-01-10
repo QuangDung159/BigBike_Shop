@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -59,5 +60,33 @@ class OrderProduct extends Model
     {
         return DB::table(Constant::TABLE_ORDER_PRODUCT)
             ->insert($arrData);
+    }
+
+    /**
+     * @param int $productId
+     * @return Collection
+     */
+    public static function getListOrderContainProduct($productId)
+    {
+        $productId = intval($productId);
+        return DB::table(Constant::TABLE_ORDER_PRODUCT)
+            ->select(
+                [
+                    Constant::TABLE_ORDER . '.shipping_status_id',
+                    Constant::TABLE_ORDER . '.order_id',
+                ]
+            )
+            ->join(
+                Constant::TABLE_ORDER,
+                Constant::TABLE_ORDER_PRODUCT . '.order_id',
+                '=',
+                Constant::TABLE_ORDER . '.order_id'
+            )
+            ->where(
+                Constant::TABLE_ORDER_PRODUCT . '.product_id',
+                '=',
+                $productId
+            )
+            ->get();
     }
 }

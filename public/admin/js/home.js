@@ -140,3 +140,12 @@ function doChangeShippingStatus(orderId) {
         }
     )
 }
+
+function onLoadSelectShippingStatus() {
+    let shippingStatus = $('#shipping_status_id').val();
+    if (shippingStatus == 4 || shippingStatus == 5) {
+        $('#shipping_status_id').prop('disabled', true);
+    }
+}
+
+onLoadSelectShippingStatus();

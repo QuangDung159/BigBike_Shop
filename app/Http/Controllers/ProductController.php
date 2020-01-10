@@ -9,6 +9,7 @@ use App\Category;
 use App\Constant;
 use App\Gallery;
 use App\Image;
+use App\OrderProduct;
 use App\Product;
 use App\Review;
 use Illuminate\Contracts\View\Factory;
@@ -104,6 +105,17 @@ class ProductController extends Controller
             return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
         }
 
+        // check product belong to order with shipping status = delivered or canceled
+        $listOrderProductContainProduct = OrderProduct::getListOrderContainProduct($productId);
+        if ($listOrderProductContainProduct) {
+            foreach ($listOrderProductContainProduct as $key => $order) {
+                if ($order->shipping_status_id != 4 && $order->shipping_status_id != 5) {
+                    Session::put('msg_order_contain', 'This product belong to order #' . $order->order_id . '. You cannot delete it!');
+                    return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/read');
+                }
+            }
+        }
+
         $data = [
             Constant::TABLE_PRODUCT . '.product_is_deleted' => 1,
             Constant::TABLE_PRODUCT . '.product_updated_at' => time(),
@@ -113,7 +125,6 @@ class ProductController extends Controller
         Product::updateByProductId($productId, $data);
 
         Session::put('msg_delete_success', 'Delete product successfully!');
-
         return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/read');
     }
 
