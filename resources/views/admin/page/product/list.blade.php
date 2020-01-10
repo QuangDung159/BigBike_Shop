@@ -48,6 +48,16 @@
             }
             ?>
 
+            <?php
+            if (Session::get('msg_order_contain') != null) {
+                echo '<div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                        <strong>' . Session::get('msg_order_contain') . '</strong>
+                      </div>';
+                Session::put('msg_order_contain', null);
+            }
+            ?>
+
             <div class="table-agile-info">
                 <div class="panel panel-default">
                     <div class="panel-heading">

@@ -18,7 +18,6 @@ use Illuminate\Support\Facades\DB;
  * @property boolean $gallery_status
  * @property boolean $gallery_is_deleted
  * @property Admin $admin
- * @property Admin $admin
  * @property Product $product
  * @property Image[] $images
  */
@@ -211,5 +210,38 @@ class Gallery extends Model
                 $productId
             )
             ->first();
+    }
+
+    /**
+     * @param int $productId
+     * @param array $data
+     * @return int
+     */
+    public static function updateByProductId($productId, $data)
+    {
+        $productId = intval($productId);
+        return DB::table(Constant::TABLE_GALLERY)
+            ->where(
+                Constant::TABLE_GALLERY . '.product_id',
+                '=',
+                $productId
+            )
+            ->update($data);
+    }
+
+    /**
+     * @param int $productId
+     * @return int
+     */
+    public static function removeByProductId($productId)
+    {
+        $productId = intval($productId);
+        return DB::table(Constant::TABLE_GALLERY)
+            ->where(
+                Constant::TABLE_GALLERY . '.product_id',
+                '=',
+                $productId
+            )
+            ->delete();
     }
 }

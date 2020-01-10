@@ -5,13 +5,19 @@ namespace App\Http\Controllers;
 use App\Admin;
 use App\Brand;
 use App\Constant;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class BrandController extends Controller
 {
+    /**
+     * @return Factory|View
+     */
     public function showListPage()
     {
         $listBrand = Brand::where(
@@ -51,11 +57,19 @@ class BrandController extends Controller
         return Redirect::to(Constant::URL_ADMIN_BRAND . '/read');
     }
 
+    /**
+     * @return Factory|View
+     */
     public function showCreateBrandPage()
     {
         return view(Constant::PATH_ADMIN_BRAND_CREATE);
     }
 
+    /**
+     * @param Request $req
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
     public function doCreateBrand(Request $req)
     {
         $this->validate(
@@ -119,6 +133,10 @@ class BrandController extends Controller
         return Redirect::to(Constant::URL_ADMIN_BRAND . '/read');
     }
 
+    /**
+     * @param int $brandId
+     * @return Factory|View
+     */
     public function showDetailPage($brandId)
     {
         $brand = Brand::where(
@@ -135,6 +153,10 @@ class BrandController extends Controller
             ->with('brand', $brand);
     }
 
+    /**
+     * @param int $brandId
+     * @return Factory|View
+     */
     public function showEditPage($brandId)
     {
         $brand = Brand::where(
@@ -151,6 +173,11 @@ class BrandController extends Controller
             ->with('brand', $brand);
     }
 
+    /**
+     * @param Request $req
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
     public function doEditBrand(Request $req)
     {
         $this->validate(

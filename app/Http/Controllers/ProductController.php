@@ -9,6 +9,7 @@ use App\Category;
 use App\Constant;
 use App\Gallery;
 use App\Image;
+use App\OrderProduct;
 use App\Product;
 use App\Review;
 use Illuminate\Contracts\View\Factory;
@@ -104,17 +105,64 @@ class ProductController extends Controller
             return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
         }
 
+        // check product belong to order with shipping status = delivered or canceled
+        $listOrderProductContainProduct = OrderProduct::getListOrderContainProduct($productId);
+        if ($listOrderProductContainProduct) {
+            foreach ($listOrderProductContainProduct as $key => $order) {
+                if ($order->shipping_status_id != 4 && $order->shipping_status_id != 5) {
+                    Session::put('msg_order_contain', 'This product belong to order #' . $order->order_id . '. You cannot delete it!');
+                    return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/read');
+                }
+            }
+        }
+
         $data = [
             Constant::TABLE_PRODUCT . '.product_is_deleted' => 1,
             Constant::TABLE_PRODUCT . '.product_updated_at' => time(),
             Constant::TABLE_PRODUCT . '.product_updated_by' => Session::get('admin_id'),
         ];
 
+        // remove image of gallery
+        $this->removeImageOfGalleryByProductId($productId);
+
+        // remove gallery
+        Gallery::removeByProductId($productId);
+
+        // remove review by product
+        Review::removeByProductId($productId);
+
+        // delete product
+        $product = Product::getById($productId);
+        if (!$productId) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+        unlink(public_path() . Constant::PATH_TO_UPLOAD_PRODUCT_IMAGE . $product->product_thumbnail);
         Product::updateByProductId($productId, $data);
 
         Session::put('msg_delete_success', 'Delete product successfully!');
-
         return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/read');
+    }
+
+    /**
+     * @param $productId
+     * @return RedirectResponse
+     */
+    public function removeImageOfGalleryByProductId($productId)
+    {
+        $gallery = Gallery::getGalleryByProductId($productId);
+        if (!$gallery) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        $listImage = Image::getImageByGalleryId($gallery->gallery_id);
+        if (!$listImage) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        foreach ($listImage as $key => $image) {
+            unlink(public_path() . Constant::PATH_TO_UPLOAD_PRODUCT_IMAGE . $image->image_path);
+            Image::removeByImageId($image->image_id);
+        }
     }
 
     /**

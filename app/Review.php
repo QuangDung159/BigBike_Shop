@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -36,7 +39,7 @@ class Review extends Model
     protected $fillable = ['user_id', 'product_id', 'review_content', 'review_created_at'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function product()
     {
@@ -44,13 +47,16 @@ class Review extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
         return $this->belongsTo('App\User', 'user_id', 'user_id');
     }
 
+    /**
+     * @param int $productId
+     */
     public static function getReviewByProductId($productId)
     {
         $productId = intval($productId);
@@ -73,5 +79,70 @@ class Review extends Model
                 $productId
             )
             ->get();
+    }
+
+    /**
+     * @return Builder
+     */
+    public static function getAll()
+    {
+        return DB::table(Constant::TABLE_REVIEW)
+            ->select(
+                [
+                    Constant::TABLE_REVIEW . '.*',
+                    Constant::TABLE_PRODUCT . '.product_name',
+                    Constant::TABLE_PRODUCT . '.product_id',
+                    Constant::TABLE_USER . '.user_email',
+                ]
+            )
+            ->join(
+                Constant::TABLE_PRODUCT,
+                Constant::TABLE_REVIEW . '.product_id',
+                '=',
+                Constant::TABLE_PRODUCT . '.product_id'
+            )
+            ->join(
+                Constant::TABLE_USER,
+                Constant::TABLE_REVIEW . '.user_id',
+                '=',
+                Constant::TABLE_USER . '.user_id'
+            )
+            ->where(
+                Constant::TABLE_PRODUCT . '.product_is_deleted',
+                '=',
+                0
+            );
+    }
+
+    /**
+     * @param int $reviewId
+     * @return int
+     */
+    public static function removeByReviewId($reviewId)
+    {
+        $reviewId = intval($reviewId);
+        return DB::table(Constant::TABLE_REVIEW)
+            ->where(
+                Constant::TABLE_REVIEW . '.review_id',
+                '=',
+                $reviewId
+            )
+            ->delete();
+    }
+
+    /**
+     * @param int $productId
+     * @return int
+     */
+    public static function removeByProductId($productId)
+    {
+        $productId = intval($productId);
+        return DB::table(Constant::TABLE_REVIEW)
+            ->where(
+                Constant::TABLE_REVIEW . '.product_id',
+                '=',
+                $productId
+            )
+            ->delete();
     }
 }
