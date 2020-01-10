@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,6 @@ use Illuminate\Support\Facades\DB;
  * @property int $image_updated_at
  * @property boolean $image_status
  * @property boolean $image_is_delete
- * @property Admin $admin
  * @property Admin $admin
  * @property Gallery $gallery
  */
@@ -43,7 +43,7 @@ class Image extends Model
     protected $fillable = ['gallery_id', 'image_updated_by', 'image_created_by', 'image_path', 'image_created_at', 'image_updated_at', 'image_status', 'image_is_delete'];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function admin_created()
     {
@@ -51,7 +51,7 @@ class Image extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function admin_updated()
     {
@@ -59,13 +59,17 @@ class Image extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function gallery()
     {
         return $this->belongsTo('App\Gallery', 'gallery_id', 'gallery_id');
     }
 
+    /**
+     * @param int $productId
+     * @return Collection
+     */
     public static function getListImageByProductIdClient($productId)
     {
         $productId = intval($productId);
@@ -106,6 +110,10 @@ class Image extends Model
             ->get();
     }
 
+    /**
+     * @param array $data
+     * @return bool
+     */
     public static function insert($data)
     {
         return DB::table(Constant::TABLE_IMAGE)
@@ -162,5 +170,21 @@ class Image extends Model
                 '=',
                 $imageId
             )->first();
+    }
+
+    /**
+     * @param int $imageId
+     * @return int
+     */
+    public static function removeByImageId($imageId)
+    {
+        $imageId = intval($imageId);
+        return DB::table(Constant::TABLE_IMAGE)
+            ->where(
+                Constant::TABLE_IMAGE . '.image_id',
+                '=',
+                $imageId
+            )
+            ->delete();
     }
 }

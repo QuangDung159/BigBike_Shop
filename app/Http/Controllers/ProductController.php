@@ -122,6 +122,31 @@ class ProductController extends Controller
             Constant::TABLE_PRODUCT . '.product_updated_by' => Session::get('admin_id'),
         ];
 
+        // remove image of gallery
+        $gallery = Gallery::getGalleryByProductId($productId);
+        if (!$gallery) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        $listImage = Image::getImageByGalleryId($gallery->gallery_id);
+        if (!$listImage) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+
+        foreach ($listImage as $key => $image) {
+            unlink(public_path() . Constant::PATH_TO_UPLOAD_PRODUCT_IMAGE . $image->image_path);
+            Image::removeByImageId($image->image_id);
+        }
+
+        // remove gallery
+        Gallery::removeByProductId($productId);
+
+        // delete product
+        $product = Product::getById($productId);
+        if (!$productId) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+        unlink(public_path() . Constant::PATH_TO_UPLOAD_PRODUCT_IMAGE . $product->product_thumbnail);
         Product::updateByProductId($productId, $data);
 
         Session::put('msg_delete_success', 'Delete product successfully!');
