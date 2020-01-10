@@ -123,6 +123,32 @@ class ProductController extends Controller
         ];
 
         // remove image of gallery
+        $this->removeImageOfGalleryByProductId($productId);
+
+        // remove gallery
+        Gallery::removeByProductId($productId);
+
+        // remove review by product
+        Review::removeByProductId($productId);
+
+        // delete product
+        $product = Product::getById($productId);
+        if (!$productId) {
+            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
+        }
+        unlink(public_path() . Constant::PATH_TO_UPLOAD_PRODUCT_IMAGE . $product->product_thumbnail);
+        Product::updateByProductId($productId, $data);
+
+        Session::put('msg_delete_success', 'Delete product successfully!');
+        return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/read');
+    }
+
+    /**
+     * @param $productId
+     * @return RedirectResponse
+     */
+    public function removeImageOfGalleryByProductId($productId)
+    {
         $gallery = Gallery::getGalleryByProductId($productId);
         if (!$gallery) {
             return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
@@ -137,20 +163,6 @@ class ProductController extends Controller
             unlink(public_path() . Constant::PATH_TO_UPLOAD_PRODUCT_IMAGE . $image->image_path);
             Image::removeByImageId($image->image_id);
         }
-
-        // remove gallery
-        Gallery::removeByProductId($productId);
-
-        // delete product
-        $product = Product::getById($productId);
-        if (!$productId) {
-            return Redirect::to(Constant::URL_ADMIN_DASHBOARD);
-        }
-        unlink(public_path() . Constant::PATH_TO_UPLOAD_PRODUCT_IMAGE . $product->product_thumbnail);
-        Product::updateByProductId($productId, $data);
-
-        Session::put('msg_delete_success', 'Delete product successfully!');
-        return Redirect::to(Constant::URL_ADMIN_PRODUCT . '/read');
     }
 
     /**

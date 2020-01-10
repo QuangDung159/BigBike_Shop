@@ -129,4 +129,20 @@ class Review extends Model
             )
             ->delete();
     }
+
+    /**
+     * @param int $productId
+     * @return int
+     */
+    public static function removeByProductId($productId)
+    {
+        $productId = intval($productId);
+        return DB::table(Constant::TABLE_REVIEW)
+            ->where(
+                Constant::TABLE_REVIEW . '.product_id',
+                '=',
+                $productId
+            )
+            ->delete();
+    }
 }
