@@ -4,86 +4,20 @@
             Menu
         </li>
 
-        <li href="#" class="list-group-item menu1">
-            Level 1
-        </li>
-        <ul>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-        </ul>
+        @foreach($listBrandCategory as $key => $brandCategory)
 
-        <li href="#" class="list-group-item menu1">
-            <a href="#">Level 1</a>
-        </li>
-        <ul>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
+            <li href="#" class="list-group-item menu1">
+                {{$key}}
             </li>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-        </ul>
-
-
-        <li href="#" class="list-group-item menu1">
-            <a href="#">Level 1</a>
-        </li>
-
-        <ul>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-        </ul>
-
-
-        <li href="#" class="list-group-item menu1">
-            <a href="#">Level 1</a>
-        </li>
-        <ul>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-            <li class="list-group-item">
-                <a href="#">Level2</a>
-            </li>
-        </ul>
-
-        <li href="#" class="list-group-item menu1">
-            <a href="#">Level 1</a>
-        </li>
-        <li href="#" class="list-group-item menu1">
-            <a href="#">Level 1</a>
-        </li>
+            <ul>
+                @foreach($brandCategory as $index => $category)
+                    <li class="list-group-item">
+                        <a href="#">
+                            {{$category[0]}}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        @endforeach
     </ul>
 </div>
