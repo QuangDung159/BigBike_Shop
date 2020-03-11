@@ -1,127 +1,490 @@
-@extends('client.layout.master')
-@section('content')
-    <script src="{{asset('/client/js/home.js')}}"></script>
-    <!--================Home Banner Area =================-->
-    <section class="home_banner_area">
-        <div class="overlay"></div>
-        <div class="banner_inner d-flex align-items-center">
-        </div>
-    </section>
-    <!--================End Home Banner Area =================-->
-    <!--================Hot Deals Area =================-->
-    <section class="hot_deals_area section_gap">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="hot_deal_box">
-                        <img class="img-fluid" src="{{asset('/client/img/product/hot_deals/deal1.jpg')}}" alt="">
-                        <div class="content">
-                            <h2>Hot Deals of this Month</h2>
-                            <p>shop now</p>
-                        </div>
-                        <a class="hot_deal_link" href="#"></a>
-                    </div>
-                </div>
+<!DOCTYPE html>
+<html lang="en">
 
-                <div class="col-lg-6">
-                    <div class="hot_deal_box">
-                        <img class="img-fluid" src="{{asset('/client/img/product/hot_deals/deal1.jpg')}}" alt="">
-                        <div class="content">
-                            <h2>Hot Deals of this Month</h2>
-                            <p>shop now</p>
-                        </div>
-                        <a class="hot_deal_link" href="#"></a>
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Laravel Khoa Pham</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="{{asset('/client/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="{{asset('/client/css/shop-homepage.css')}}" rel="stylesheet">
+    <link href="{{asset('/client/css/my.css')}}" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+<!-- Navigation -->
+<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Laravel Tin Tức</a>
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="#">Giới thiệu</a>
+                </li>
+                <li>
+                    <a href="#">Liên hệ</a>
+                </li>
+            </ul>
+
+            <form class="navbar-form navbar-left" role="search">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                </div>
+                <button type="submit" class="btn btn-default">Submit</button>
+            </form>
+
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                    <a href="#">Đăng ký</a>
+                </li>
+                <li>
+                    <a href="#">Đăng nhập</a>
+                </li>
+                <li>
+                    <a>
+                        <span class="glyphicon glyphicon-user"></span>
+                        Bùi Đức Phú
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#">Đăng xuất</a>
+                </li>
+
+            </ul>
+        </div>
+
+
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+
+    <!-- slider -->
+    <div class="row carousel-holder">
+        <div class="col-md-12">
+            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                    <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="item active">
+                        <img class="slide-image" src="{{asset('/client/image//800x300.png')}}" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="slide-image" src="{{asset('/client/image//800x300.png')}}" alt="">
+                    </div>
+                    <div class="item">
+                        <img class="slide-image" src="{{asset('/client/image//800x300.png')}}" alt="">
                     </div>
                 </div>
+                <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
+                </a>
+                <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
+                </a>
             </div>
         </div>
-    </section>
-    <!--================End Hot Deals Area =================-->
+    </div>
+    <!-- end slide -->
 
-    <!--================Feature Product Area =================-->
-    <section class="feature_product_area section_gap">
-        <div class="main_box">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="main_title">
-                        <h2>Featured Products</h2>
-                    </div>
+    <div class="space20"></div>
+
+
+    <div class="row main-left">
+        <div class="col-md-3 ">
+            <ul class="list-group" id="menu">
+                <li href="#" class="list-group-item menu1 active">
+                    Menu
+                </li>
+
+                <li href="#" class="list-group-item menu1">
+                    Level 1
+                </li>
+                <ul>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                </ul>
+
+                <li href="#" class="list-group-item menu1">
+                    <a href="#">Level 1</a>
+                </li>
+                <ul>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                </ul>
+
+
+                <li href="#" class="list-group-item menu1">
+                    <a href="#">Level 1</a>
+                </li>
+
+                <ul>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                </ul>
+
+
+                <li href="#" class="list-group-item menu1">
+                    <a href="#">Level 1</a>
+                </li>
+                <ul>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#">Level2</a>
+                    </li>
+                </ul>
+
+                <li href="#" class="list-group-item menu1">
+                    <a href="#">Level 1</a>
+                </li>
+                <li href="#" class="list-group-item menu1">
+                    <a href="#">Level 1</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="col-md-9">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="background-color:#337AB7; color:white;">
+                    <h2 style="margin-top:0px; margin-bottom:0px;">Laravel Tin Tức</h2>
                 </div>
-                <div class="row">
-                    @foreach($listFeatureProduct as $key => $product)
-                        <div class="col col1">
-                            <div class="f_p_item">
-                                <div class="f_p_img">
-                                    <img class="img-fluid"
-                                         src="{{asset('/client/img/product/product')}}/{{$product->product_thumbnail}}"
-                                         alt="" width="330" height="160">
-                                    <div class="p_icon">
-                                        <a href="{{URL::to('/cart/doAddToCartGet')}}/{{$product->product_id}}">
-                                            <i class="lnr lnr-cart"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                                <a href="{{URL::to('/product')}}/{{$product->product_id}}">
-                                    <h4>{{$product->product_name}}</h4>
+
+                <div class="panel-body">
+                    <!-- item -->
+                    <div class="row-item row">
+                        <h3>
+                            <a href="category.html">Category</a> |
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                        </h3>
+                        <div class="col-md-8 border-right">
+                            <div class="col-md-5">
+                                <a href="detail.html">
+                                    <img class="img-responsive" src="{{asset('/client/image//320x150.png')}}" alt="">
                                 </a>
-                                <h5>${{$product->product_price}}</h5>
+                            </div>
+
+                            <div class="col-md-7">
+                                <h3>Project Five</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, quo, minima,
+                                    inventore voluptatum saepe quos nostrum provident .</p>
+                                <a class="btn btn-primary" href="detail.html">View Project <span
+                                        class="glyphicon glyphicon-chevron-right"></span></a>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+                        </div>
+
+                        <div class="break"></div>
+                    </div>
+                    <!-- end item -->
+                    <!-- item -->
+                    <div class="row-item row">
+                        <h3><a href="category.html">Category</a> |
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                        </h3>
+                        <div class="col-md-8 border-right">
+                            <div class="col-md-5">
+                                <a href="detail.html">
+                                    <img class="img-responsive" src="{{asset('/client/image//320x150.png')}}" alt="">
+                                </a>
+                            </div>
+                            <div class="col-md-7">
+                                <h3>Project Five</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, quo, minima,
+                                    inventore voluptatum saepe quos nostrum provident .</p>
+                                <a class="btn btn-primary" href="detail.html">View Project <span
+                                        class="glyphicon glyphicon-chevron-right"></span></a>
                             </div>
                         </div>
-                    @endforeach
+
+
+                        <div class="col-md-4">
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+                        </div>
+
+
+                        <div class="break"></div>
+                    </div>
+                    <!-- end item -->
+                    <!-- item -->
+                    <div class="row-item row">
+                        <h3><a href="category.html">Category</a> |
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                        </h3>
+                        <div class="col-md-8 border-right">
+                            <div class="col-md-5">
+                                <a href="detail.html">
+                                    <img class="img-responsive" src="{{asset('/client/image//320x150.png')}}" alt="">
+                                </a>
+                            </div>
+                            <div class="col-md-7">
+                                <h3>Project Five</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, quo, minima,
+                                    inventore voluptatum saepe quos nostrum provident .</p>
+                                <a class="btn btn-primary" href="detail.html">View Project <span
+                                        class="glyphicon glyphicon-chevron-right"></span></a>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+                        </div>
+
+
+                        <div class="break"></div>
+                    </div>
+                    <!-- end item -->
+                    <!-- item -->
+                    <div class="row-item row">
+                        <h3><a href="category.html">Category</a> |
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                            <small><a href="category.html"><i>subtitle</i></a>/</small>
+                        </h3>
+                        <div class="col-md-8 border-right">
+                            <div class="col-md-5">
+                                <a href="detail.html">
+                                    <img class="img-responsive" src="{{asset('/client/image//320x150.png')}}" alt="">
+                                </a>
+                            </div>
+                            <div class="col-md-7">
+                                <h3>Project Five</h3>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, quo, minima,
+                                    inventore voluptatum saepe quos nostrum provident .</p>
+                                <a class="btn btn-primary" href="detail.html">View Project <span
+                                        class="glyphicon glyphicon-chevron-right"></span></a>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-4">
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+
+                            <a href="detail.html">
+                                <h4>
+                                    <span class="glyphicon glyphicon-list-alt"></span>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                </h4>
+                            </a>
+                        </div>
+
+
+                        <div class="break"></div>
+                    </div>
+                    <!-- end item -->
+
                 </div>
             </div>
         </div>
-    </section>
-    <!--================End Feature Product Area =================-->
-    <?php
-    if (Session::has('msg_add_to_cart_success')) {
-        echo '
-        <input type="hidden" id="btn_trigger_modal" class="btn btn-info btn-lg" data-toggle="modal"
-           data-target="#myModal">
+    </div>
+    <!-- /.row -->
+</div>
+<!-- end Page Content -->
 
-            <!-- Modal -->
-            <div id="myModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <h2>' . Session::get('msg_add_to_cart_success') . '</h2>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        ';
+<!-- Footer -->
+<hr>
+<footer>
+    <div class="row">
+        <div class="col-md-12">
+            <p>Copyright &copy; Your Website 2014</p>
+        </div>
+    </div>
+</footer>
+<!-- end Footer -->
+<!-- jQuery -->
+<script src="{{asset('/client/js/jquery.js')}}"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="{{asset('/client/js/bootstrap.min.js')}}"></script>
+<script src="{{asset('/client/js/my.js')}}"></script>
+</body>
 
-        Session::forget('msg_add_to_cart_success');
-    }
-    ?>
-
-    <?php
-    if (Session::has('msg_submit_order_success')) {
-        echo '
-        <input type="hidden" id="btn_trigger_modal" class="btn btn-info btn-lg" data-toggle="modal"
-           data-target="#myModal">
-
-            <!-- Modal -->
-            <div id="myModal" class="modal fade" role="dialog">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <h2>' . Session::get('msg_submit_order_success') . '</h2>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        ';
-
-        Session::forget('msg_submit_order_success');
-    }
-    ?>
-@endsection
+</html>
