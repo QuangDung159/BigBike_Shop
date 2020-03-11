@@ -541,4 +541,45 @@ class Product extends Model
             )
             ->get();
     }
+
+    /**
+     * @param string $brandName
+     * @return Model|Builder|object
+     */
+    public static function get5NewestProductByBrandName($brandName)
+    {
+        $brandId = trim($brandName);
+        return DB::table(Constant::TABLE_PRODUCT)
+            ->select(
+                [
+                    Constant::TABLE_PRODUCT . '.product_name',
+                    Constant::TABLE_PRODUCT . '.product_thumbnail',
+                    Constant::TABLE_PRODUCT . '.product_desc',
+                    Constant::TABLE_PRODUCT . '.product_id',
+                ]
+            )
+            ->join(
+                Constant::TABLE_BRAND_CATEGORY,
+                Constant::TABLE_PRODUCT . '.brand_category_id',
+                '=',
+                Constant::TABLE_BRAND_CATEGORY . '.brand_category_id'
+            )
+            ->join(
+                Constant::TABLE_BRAND,
+                Constant::TABLE_BRAND_CATEGORY . '.brand_id',
+                '=',
+                Constant::TABLE_BRAND . '.brand_id'
+            )
+            ->where(
+                Constant::TABLE_BRAND . '.brand_name',
+                '=',
+                $brandName
+            )
+            ->orderBy(
+                Constant::TABLE_PRODUCT . '.product_created_at',
+                'desc'
+            )
+            ->limit(5)
+            ->get();
+    }
 }

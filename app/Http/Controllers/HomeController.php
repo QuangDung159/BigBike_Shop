@@ -22,6 +22,7 @@ class HomeController extends Controller
     {
         $listBrandCategory = BrandCategory::getAll();
         $listBrandCategory = $this->createBrandCategoryArr($listBrandCategory);
+
         return view(Constant::PATH_HOME)
             ->with('listBrandCategory', $listBrandCategory);
     }
@@ -43,7 +44,11 @@ class HomeController extends Controller
         $arrBrandCategory = HelperController::convertStdToArray($listBrandCategory);
         $arrResult = [];
         foreach ($arrBrandCategory as $brandCat) {
-            $arrResult[$brandCat['brand_name']][] = [$brandCat['category_name'], $brandCat['category_id'], $brandCat['brand_category_id']];
+            $arrResult[$brandCat['brand_name']][] = [
+                $brandCat['category_name'],
+                $brandCat['category_id'],
+                $brandCat['brand_category_id'],
+            ];
         }
 
         return HelperController::convertArrayToStd($arrResult);
