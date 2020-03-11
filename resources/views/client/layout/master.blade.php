@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Laravel Khoa Pham</title>
+    <title>Motorbike News</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('/client/css/bootstrap.min.css')}}" rel="stylesheet">

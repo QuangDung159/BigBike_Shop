@@ -253,6 +253,10 @@ class BrandCategory extends Model
                 Constant::TABLE_BRAND_CATEGORY . '.category_id',
                 '=',
                 Constant::TABLE_CATEGORY . '.category_id'
+            )->where(
+                Constant::TABLE_BRAND_CATEGORY . '.brand_category_is_deleted',
+                '=',
+                0
             )
             ->get();
     }
