@@ -548,7 +548,7 @@ class Product extends Model
      */
     public static function get5NewestProductByBrandName($brandName)
     {
-        $brandId = trim($brandName);
+        $brandName = trim($brandName);
         return DB::table(Constant::TABLE_PRODUCT)
             ->select(
                 [

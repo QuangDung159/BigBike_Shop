@@ -253,7 +253,14 @@ class BrandCategory extends Model
                 Constant::TABLE_BRAND_CATEGORY . '.category_id',
                 '=',
                 Constant::TABLE_CATEGORY . '.category_id'
-            )->where(
+            )
+            ->rightJoin(
+                Constant::TABLE_PRODUCT,
+                Constant::TABLE_BRAND_CATEGORY . '.brand_category_id',
+                '=',
+                Constant::TABLE_PRODUCT . '.brand_category_id'
+            )
+            ->where(
                 Constant::TABLE_BRAND_CATEGORY . '.brand_category_is_deleted',
                 '=',
                 0

@@ -24,9 +24,8 @@
                             </div>
 
                             <div class="col-md-7">
-                                <h3>Project Five</h3>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid, quo, minima,
-                                    inventore voluptatum saepe quos nostrum provident .</p>
+                                <h3>{{$brandCategory[0][3][0]->product_name}}</h3>
+                                <p>{{$brandCategory[0][3][0]->product_desc}}</p>
                                 <a class="btn btn-primary" href="detail.html">View Project <span
                                         class="glyphicon glyphicon-chevron-right"></span></a>
                             </div>
@@ -38,28 +37,28 @@
                             <a href="detail.html">
                                 <h4>
                                     <span class="glyphicon glyphicon-list-alt"></span>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                    {{$brandCategory[0][3][1]->product_desc}}
                                 </h4>
                             </a>
 
                             <a href="detail.html">
                                 <h4>
                                     <span class="glyphicon glyphicon-list-alt"></span>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                    {{$brandCategory[0][3][2]->product_desc}}
                                 </h4>
                             </a>
 
                             <a href="detail.html">
                                 <h4>
                                     <span class="glyphicon glyphicon-list-alt"></span>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                    {{$brandCategory[0][3][3]->product_desc}}
                                 </h4>
                             </a>
 
                             <a href="detail.html">
                                 <h4>
                                     <span class="glyphicon glyphicon-list-alt"></span>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                                    {{$brandCategory[0][3][4]->product_desc}}
                                 </h4>
                             </a>
                         </div>

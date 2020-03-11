@@ -48,6 +48,7 @@ class HomeController extends Controller
                 $brandCat['category_name'],
                 $brandCat['category_id'],
                 $brandCat['brand_category_id'],
+                Product::get5NewestProductByBrandName($brandCat['brand_name']),
             ];
         }
 
